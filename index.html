@@ -961,7 +961,7 @@
             // Dynamically import all gallery images placed under `src/assets/gallery/`.
             // To add images, drop them in that folder (e.g. src/assets/gallery/render1.png)
             // Vite will bundle them and expose URLs via import.meta.glob.
-            const modules = import.meta.glob('/src/assets/gallery/*.{png,jpg,jpeg,webp}', { eager: true, as: 'url' });
+            const modules = import.meta.glob('/src/assets/gallery/*.{png,jpg,jpeg,webp,svg}', { eager: true, as: 'url' });
             const urls = Object.values(modules).sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
             const gallery = document.getElementById('gallery');
 
