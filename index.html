@@ -20,6 +20,84 @@
             overflow-x: hidden;
         }
 
+        /* Admin Panel Styles */
+        #admin-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            z-index: 10000;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        #admin-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+        }
+
+        .admin-button {
+            background: #888888;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .admin-button:hover {
+            opacity: 0.8;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 2px solid #888888;
+            border-radius: 5px;
+            background: #2a2a2a;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .status-option {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            margin: 0.5rem;
+            background: #888888;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .status-option:hover {
+            background: #777777;
+        }
+
+        .status-option.selected {
+            background: #ffffff;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .status-open { color: #4ade80 !important; }
+        .status-closed { color: #f87171 !important; }
+        .status-full { color: #fbbf24 !important; }
+
         #particles {
             position: fixed;
             top: 0;
@@ -311,6 +389,15 @@
     </style>
 </head>
 <body>
+    <!-- Admin Panel Overlay -->
+    <div id="admin-overlay"></div>
+    
+    <!-- Admin Panel -->
+    <div id="admin-panel">
+        <h2 style="margin-top: 0; color: white;">Admin Panel</h2>
+        <div id="admin-content"></div>
+    </div>
+    
     <script>
         // Redirect Netlify Identity to admin panel
         if (window.netlifyIdentity) {
@@ -342,6 +429,14 @@
 
     <section id="about">
         <h2>About Me</h2>
+        
+        <!-- Commission Status Display -->
+        <div id="commission-status-display" style="text-align: center; margin-bottom: 2rem;">
+            <p style="font-size: 1.2rem; font-weight: 600;">
+                Commissions: <span id="status-text" style="color: #ffffff;">Loading...</span>
+            </p>
+        </div>
+        
         <div class="about-content">
             <div>
                 <div id="canvas-container">
@@ -446,7 +541,167 @@
     </footer>
 
     <script>
-        // Particle background animation
+        // ===== ADMIN PANEL SYSTEM =====
+        const ADMIN_PASSWORD = 'your-secure-password'; // CHANGE THIS!
+        const GITHUB_TOKEN = 'YOUR_GITHUB_TOKEN_HERE'; // Add your GitHub token
+        const GITHUB_REPO = 'yourusername/yourusername.github.io'; // Your repo
+        const CONFIG_FILE = 'site-config.json';
+        
+        let siteConfig = {
+            commissionStatus: 'closed' // open, closed, or full
+        };
+        
+        // Load config from GitHub
+        async function loadConfig() {
+            try {
+                const response = await fetch(`https://raw.githubusercontent.com/${GITHUB_REPO}/main/${CONFIG_FILE}`);
+                if (response.ok) {
+                    siteConfig = await response.json();
+                }
+            } catch (error) {
+                console.log('No config found, using defaults');
+            }
+            updateStatusDisplay();
+        }
+        
+        // Update the status display
+        function updateStatusDisplay() {
+            const statusText = document.getElementById('status-text');
+            const status = siteConfig.commissionStatus;
+            
+            statusText.textContent = status.toUpperCase();
+            statusText.className = '';
+            
+            if (status === 'open') {
+                statusText.classList.add('status-open');
+            } else if (status === 'closed') {
+                statusText.classList.add('status-closed');
+            } else if (status === 'full') {
+                statusText.classList.add('status-full');
+            }
+        }
+        
+        // Save config to GitHub
+        async function saveConfig() {
+            if (!GITHUB_TOKEN || GITHUB_TOKEN === 'YOUR_GITHUB_TOKEN_HERE') {
+                alert('Please add your GitHub token to the code first!');
+                return;
+            }
+            
+            try {
+                // Get current file SHA
+                const getResponse = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${CONFIG_FILE}`, {
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`
+                    }
+                });
+                
+                let sha = null;
+                if (getResponse.ok) {
+                    const data = await getResponse.json();
+                    sha = data.sha;
+                }
+                
+                // Update or create file
+                const content = btoa(JSON.stringify(siteConfig, null, 2));
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${CONFIG_FILE}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Update site configuration',
+                        content: content,
+                        sha: sha
+                    })
+                });
+                
+                if (response.ok) {
+                    alert('Configuration saved successfully!');
+                    updateStatusDisplay();
+                } else {
+                    alert('Failed to save configuration');
+                }
+            } catch (error) {
+                alert('Error saving: ' + error.message);
+            }
+        }
+        
+        // Show admin panel
+        function showAdminPanel() {
+            const password = prompt('Enter admin password:');
+            if (password !== ADMIN_PASSWORD) {
+                alert('Incorrect password!');
+                return;
+            }
+            
+            document.getElementById('admin-overlay').style.display = 'block';
+            document.getElementById('admin-panel').style.display = 'block';
+            
+            renderAdminPanel();
+        }
+        
+        // Render admin panel content
+        function renderAdminPanel() {
+            const content = document.getElementById('admin-content');
+            content.innerHTML = `
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: white; margin-bottom: 1rem;">Commission Status</h3>
+                    <div>
+                        <div class="status-option ${siteConfig.commissionStatus === 'open' ? 'selected' : ''}" 
+                             onclick="setStatus('open')">
+                            OPEN
+                        </div>
+                        <div class="status-option ${siteConfig.commissionStatus === 'closed' ? 'selected' : ''}" 
+                             onclick="setStatus('closed')">
+                            CLOSED
+                        </div>
+                        <div class="status-option ${siteConfig.commissionStatus === 'full' ? 'selected' : ''}" 
+                             onclick="setStatus('full')">
+                            FULL
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button class="admin-button" onclick="saveAndClose()">Save & Close</button>
+                    <button class="admin-button" onclick="closeAdminPanel()">Cancel</button>
+                </div>
+            `;
+        }
+        
+        // Set commission status
+        function setStatus(status) {
+            siteConfig.commissionStatus = status;
+            renderAdminPanel();
+            updateStatusDisplay();
+        }
+        
+        // Close admin panel
+        function closeAdminPanel() {
+            document.getElementById('admin-overlay').style.display = 'none';
+            document.getElementById('admin-panel').style.display = 'none';
+        }
+        
+        // Save and close
+        async function saveAndClose() {
+            await saveConfig();
+            closeAdminPanel();
+        }
+        
+        // Secret keyboard shortcut: Ctrl+Shift+A
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                e.preventDefault();
+                showAdminPanel();
+            }
+        });
+        
+        // Load config on page load
+        loadConfig();
+        
+        // ===== PARTICLE BACKGROUND ANIMATION =====
         const particlesContainer = document.getElementById('particles');
         const particleImages = [
             'images/particle1.png',  // First particle image
