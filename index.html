@@ -524,7 +524,7 @@
         
         async function loadCommissionStatus() {
             try {
-                const response = await fetch('commission-status.json');
+                const response = await fetch('config/commission-status.json');
                 if (response.ok) {
                     const data = await response.json();
                     updateStatusDisplay(data.status);
