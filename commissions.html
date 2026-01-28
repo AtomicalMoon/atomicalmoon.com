@@ -6,69 +6,38 @@
     <title>AtomicalMoon - Commission Info</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height:1.6; color:#f0f0f0; background:#0f0f0f;
-        }
-        header {
-            background:linear-gradient(135deg,#1e1e1e 0%,#0f0f0f 100%);
-            color:white; padding:4rem 2rem; text-align:center;
-        }
+        body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif; line-height:1.6; color:#f0f0f0; background:#0f0f0f; }
+        header { background:linear-gradient(135deg,#1e1e1e 0%,#0f0f0f 100%); color:white; padding:4rem 2rem; text-align:center; }
         header h1 { font-size:2.5rem; margin-bottom:0.5rem; }
         header p { font-size:1.2rem; opacity:0.9; }
-        nav {
-            background:#111111; box-shadow:0 2px 10px rgba(0,0,0,0.5);
-            position:sticky; top:0; z-index:100;
-        }
-        nav ul {
-            list-style:none; display:flex; justify-content:center; padding:1rem; flex-wrap:wrap;
-        }
-        nav a {
-            color:#60a5fa; text-decoration:none; padding:0.5rem 1.5rem;
-            transition:color 0.3s; font-weight:500;
-        }
+        nav { background:#111111; box-shadow:0 2px 10px rgba(0,0,0,0.5); position:sticky; top:0; z-index:100; }
+        nav ul { list-style:none; display:flex; justify-content:center; padding:1rem; flex-wrap:wrap; }
+        nav a { color:#60a5fa; text-decoration:none; padding:0.5rem 1.5rem; transition:color 0.3s; font-weight:500; }
         nav a:hover { color:#a78bfa; }
         section { max-width:1200px; margin:0 auto; padding:4rem 2rem; }
-        h2 { font-size:2rem; margin-bottom:2rem; color:#ffffff; text-align:center; }
-        .terms-toggle {
-            background:#1e1e1e; border-radius:8px; padding:1.2rem; margin:0 auto 3rem;
-            max-width:800px; cursor:pointer; text-align:center;
-            border:1px solid #333333; transition:all 0.3s;
-        }
+        h2 { font-size:2rem; margin-bottom:2rem; color:#fff; text-align:center; }
+        .terms-toggle { background:#1e1e1e; border-radius:8px; padding:1.2rem; margin:0 auto 3rem; max-width:800px; cursor:pointer; text-align:center; border:1px solid #333; transition:all 0.3s; }
         .terms-toggle:hover { background:#2a2a2a; }
         .terms-toggle h3 { font-size:1.6rem; color:#60a5fa; margin:0; }
-        .terms-content {
-            display:none; margin-top:1.5rem;
-        }
+        .terms-content { display:none; margin-top:1.5rem; }
         .terms-content.active { display:block; }
-        .terms-image {
-            width:100%; max-height:800px; object-fit:contain; border-radius:8px;
-            box-shadow:0 8px 25px rgba(0,0,0,0.6);
-        }
-        .commission-sheet {
-            display:grid; grid-template-columns:repeat(auto-fit,minmax(400px,1fr)); gap:2rem;
-        }
-        .sheet-card {
-            background:#1e1e1e; border-radius:12px; overflow:hidden;
-            box-shadow:0 8px 25px rgba(0,0,0,0.6); transition:transform 0.3s,box-shadow 0.3s;
-            border:1px solid #333333;
-        }
-        .sheet-card:hover { transform:translateY(-8px); box-shadow:0 15px 35px rgba(0,0,0,0.8); }
-        .sheet-image { height:500px; background:#111111; position:relative; }
-        .sheet-image img { width:100%; height:100%; object-fit:contain; display:block; }
+        .terms-image { width:100%; max-height:800px; object-fit:contain; border-radius:8px; box-shadow:0 8px 25px rgba(0,0,0,0.6); }
+        .commission-sheet { display:grid; grid-template-columns:repeat(auto-fit,minmax(420px,1fr)); gap:2rem; }
+        .sheet-card { background:#1e1e1e; border-radius:12px; overflow:hidden; box-shadow:0 8px 25px rgba(0,0,0,0.6); border:1px solid #333; position:relative; }
+        .sheet-image-container { height:520px; background:#111; position:relative; }
+        .sheet-image { width:100%; height:100%; object-fit:contain; display:none; }
+        .sheet-image.active { display:block; }
+        .arrow { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.5); color:#fff; border:none; width:40px; height:40px; border-radius:50%; font-size:1.5rem; cursor:pointer; user-select:none; transition:background 0.2s; }
+        .arrow:hover { background:rgba(0,0,0,0.8); }
+        .prev { left:10px; }
+        .next { right:10px; }
         .sheet-info { padding:1.5rem; text-align:center; }
-        .sheet-info h3 { font-size:1.4rem; margin-bottom:0.75rem; color:#60a5fa; }
+        .sheet-info h3 { font-size:1.4rem; margin-bottom:0.5rem; color:#60a5fa; }
         .sheet-info p { color:#d0d0d0; font-size:1rem; }
-        .back-btn {
-            display:inline-block; margin-top:3rem; color:#60a5fa;
-            text-decoration:none; font-weight:500;
-        }
+        .back-btn { display:inline-block; margin-top:3rem; color:#60a5fa; text-decoration:none; font-weight:500; }
         .back-btn:hover { color:#a78bfa; text-decoration:underline; }
-        footer { background:#111111; color:#a0a0a0; text-align:center; padding:2rem; }
-        @media (max-width:768px) {
-            .commission-sheet { grid-template-columns:1fr; }
-            .sheet-image { height:400px; }
-        }
+        footer { background:#111; color:#a0a0a0; text-align:center; padding:2rem; }
+        @media (max-width:768px) { .commission-sheet { grid-template-columns:1fr; } .sheet-image-container { height:420px; } }
     </style>
 </head>
 <body>
@@ -77,9 +46,7 @@
         <p>Pricing • Terms • Examples</p>
     </header>
     <nav>
-        <ul>
-            <li><a href="index.html">Back to Portfolio</a></li>
-        </ul>
+        <ul><li><a href="index.html">Back to Portfolio</a></li></ul>
     </nav>
     <section>
         <h2>Commission Sheets</h2>
@@ -93,24 +60,67 @@
 
         <div class="commission-sheet">
             <div class="sheet-card">
-                <div class="sheet-image"><img src="images/comm-sheet-1.png" alt="Commission Sheet 1"></div>
+                <div class="sheet-image-container">
+                    <button class="arrow prev" onclick="prevImage(this)">‹</button>
+                    <img src="images/blocks-sheet-1.png" alt="Blocks Sheet" class="sheet-image active">
+                    <!-- add more: blocks-sheet-2.png etc. -->
+                    <button class="arrow next" onclick="nextImage(this)">›</button>
+                </div>
                 <div class="sheet-info">
-                    <h3>Full Sheet 2025</h3>
-                    <p>Current pricing, slots, terms, and examples</p>
+                    <h3>Blocks Sheet</h3>
+                    <p>Contains pricing of blocks and blocks with custom geometry</p>
                 </div>
             </div>
+
             <div class="sheet-card">
-                <div class="sheet-image"><img src="images/comm-sheet-2.png" alt="Commission Sheet 2"></div>
+                <div class="sheet-image-container">
+                    <button class="arrow prev" onclick="prevImage(this)">‹</button>
+                    <img src="images/renders-sheet-1.png" alt="Renders Sheet" class="sheet-image active">
+                    <!-- add more: renders-sheet-2.png etc. -->
+                    <button class="arrow next" onclick="nextImage(this)">›</button>
+                </div>
                 <div class="sheet-info">
-                    <h3>Pricing Breakdown</h3>
-                    <p>Detailed costs for models, textures, renders</p>
+                    <h3>Renders Sheet</h3>
+                    <p>Contains pricing for profile renders, player renders, and generic renders</p>
                 </div>
             </div>
+
             <div class="sheet-card">
-                <div class="sheet-image"><img src="images/comm-sheet-3.png" alt="Commission Sheet 3"></div>
+                <div class="sheet-image-container">
+                    <button class="arrow prev" onclick="prevImage(this)">‹</button>
+                    <img src="images/items-sheet-1.png" alt="Items / Sprites Sheet" class="sheet-image active">
+                    <!-- add more: items-sheet-2.png etc. -->
+                    <button class="arrow next" onclick="nextImage(this)">›</button>
+                </div>
                 <div class="sheet-info">
-                    <h3>Terms & Process</h3>
-                    <p>Payment, revisions, deadlines, rights</p>
+                    <h3>Items / Sprites Sheet</h3>
+                    <p>Contains pricing for 16x16 → 64x64 items and which are bundled sets</p>
+                </div>
+            </div>
+
+            <div class="sheet-card">
+                <div class="sheet-image-container">
+                    <button class="arrow prev" onclick="prevImage(this)">‹</button>
+                    <img src="images/models-sheet-1.png" alt="Models Sheet" class="sheet-image active">
+                    <!-- add more: models-sheet-2.png etc. -->
+                    <button class="arrow next" onclick="nextImage(this)">›</button>
+                </div>
+                <div class="sheet-info">
+                    <h3>Models Sheet</h3>
+                    <p>Contains small / medium / and big sized model pricing</p>
+                </div>
+            </div>
+
+            <div class="sheet-card">
+                <div class="sheet-image-container">
+                    <button class="arrow prev" onclick="prevImage(this)">‹</button>
+                    <img src="images/misc-sheet-1.png" alt="Misc Sheet" class="sheet-image active">
+                    <!-- add more: misc-sheet-2.png etc. -->
+                    <button class="arrow next" onclick="nextImage(this)">›</button>
+                </div>
+                <div class="sheet-info">
+                    <h3>Misc Sheet</h3>
+                    <p>Contains pricing of armor models and 3d items and other miscellaneous things</p>
                 </div>
             </div>
         </div>
@@ -124,6 +134,33 @@
     </footer>
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        function prevImage(btn) {
+            const container = btn.closest('.sheet-image-container');
+            const images = container.querySelectorAll('.sheet-image');
+            let active = container.querySelector('.sheet-image.active');
+            let idx = Array.from(images).indexOf(active);
+            images[idx].classList.remove('active');
+            idx = (idx - 1 + images.length) % images.length;
+            images[idx].classList.add('active');
+        }
+
+        function nextImage(btn) {
+            const container = btn.closest('.sheet-image-container');
+            const images = container.querySelectorAll('.sheet-image');
+            let active = container.querySelector('.sheet-image.active');
+            let idx = Array.from(images).indexOf(active);
+            images[idx].classList.remove('active');
+            idx = (idx + 1) % images.length;
+            images[idx].classList.add('active');
+        }
+
+        // Optional: auto-add first image as active if not set
+        document.querySelectorAll('.sheet-image-container').forEach(cont => {
+            if (!cont.querySelector('.sheet-image.active')) {
+                cont.querySelector('.sheet-image').classList.add('active');
+            }
+        });
     </script>
 </body>
 </html>
