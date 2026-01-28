@@ -30,6 +30,21 @@
         nav a:hover { color:#a78bfa; }
         section { max-width:1200px; margin:0 auto; padding:4rem 2rem; }
         h2 { font-size:2rem; margin-bottom:2rem; color:#ffffff; text-align:center; }
+        .terms-toggle {
+            background:#1e1e1e; border-radius:8px; padding:1.2rem; margin:0 auto 3rem;
+            max-width:800px; cursor:pointer; text-align:center;
+            border:1px solid #333333; transition:all 0.3s;
+        }
+        .terms-toggle:hover { background:#2a2a2a; }
+        .terms-toggle h3 { font-size:1.6rem; color:#60a5fa; margin:0; }
+        .terms-content {
+            display:none; margin-top:1.5rem;
+        }
+        .terms-content.active { display:block; }
+        .terms-image {
+            width:100%; max-height:800px; object-fit:contain; border-radius:8px;
+            box-shadow:0 8px 25px rgba(0,0,0,0.6);
+        }
         .commission-sheet {
             display:grid; grid-template-columns:repeat(auto-fit,minmax(400px,1fr)); gap:2rem;
         }
@@ -38,32 +53,18 @@
             box-shadow:0 8px 25px rgba(0,0,0,0.6); transition:transform 0.3s,box-shadow 0.3s;
             border:1px solid #333333;
         }
-        .sheet-card:hover {
-            transform:translateY(-8px); box-shadow:0 15px 35px rgba(0,0,0,0.8);
-        }
-        .sheet-image {
-            height:500px; background:#111111; position:relative;
-        }
-        .sheet-image img {
-            width:100%; height:100%; object-fit:contain; display:block;
-        }
-        .sheet-info {
-            padding:1.5rem; text-align:center;
-        }
-        .sheet-info h3 {
-            font-size:1.4rem; margin-bottom:0.75rem; color:#60a5fa;
-        }
-        .sheet-info p {
-            color:#d0d0d0; font-size:1rem;
-        }
+        .sheet-card:hover { transform:translateY(-8px); box-shadow:0 15px 35px rgba(0,0,0,0.8); }
+        .sheet-image { height:500px; background:#111111; position:relative; }
+        .sheet-image img { width:100%; height:100%; object-fit:contain; display:block; }
+        .sheet-info { padding:1.5rem; text-align:center; }
+        .sheet-info h3 { font-size:1.4rem; margin-bottom:0.75rem; color:#60a5fa; }
+        .sheet-info p { color:#d0d0d0; font-size:1rem; }
         .back-btn {
-            display:inline-block; margin-top:1rem;
-            color:#60a5fa; text-decoration:none; font-weight:500;
+            display:inline-block; margin-top:3rem; color:#60a5fa;
+            text-decoration:none; font-weight:500;
         }
         .back-btn:hover { color:#a78bfa; text-decoration:underline; }
-        footer {
-            background:#111111; color:#a0a0a0; text-align:center; padding:2rem;
-        }
+        footer { background:#111111; color:#a0a0a0; text-align:center; padding:2rem; }
         @media (max-width:768px) {
             .commission-sheet { grid-template-columns:1fr; }
             .sheet-image { height:400px; }
@@ -82,37 +83,39 @@
     </nav>
     <section>
         <h2>Commission Sheets</h2>
+
+        <div class="terms-toggle" onclick="this.querySelector('.terms-content').classList.toggle('active')">
+            <h3>Terms and Service</h3>
+            <div class="terms-content">
+                <img src="images/terms.png" alt="Terms and Conditions" class="terms-image">
+            </div>
+        </div>
+
         <div class="commission-sheet">
             <div class="sheet-card">
-                <div class="sheet-image">
-                    <img src="images/comm-sheet-1.png" alt="Commission Sheet 1">
-                </div>
+                <div class="sheet-image"><img src="images/comm-sheet-1.png" alt="Commission Sheet 1"></div>
                 <div class="sheet-info">
                     <h3>Full Sheet 2025</h3>
                     <p>Current pricing, slots, terms, and examples</p>
                 </div>
             </div>
             <div class="sheet-card">
-                <div class="sheet-image">
-                    <img src="images/comm-sheet-2.png" alt="Commission Sheet 2">
-                </div>
+                <div class="sheet-image"><img src="images/comm-sheet-2.png" alt="Commission Sheet 2"></div>
                 <div class="sheet-info">
                     <h3>Pricing Breakdown</h3>
                     <p>Detailed costs for models, textures, renders</p>
                 </div>
             </div>
             <div class="sheet-card">
-                <div class="sheet-image">
-                    <img src="images/comm-sheet-3.png" alt="Commission Sheet 3">
-                </div>
+                <div class="sheet-image"><img src="images/comm-sheet-3.png" alt="Commission Sheet 3"></div>
                 <div class="sheet-info">
                     <h3>Terms & Process</h3>
                     <p>Payment, revisions, deadlines, rights</p>
                 </div>
             </div>
-            <!-- Add more sheets as needed -->
         </div>
-        <p style="text-align:center; margin-top:3rem;">
+
+        <p style="text-align:center;">
             <a href="index.html" class="back-btn">← Back to Main Portfolio</a>
         </p>
     </section>
