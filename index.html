@@ -402,19 +402,27 @@
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // ===== COMMISSION STATUS SYSTEM =====
+        // ===== COMMISSION STATUS SYSTEM (UPDATED WITH CACHE-BUSTING & BETTER ERROR HANDLING) =====
         async function loadCommissionStatus() {
+            const statusText = document.getElementById('status-text');
+            statusText.textContent = 'Loading...'; // Ensure initial state
+
             try {
-                const response = await fetch('config/commission-status.json');
+                // Cache-busting: add random timestamp to URL so it always fetches fresh
+                const timestamp = new Date().getTime();
+                const response = await fetch(`config/commission-status.json?v=${timestamp}`);
+                
                 if (response.ok) {
                     const data = await response.json();
-                    updateStatusDisplay(data.status);
+                    console.log('Fetched status successfully:', data.status); // Debug log
+                    updateStatusDisplay(data.status || 'waitlist');
                 } else {
-                    updateStatusDisplay('closed');
+                    console.error('Fetch failed with status code:', response.status);
+                    updateStatusDisplay('waitlist'); // Fallback
                 }
             } catch (error) {
-                console.log('Using default status:', error);
-                updateStatusDisplay('closed');
+                console.error('Commission status fetch error:', error);
+                updateStatusDisplay('waitlist'); // Fallback on any error
             }
         }
 
@@ -440,10 +448,11 @@
             } else if (status.toLowerCase().includes('slot')) {
                 statusText.classList.add('status-slots');
             } else {
-                statusText.style.color = '#ffffff';
+                statusText.style.color = '#ffffff'; // Default white
             }
         }
 
+        // Load status when page loads
         loadCommissionStatus();
 
         // ===== PARTICLE BACKGROUND ANIMATION =====
