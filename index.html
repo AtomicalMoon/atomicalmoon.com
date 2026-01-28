@@ -15,8 +15,6 @@
             line-height: 1.6;
             color: #f0f0f0;
             background-color: #0f0f0f;
-            position: relative;
-            overflow-x: hidden;
         }
         /* Commission Status Colors */
         .status-open { color: #4ade80 !important; }
@@ -150,28 +148,39 @@
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.7);
         }
-        #projects {
+        #projects h2 {
+            margin-bottom: 1rem;
+        }
+        .category-header {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            background: #1e1e1e;
+            padding: 0.75rem;
+            border-radius: 5px;
+            cursor: pointer;
         }
-        .category {
-            margin-bottom: 2rem;
-        }
-        .category h3 {
+        .category-header h3 {
             font-size: 1.5rem;
             color: #ffffff;
-            cursor: pointer;
-            padding: 0.5rem;
-            background: #1e1e1e;
-            border-radius: 5px;
-            transition: background 0.3s;
         }
-        .category h3:hover {
-            background: #2a2a2a;
+        .commission-btn {
+            background: #60a5fa;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .commission-btn:hover {
+            background: #a78bfa;
         }
         .subcategory {
             display: none;
-            padding-left: 1rem;
+            margin-left: 1rem;
+            margin-bottom: 2rem;
         }
         .subcategory.active {
             display: block;
@@ -199,8 +208,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3rem;
+        }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .project-content {
             padding: 1.5rem;
@@ -212,15 +224,6 @@
         .project-content p {
             color: #d0d0d0;
             margin-bottom: 1rem;
-        }
-        .project-link {
-            display: inline-block;
-            color: #60a5fa;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .project-link:hover {
-            text-decoration: underline;
         }
         .contact-form {
             max-width: 600px;
@@ -240,9 +243,6 @@
             padding: 0.75rem;
             border: 2px solid #333333;
             border-radius: 5px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: border-color 0.3s;
             background-color: #1e1e1e;
             color: #f0f0f0;
         }
@@ -260,9 +260,7 @@
             padding: 1rem 2rem;
             border: 1px solid #333333;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: opacity 0.3s;
             width: 100%;
             font-weight: 600;
         }
@@ -275,262 +273,217 @@
             text-align: center;
             padding: 2rem;
         }
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        .social-links a {
-            color: #60a5fa;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-        .social-links a:hover {
-            opacity: 0.7;
-        }
         @media (max-width: 768px) {
             .about-content {
                 grid-template-columns: 1fr;
             }
-            header h1 {
-                font-size: 2rem;
-            }
-            nav ul {
+            .category-header {
                 flex-direction: column;
-                align-items: center;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
-  
     <header>
         <div id="hero-slideshow">
-            <img src="images/hero1.png" alt="Hero Image 1" class="slide active">
-            <img src="images/hero2.png" alt="Hero Image 2" class="slide">
-            <img src="images/hero3.png" alt="Hero Image 3" class="slide">
+            <img src="images/hero1.png" alt="Hero 1" class="slide active">
+            <img src="images/hero2.png" alt="Hero 2" class="slide">
+            <img src="images/hero3.png" alt="Hero 3" class="slide">
         </div>
         <h1>AtomicalMoon</h1>
-        <p>Texturer / Modeler / Renderer</p>
+        <p Texturer / Modeler / Renderer</p>
     </header>
     <nav>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
+            <li><a href="#projects">Portfolio</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
     <section id="about">
         <h2>About Me</h2>
-      
-        <!-- Commission Status Display -->
         <div id="commission-status-display" style="text-align: center; margin-bottom: 2rem;">
             <p style="font-size: 1.2rem; font-weight: 600;">
-                Commissions: <span id="status-text" style="color: #ffffff;">Loading...</span>
+                Commissions: <span id="status-text">Loading...</span>
             </p>
         </div>
-      
         <div class="about-content">
             <div>
                 <div id="slideshow-container">
-                    <img src="images/character1.png" alt="Character Render 1" class="active">
-                    <img src="images/character2.png" alt="Character Render 2">
-                    <img src="images/character3.png" alt="Character Render 3">
+                    <img src="images/character1.png" alt="Character 1" class="active">
+                    <img src="images/character2.png" alt="Character 2">
+                    <img src="images/character3.png" alt="Character 3">
                 </div>
                 <p class="canvas-info">3D Character Renders</p>
             </div>
             <div>
-                <p>Hello! My name is AtomicalMoon, otherwise referred to as Moon or Atomic. I've been active in the Blockbench community for about 3-4 years. I'm able to create textures, models, renders, and basic animations.</p>
-                <p style="margin-top: 1rem;">I'm always eager to learn new techniques and expand my knowledge.</p>
+                <p>Hello! I'm AtomicalMoon (Moon/Atomic). Active in Blockbench for 3-4 years. Expert in textures, models, renders, basic animations.</p>
+                <p style="margin-top: 1rem;">Always learning new techniques.</p>
             </div>
         </div>
     </section>
     <section id="skills">
         <h2>Skills</h2>
         <div class="skills">
-            <div class="skill">
-                <h3>Blockbench</h3>
-                <p>Expert</p>
-            </div>
-            <div class="skill">
-                <h3>Texturing</h3>
-                <p>Expert</p>
-            </div>
-            <div class="skill">
-                <h3>Modeling</h3>
-                <p>Expert</p>
-            </div>
-            <div class="skill">
-                <h3>Rendering</h3>
-                <p>Expert</p>
-            </div>
-            <div class="skill">
-                <h3>Basic Animations</h3>
-                <p>Advanced</p>
-            </div>
-            <div class="skill">
-                <h3>Web Portfolio Design</h3>
-                <p>Intermediate</p>
-            </div>
+            <div class="skill"><h3>Blockbench</h3><p>Expert</p></div>
+            <div class="skill"><h3>Texturing</h3><p>Expert</p></div>
+            <div class="skill"><h3>Modeling</h3><p>Expert</p></div>
+            <div class="skill"><h3>Rendering</h3><p>Expert</p></div>
+            <div class="skill"><h3>Basic Animations</h3><p>Advanced</p></div>
+            <div class="skill"><h3>Web Design</h3><p>Intermediate</p></div>
         </div>
     </section>
     <section id="projects">
-        <h2>Projects</h2>
-        <div class="category">
-            <h3 onclick="toggleSubcategory(this)">Renders</h3>
-            <div class="subcategory">
-                <div class="category">
-                    <h3 onclick="toggleSubcategory(this)">Character Renders</h3>
-                    <div class="subcategory">
-                        <div class="category">
-                            <h3 onclick="toggleSubcategory(this)">Commissioned Renders</h3>
-                            <div class="subcategory projects-grid">
-                                <div class="project-card">
-                                    <div class="project-image">🖼️</div>
-                                    <div class="project-content">
-                                        <h4>Commissioned Render 1</h4>
-                                        <p>Description of commissioned render.</p>
-                                        <a href="#" class="project-link">View →</a>
-                                    </div>
-                                </div>
-                                <!-- Add more -->
-                            </div>
-                        </div>
-                        <div class="category">
-                            <h3 onclick="toggleSubcategory(this)">Generic Renders</h3>
-                            <div class="subcategory projects-grid">
-                                <div class="project-card">
-                                    <div class="project-image">🖼️</div>
-                                    <div class="project-content">
-                                        <h4>Generic Render 1</h4>
-                                        <p>Description of generic render.</p>
-                                        <a href="#" class="project-link">View →</a>
-                                    </div>
-                                </div>
-                                <!-- Add more -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more subcategories like Object Renders etc. -->
+        <h2>Portfolio</h2>
+
+        <!-- Models -->
+        <div class="category-header" onclick="toggleSub(this)">
+            <h3>Models</h3>
+            <a href="commissions.html" class="commission-btn">Commission Info</a>
+        </div>
+        <div class="subcategory">
+            <div class="category-header" onclick="toggleSub(this)"><h3>Big</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards with images --></div>
+
+            <div class="category-header" onclick="toggleSub(this)"><h3>Medium</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+
+            <div class="category-header" onclick="toggleSub(this)"><h3>Small</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+        </div>
+
+        <!-- Blocks -->
+        <div class="category-header" onclick="toggleSub(this)">
+            <h3>Blocks</h3>
+            <a href="commissions.html" class="commission-btn">Commission Info</a>
+        </div>
+        <div class="subcategory">
+            <div class="category-header" onclick="toggleSub(this)"><h3>Basic</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+
+            <div class="category-header" onclick="toggleSub(this)"><h3>Custom Geometry</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+        </div>
+
+        <!-- Items -->
+        <div class="category-header" onclick="toggleSub(this)">
+            <h3>Items</h3>
+            <a href="commissions.html" class="commission-btn">Commission Info</a>
+        </div>
+        <div class="subcategory">
+            <div class="category-header" onclick="toggleSub(this)"><h3>16x16</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+
+            <div class="category-header" onclick="toggleSub(this)"><h3>32x32</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+
+            <div class="category-header" onclick="toggleSub(this)"><h3>64x64</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+        </div>
+
+        <!-- Renders -->
+        <div class="category-header" onclick="toggleSub(this)">
+            <h3>Renders</h3>
+            <a href="commissions.html" class="commission-btn">Commission Info</a>
+        </div>
+        <div class="subcategory">
+            <div class="category-header" onclick="toggleSub(this)"><h3>Player Renders</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+
+            <div class="category-header" onclick="toggleSub(this)"><h3>Generic Renders</h3></div>
+            <div class="subcategory projects-grid active"><!-- Add cards --></div>
+        </div>
+
+        <!-- Commissioned Work -->
+        <div class="category-header" onclick="toggleSub(this)">
+            <h3>Commissioned Work</h3>
+            <a href="commissions.html" class="commission-btn">Commission Info</a>
+        </div>
+        <div class="subcategory projects-grid active">
+            <!-- Add commissioned image cards here -->
+            <div class="project-card">
+                <div class="project-image"><img src="images/commission1.png" alt="Commission 1"></div>
+                <div class="project-content"><h4>Example Commission</h4><p>Description</p></div>
             </div>
         </div>
-        <!-- Add more top-level categories like Models, Textures -->
     </section>
     <section id="contact">
         <h2>Get In Touch</h2>
         <form class="contact-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
+            <div class="form-group"><label for="name">Name</label><input type="text" id="name" required></div>
+            <div class="form-group"><label for="email">Email</label><input type="email" id="email" required></div>
+            <div class="form-group"><label for="message">Message</label><textarea id="message" required></textarea></div>
             <button type="submit">Send Message</button>
         </form>
     </section>
     <footer>
         <p>&copy; <span id="year"></span> AtomicalMoon. All rights reserved.</p>
-        <div class="social-links">
-            <a href="https://github.com/yourusername">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername">LinkedIn</a>
-            <a href="https://twitter.com/yourusername">Twitter</a>
-        </div>
     </footer>
     <script>
-        // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
-        // ===== COMMISSION STATUS SYSTEM (UPDATED WITH CACHE-BUSTING & BETTER ERROR HANDLING) =====
+
+        // Commission status (unchanged)
         async function loadCommissionStatus() {
             const statusText = document.getElementById('status-text');
-            statusText.textContent = 'Loading...'; // Ensure initial state
+            statusText.textContent = 'Loading...';
             try {
-                // Cache-busting: add random timestamp to URL so it always fetches fresh
                 const timestamp = new Date().getTime();
                 const response = await fetch(`config/commission-status.json?v=${timestamp}`);
-               
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('Fetched status successfully:', data.status); // Debug log
                     updateStatusDisplay(data.status || 'waitlist');
                 } else {
-                    console.error('Fetch failed with status code:', response.status);
-                    updateStatusDisplay('waitlist'); // Fallback
+                    updateStatusDisplay('waitlist');
                 }
             } catch (error) {
-                console.error('Commission status fetch error:', error);
-                updateStatusDisplay('waitlist'); // Fallback on any error
+                updateStatusDisplay('waitlist');
             }
         }
         function updateStatusDisplay(status) {
             const statusText = document.getElementById('status-text');
             statusText.textContent = status.toUpperCase();
-            // Remove all possible status classes first
             const statusClasses = ['status-open', 'status-closed', 'status-full', 'status-waitlist', 'status-paused', 'status-slots'];
             statusText.classList.remove(...statusClasses);
-            statusText.style.color = ''; // Reset inline color
-            if (status === 'open') {
-                statusText.classList.add('status-open');
-            } else if (status === 'closed') {
-                statusText.classList.add('status-closed');
-            } else if (status === 'full') {
-                statusText.classList.add('status-full');
-            } else if (status === 'waitlist') {
-                statusText.classList.add('status-waitlist');
-            } else if (status === 'paused') {
-                statusText.classList.add('status-paused');
-            } else if (status.toLowerCase().includes('slot')) {
-                statusText.classList.add('status-slots');
-            } else {
-                statusText.style.color = '#ffffff'; // Default white
-            }
+            if (status === 'open') statusText.classList.add('status-open');
+            else if (status === 'closed') statusText.classList.add('status-closed');
+            else if (status === 'full') statusText.classList.add('status-full');
+            else if (status === 'waitlist') statusText.classList.add('status-waitlist');
+            else if (status === 'paused') statusText.classList.add('status-paused');
+            else if (status.toLowerCase().includes('slot')) statusText.classList.add('status-slots');
         }
-        // Load status when page loads
         loadCommissionStatus();
-        // Hero slideshow
-        const heroSlides = document.querySelectorAll('#hero-slideshow .slide');
-        let currentHeroSlide = 0;
-        function nextHeroSlide() {
-            heroSlides[currentHeroSlide].classList.remove('active');
-            currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
-            heroSlides[currentHeroSlide].classList.add('active');
+
+        // Slideshows
+        function setupSlideshow(selector, interval = 5000) {
+            const slides = document.querySelectorAll(selector);
+            let current = 0;
+            setInterval(() => {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, interval);
         }
-        setInterval(nextHeroSlide, 5000);
-        // About slideshow
-        const slides = document.querySelectorAll('#slideshow-container img');
-        let currentSlide = 0;
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
+        setupSlideshow('#hero-slideshow .slide');
+        setupSlideshow('#slideshow-container img');
+
+        // Toggle subcategory
+        function toggleSub(el) {
+            el.nextElementSibling.classList.toggle('active');
         }
-        setInterval(nextSlide, 5000);
-        // Toggle subcategories
-        function toggleSubcategory(element) {
-            const subcategory = element.nextElementSibling;
-            subcategory.classList.toggle('active');
-        }
-        // Contact form (demo alert)
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+
+        // Form demo
+        document.querySelector('.contact-form').addEventListener('submit', e => {
             e.preventDefault();
-            alert('Thank you for your message! This is a demo form. To make it functional, add a backend service like Formspree.');
+            alert('Demo form - use backend like Formspree for real submissions.');
         });
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+                document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
