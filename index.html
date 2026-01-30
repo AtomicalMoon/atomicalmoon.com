@@ -110,29 +110,39 @@
         }
         .commission-frame {
             position: relative;
-            overflow: hidden;
             text-align: center;
+            border: 3px solid transparent;
             border-radius: 9999px; /* Pill shape */
             background: #0f0f0f; /* Solid background to match body */
+            background-clip: padding-box;
             padding: 0.5rem 2rem;
-            margin: 0 auto 2rem auto;
+            margin: 0 auto 1rem auto;
             width: fit-content;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
         }
-
-        .particles-container {
+        .commission-frame::before {
+            content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0; /* Behind text */
-            pointer-events: none;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            z-index: -1;
+            border-radius: 9999px;
+            background: conic-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: rotate 4s linear infinite;
         }
-
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
         .commission-text {
             position: relative;
-            z-index: 1; /* In front of particles */
+            z-index: 1; /* In front of pseudo-element */
             font-size: 1.2rem;
             font-weight: 600;
             margin: 0;
@@ -157,44 +167,6 @@
             }
             100% {
                 text-shadow: 0 0 2px currentColor, 0 0 4px currentColor;
-            }
-        }
-
-        /* Particles */
-        .particle {
-            position: absolute;
-            pointer-events: none;
-            opacity: 0.6; /* Semi-transparent */
-            animation: fall 15s linear infinite; /* Base duration; randomized in JS */
-        }
-
-        /* Falling leaves animation with sway and rotation */
-        @keyframes fall {
-            0% {
-                top: -20px;
-                transform: translateX(0) rotate(0deg);
-                opacity: 0.6;
-            }
-            20% {
-                top: 20%;
-                transform: translateX(5px) rotate(45deg);
-            }
-            40% {
-                top: 40%;
-                transform: translateX(-5px) rotate(90deg);
-            }
-            60% {
-                top: 60%;
-                transform: translateX(5px) rotate(135deg);
-            }
-            80% {
-                top: 80%;
-                transform: translateX(-5px) rotate(180deg);
-            }
-            100% {
-                top: calc(100% + 20px);
-                transform: translateX(0) rotate(360deg);
-                opacity: 0.3; /* Fade out slightly at bottom */
             }
         }
 
@@ -227,9 +199,9 @@
     <section id="about">
         <h2>About Me</h2>
         <div id="commission-status-display" class="commission-frame">
-            <div class="particles-container"></div>
             <p class="commission-text">Commissions: <span id="status-text">Loading...</span></p>
         </div>
+        <a href="commissions.html" class="commission-btn" style="display: block; text-align: center; margin: 0 auto 2rem auto; width: fit-content;">Commission Info</a>
         <div class="about-content">
             <div>
                 <div id="slideshow-container">
@@ -261,7 +233,6 @@
         <!-- Models -->
         <div class="category-header" onclick="toggleSub(this)">
             <h3>Models</h3>
-            <a href="commissions.html" class="commission-btn">Commission Info</a>
         </div>
         <div class="subcategory">
             <div class="category-header" onclick="toggleSub(this)"><h3>Big</h3></div>
@@ -319,7 +290,6 @@
         <!-- Blocks -->
         <div class="category-header" onclick="toggleSub(this)">
             <h3>Blocks</h3>
-            <a href="commissions.html" class="commission-btn">Commission Info</a>
         </div>
         <div class="subcategory">
             <div class="category-header" onclick="toggleSub(this)"><h3>Basic</h3></div>
@@ -353,7 +323,6 @@
         <!-- Items -->
         <div class="category-header" onclick="toggleSub(this)">
             <h3>Items</h3>
-            <a href="commissions.html" class="commission-btn">Commission Info</a>
         </div>
         <div class="subcategory">
             <div class="category-header" onclick="toggleSub(this)"><h3>16x16</h3></div>
@@ -390,7 +359,6 @@
         <!-- Renders -->
         <div class="category-header" onclick="toggleSub(this)">
             <h3>Renders</h3>
-            <a href="commissions.html" class="commission-btn">Commission Info</a>
         </div>
         <div class="subcategory">
             <div class="category-header" onclick="toggleSub(this)"><h3>Player Renders</h3></div>
@@ -417,7 +385,6 @@
         <!-- Commissioned Work -->
         <div class="category-header" onclick="toggleSub(this)">
             <h3>Commissioned Work</h3>
-            <a href="commissions.html" class="commission-btn">Commission Info</a>
         </div>
         <div class="subcategory projects-grid active">
             <div class="project-card">
@@ -463,7 +430,6 @@
             } catch {
                 updateStatusDisplay('waitlist');
             }
-            createParticles();
         }
         function updateStatusDisplay(s) {
             const t = document.getElementById('status-text');
@@ -477,27 +443,6 @@
             else if (s==='waitlist') t.classList.add('status-waitlist');
             else if (s==='paused') t.classList.add('status-paused');
             else if (s.toLowerCase().includes('slot')) t.classList.add('status-slots');
-        }
-        function createParticles() {
-            const container = document.querySelector('.particles-container');
-            const particleTypes = [
-                { src: 'images/comflower1.png', size: '20px' }, // Big flower
-                { src: 'images/comflower2.png', size: '10px' }  // Small flower
-            ];
-            const numParticles = 10; // Reduced for less abundance
-
-            for (let i = 0; i < numParticles; i++) {
-                const type = particleTypes[Math.random() < 0.5 ? 0 : 1];
-                const particle = document.createElement('img');
-                particle.src = type.src;
-                particle.classList.add('particle');
-                particle.style.width = type.size;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.animationDuration = `${Math.random() * 20 + 20}s`; // 20-40s for slower fall
-                particle.style.animationDelay = `-${Math.random() * 20}s`; // Random start for seamless loop
-                particle.style.transform = `rotate(${Math.random() * 360}deg)`; // Initial random rotation
-                container.appendChild(particle);
-            }
         }
         loadCommissionStatus();
         function setupSlideshow(sel, int=5000) {
