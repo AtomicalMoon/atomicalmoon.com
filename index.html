@@ -119,7 +119,9 @@
             margin: 0 auto 1rem auto;
             width: fit-content;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+            font-family: 'Georgia', serif; /* Elegant font */
         }
+
         .commission-frame::before {
             content: '';
             position: absolute;
@@ -129,17 +131,10 @@
             bottom: -3px;
             z-index: -1;
             border-radius: 9999px;
-            background: conic-gradient(transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: rotate 4s linear infinite;
+            background: conic-gradient(transparent, rgba(192, 192, 192, 0.3), transparent); /* Metallic silver tint */
+            animation: rotate 6s linear infinite; /* Slower for elegance */
         }
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
+
         .commission-text {
             position: relative;
             z-index: 1; /* In front of pseudo-element */
@@ -153,9 +148,20 @@
             transition: color 0.3s;
         }
 
-        /* Glowing pulsating text */
+        /* Softer glowing pulsating text with sparkle */
         #status-text.glowing {
-            animation: glow-pulse 3s ease-in-out infinite; /* Slow pulse */
+            animation: glow-pulse 4s ease-in-out infinite; /* Slower pulse */
+            position: relative;
+        }
+
+        #status-text.glowing::after {
+            content: '✨'; /* Subtle sparkle icon */
+            font-size: 0.8rem;
+            position: absolute;
+            top: -5px;
+            right: -15px;
+            opacity: 0.7;
+            animation: sparkle 2s ease-in-out infinite alternate;
         }
 
         @keyframes glow-pulse {
@@ -163,11 +169,16 @@
                 text-shadow: 0 0 2px currentColor, 0 0 4px currentColor;
             }
             50% {
-                text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+                text-shadow: 0 0 4px currentColor, 0 0 8px currentColor, 0 0 12px currentColor;
             }
             100% {
                 text-shadow: 0 0 2px currentColor, 0 0 4px currentColor;
             }
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
 
         @media (max-width: 768px) {
