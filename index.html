@@ -137,7 +137,6 @@
             z-index: -1;
             border-radius: 9999px;
             background: conic-gradient(transparent, rgba(192, 192, 192, 0.3), transparent);
-            animation: glow-pulse 4s ease-in-out infinite; /* Removed rotate animation */
         }
         .commission-text {
             position: relative;
@@ -149,15 +148,6 @@
         }
         #status-text {
             transition: color 0.3s;
-        }
-        #status-text.glowing {
-            animation: glow-pulse 4s ease-in-out infinite;
-            position: relative;
-        }
-        @keyframes glow-pulse {
-            0% { box-shadow: 0 0 2px rgba(192, 192, 192, 0.3), 0 0 4px rgba(192, 192, 192, 0.3); }
-            50% { box-shadow: 0 0 4px rgba(192, 192, 192, 0.3), 0 0 8px rgba(192, 192, 192, 0.3), 0 0 12px rgba(192, 192, 192, 0.3); }
-            100% { box-shadow: 0 0 2px rgba(192, 192, 192, 0.3), 0 0 4px rgba(192, 192, 192, 0.3); }
         }
         @media (max-width: 768px) {
             .commission-frame { padding: 0.4rem 1.5rem; font-size: 1rem; }
@@ -432,7 +422,6 @@
             statusText.textContent = status.toUpperCase();
             const classes = ['status-open', 'status-closed', 'status-full', 'status-waitlist', 'status-paused', 'status-slots'];
             statusText.classList.remove(...classes);
-            statusText.classList.add('glowing');
             if (status === 'open') statusText.classList.add('status-open');
             else if (status === 'closed') statusText.classList.add('status-closed');
             else if (status === 'full') statusText.classList.add('status-full');
