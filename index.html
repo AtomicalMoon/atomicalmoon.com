@@ -112,16 +112,14 @@
             position: relative;
             text-align: center;
             border: 3px solid transparent;
-            border-radius: 9999px; /* Pill shape */
-            background: #0f0f0f; /* Solid background to match body */
+            border-radius: 9999px;
+            background: #0f0f0f;
             background-clip: padding-box;
             padding: 0.5rem 2rem;
             margin: 0 auto 1rem auto;
             width: fit-content;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
-            font-family: 'Georgia', serif; /* Elegant font */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
-
         .commission-frame::before {
             content: '';
             position: absolute;
@@ -131,56 +129,43 @@
             bottom: -3px;
             z-index: -1;
             border-radius: 9999px;
-            background: conic-gradient(transparent, rgba(192, 192, 192, 0.3), transparent); /* Metallic silver tint */
-            animation: rotate 6s linear infinite; /* Slower for elegance */
+            background: conic-gradient(transparent, rgba(192, 192, 192, 0.3), transparent);
+            animation: rotate 6s linear infinite, glow-pulse 4s ease-in-out infinite;
         }
-
         .commission-text {
             position: relative;
-            z-index: 1; /* In front of pseudo-element */
+            z-index: 1;
             font-size: 1.2rem;
             font-weight: 600;
             margin: 0;
             color: #f0f0f0;
         }
-
         #status-text {
             transition: color 0.3s;
         }
-
-        /* Softer glowing pulsating text with sparkle */
         #status-text.glowing {
-            animation: glow-pulse 4s ease-in-out infinite; /* Slower pulse */
+            animation: glow-pulse 4s ease-in-out infinite;
             position: relative;
         }
-
-        #status-text.glowing::after {
-            content: '✨'; /* Subtle sparkle icon */
-            font-size: 0.8rem;
-            position: absolute;
-            top: -5px;
-            right: -15px;
-            opacity: 0.7;
-            animation: sparkle 2s ease-in-out infinite alternate;
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
-
         @keyframes glow-pulse {
             0% {
-                text-shadow: 0 0 2px currentColor, 0 0 4px currentColor;
+                box-shadow: 0 0 2px rgba(192, 192, 192, 0.3), 0 0 4px rgba(192, 192, 192, 0.3);
             }
             50% {
-                text-shadow: 0 0 4px currentColor, 0 0 8px currentColor, 0 0 12px currentColor;
+                box-shadow: 0 0 4px rgba(192, 192, 192, 0.3), 0 0 8px rgba(192, 192, 192, 0.3), 0 0 12px rgba(192, 192, 192, 0.3);
             }
             100% {
-                text-shadow: 0 0 2px currentColor, 0 0 4px currentColor;
+                box-shadow: 0 0 2px rgba(192, 192, 192, 0.3), 0 0 4px rgba(192, 192, 192, 0.3);
             }
         }
-
-        @keyframes sparkle {
-            0% { opacity: 0.7; }
-            100% { opacity: 1; }
-        }
-
         @media (max-width: 768px) {
             .commission-frame {
                 padding: 0.4rem 1.5rem;
@@ -447,7 +432,7 @@
             t.textContent = s.toUpperCase();
             const cls = ['status-open','status-closed','status-full','status-waitlist','status-paused','status-slots'];
             t.classList.remove(...cls);
-            t.classList.add('glowing'); // Add glow/pulse
+            t.classList.add('glowing');
             if (s==='open') t.classList.add('status-open');
             else if (s==='closed') t.classList.add('status-closed');
             else if (s==='full') t.classList.add('status-full');
