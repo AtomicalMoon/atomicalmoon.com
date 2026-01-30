@@ -87,11 +87,11 @@
             border: 1px solid #333333;
         }
         .project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.7); }
-        .project-image { height: 200px; background: #111111; display: flex; align-items: center; justify-content: center; }
+        .project-image { height: 300px; /* Increased image height */ background: #111111; display: flex; align-items: center; justify-content: center; }
         .project-image img { width: 100%; height: 100%; object-fit: cover; loading: lazy; }
-        .project-content { padding: 1.5rem; }
+        .project-content { padding: 1rem; /* Reduced padding */ }
         .project-content h4 { margin-bottom: 0.5rem; color: #ffffff; }
-        .project-content p { color: #d0d0d0; margin-bottom: 1rem; }
+        .project-content p { color: #d0d0d0; margin-bottom: 1rem; font-size: 0.9rem; /* Smaller description text */ }
         .contact-form { max-width: 600px; margin: 0 auto; }
         .form-group { margin-bottom: 1.5rem; }
         label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #f0f0f0; }
@@ -215,7 +215,7 @@
             <h3>Models</h3>
             <span class="toggle-icon">+</span>
         </div>
-        <div class="subcategory" id="models-sub">
+        <div class="subcategory">
             <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
                 <h3>Big</h3>
                 <span class="toggle-icon">+</span>
