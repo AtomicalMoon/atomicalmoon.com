@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AtomicalMoon's portfolio: Expert in Blockbench texturing, modeling, rendering, and animations. View projects and commission info.">
     <title>AtomicalMoon - Portfolio</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -65,8 +66,11 @@
         .category-header {
             display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;
             background: #1e1e1e; padding: 0.75rem; border-radius: 5px; cursor: pointer;
+            transition: box-shadow 0.3s;
         }
-        .category-header h3 { font-size: 1.5rem; color: #ffffff; }
+        .category-header:hover { box-shadow: 0 2px 8px rgba(96,165,250,0.2); }
+        .category-header h3 { font-size: 1.5rem; color: #ffffff; flex-grow: 1; }
+        .category-header .toggle-icon { font-size: 1.2rem; color: #60a5fa; }
         .commission-btn {
             background: #60a5fa; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px;
             text-decoration: none; font-size: 0.9rem; transition: background 0.3s;
@@ -84,7 +88,7 @@
         }
         .project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.7); }
         .project-image { height: 200px; background: #111111; display: flex; align-items: center; justify-content: center; }
-        .project-image img { width: 100%; height: 100%; object-fit: cover; }
+        .project-image img { width: 100%; height: 100%; object-fit: cover; loading: lazy; }
         .project-content { padding: 1.5rem; }
         .project-content h4 { margin-bottom: 0.5rem; color: #ffffff; }
         .project-content p { color: #d0d0d0; margin-bottom: 1rem; }
@@ -157,9 +161,9 @@
 <body>
     <header>
         <div id="hero-slideshow">
-            <img src="images/hero1.png" alt="Hero Image 1" class="slide active">
-            <img src="images/hero2.png" alt="Hero Image 2" class="slide">
-            <img src="images/hero3.png" alt="Hero Image 3" class="slide">
+            <img src="images/hero1.png" alt="Hero Image 1" class="slide active" loading="lazy">
+            <img src="images/hero2.png" alt="Hero Image 2" class="slide" loading="lazy">
+            <img src="images/hero3.png" alt="Hero Image 3" class="slide" loading="lazy">
         </div>
         <h1>AtomicalMoon</h1>
         <p>Texturer / Modeler / Renderer</p>
@@ -181,9 +185,9 @@
         <div class="about-content">
             <div>
                 <div id="slideshow-container">
-                    <img src="images/character1.png" alt="3D Character Render 1" class="active">
-                    <img src="images/character2.png" alt="3D Character Render 2">
-                    <img src="images/character3.png" alt="3D Character Render 3">
+                    <img src="images/character1.png" alt="3D Character Render 1" class="active" loading="lazy">
+                    <img src="images/character2.png" alt="3D Character Render 2" loading="lazy">
+                    <img src="images/character3.png" alt="3D Character Render 3" loading="lazy">
                 </div>
                 <p class="canvas-info">3D Character Renders</p>
             </div>
@@ -207,55 +211,65 @@
     <section id="projects">
         <h2>Portfolio</h2>
         <!-- Models -->
-        <div class="category-header" onclick="toggleSub(this)">
+        <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
             <h3>Models</h3>
+            <span class="toggle-icon">+</span>
         </div>
-        <div class="subcategory">
-            <div class="category-header" onclick="toggleSub(this)"><h3>Big</h3></div>
+        <div class="subcategory" id="models-sub">
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>Big</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/model-big-1.png" alt="Big Model 1 - Dragon Statue"></div>
+                    <div class="project-image"><img src="images/model-big-1.png" alt="Big Model 1 - Dragon Statue" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Dragon Statue</h4>
                         <p>Large scale detailed dragon model for Minecraft server.</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-image"><img src="images/model-big-2.png" alt="Big Model 2 - Castle Tower"></div>
+                    <div class="project-image"><img src="images/model-big-2.png" alt="Big Model 2 - Castle Tower" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Castle Tower</h4>
                         <p>Multi-part large structure with custom details.</p>
                     </div>
                 </div>
             </div>
-            <div class="category-header" onclick="toggleSub(this)"><h3>Medium</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>Medium</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/model-med-1.png" alt="Medium Model 1 - Fantasy Sword"></div>
+                    <div class="project-image"><img src="images/model-med-1.png" alt="Medium Model 1 - Fantasy Sword" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Fantasy Sword</h4>
                         <p>Medium sized weapon with intricate texturing.</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-image"><img src="images/model-med-2.png" alt="Medium Model 2 - Armor Set Piece"></div>
+                    <div class="project-image"><img src="images/model-med-2.png" alt="Medium Model 2 - Armor Set Piece" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Armor Set Piece</h4>
                         <p>Chestplate model with metallic shine.</p>
                     </div>
                 </div>
             </div>
-            <div class="category-header" onclick="toggleSub(this)"><h3>Small</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>Small</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/model-small-1.png" alt="Small Model 1 - Potion Bottle"></div>
+                    <div class="project-image"><img src="images/model-small-1.png" alt="Small Model 1 - Potion Bottle" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Potion Bottle</h4>
                         <p>Small detailed consumable item.</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-image"><img src="images/model-small-2.png" alt="Small Model 2 - Coin Prop"></div>
+                    <div class="project-image"><img src="images/model-small-2.png" alt="Small Model 2 - Coin Prop" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Coin Prop</h4>
                         <p>Tiny currency model with engravings.</p>
@@ -264,31 +278,38 @@
             </div>
         </div>
         <!-- Blocks -->
-        <div class="category-header" onclick="toggleSub(this)">
+        <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
             <h3>Blocks</h3>
+            <span class="toggle-icon">+</span>
         </div>
         <div class="subcategory">
-            <div class="category-header" onclick="toggleSub(this)"><h3>Basic</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>Basic</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/block-basic-1.png" alt="Basic Block 1 - Stone Brick Variant"></div>
+                    <div class="project-image"><img src="images/block-basic-1.png" alt="Basic Block 1 - Stone Brick Variant" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Stone Brick Variant</h4>
                         <p>Simple textured block replacement.</p>
                     </div>
                 </div>
             </div>
-            <div class="category-header" onclick="toggleSub(this)"><h3>Custom Geometry</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>Custom Geometry</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/block-custom-1.png" alt="Custom Block 1 - Crystal Lamp"></div>
+                    <div class="project-image"><img src="images/block-custom-1.png" alt="Custom Block 1 - Crystal Lamp" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Crystal Lamp</h4>
                         <p>Non-cube block with glowing effect.</p>
                     </div>
                 </div>
                 <div class="project-card">
-                    <div class="project-image"><img src="images/block-custom-2.png" alt="Custom Block 2 - Curved Arch"></div>
+                    <div class="project-image"><img src="images/block-custom-2.png" alt="Custom Block 2 - Curved Arch" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Curved Arch</h4>
                         <p>Custom shaped decorative block.</p>
@@ -297,34 +318,44 @@
             </div>
         </div>
         <!-- Items -->
-        <div class="category-header" onclick="toggleSub(this)">
+        <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
             <h3>Items</h3>
+            <span class="toggle-icon">+</span>
         </div>
         <div class="subcategory">
-            <div class="category-header" onclick="toggleSub(this)"><h3>16x16</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>16x16</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/item-16-1.png" alt="16x16 Item 1 - Classic Sword"></div>
+                    <div class="project-image"><img src="images/item-16-1.png" alt="16x16 Item 1 - Classic Sword" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Classic Sword</h4>
                         <p>Low-res retro style weapon.</p>
                     </div>
                 </div>
             </div>
-            <div class="category-header" onclick="toggleSub(this)"><h3>32x32</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>32x32</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/item-32-1.png" alt="32x32 Item 1 - Enchanted Staff"></div>
+                    <div class="project-image"><img src="images/item-32-1.png" alt="32x32 Item 1 - Enchanted Staff" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Enchanted Staff</h4>
                         <p>Medium detail magical item.</p>
                     </div>
                 </div>
             </div>
-            <div class="category-header" onclick="toggleSub(this)"><h3>64x64</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>64x64</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/item-64-1.png" alt="64x64 Item 1 - Ornate Amulet"></div>
+                    <div class="project-image"><img src="images/item-64-1.png" alt="64x64 Item 1 - Ornate Amulet" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Ornate Amulet</h4>
                         <p>High-res detailed jewelry item.</p>
@@ -333,24 +364,31 @@
             </div>
         </div>
         <!-- Renders -->
-        <div class="category-header" onclick="toggleSub(this)">
+        <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
             <h3>Renders</h3>
+            <span class="toggle-icon">+</span>
         </div>
         <div class="subcategory">
-            <div class="category-header" onclick="toggleSub(this)"><h3>Player Renders</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>Player Renders</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/render-player-1.png" alt="Player Render 1 - Custom Skin Render"></div>
+                    <div class="project-image"><img src="images/render-player-1.png" alt="Player Render 1 - Custom Skin Render" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Custom Skin Render</h4>
                         <p>Full body player model render.</p>
                     </div>
                 </div>
             </div>
-            <div class="category-header" onclick="toggleSub(this)"><h3>Generic Renders</h3></div>
+            <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
+                <h3>Generic Renders</h3>
+                <span class="toggle-icon">+</span>
+            </div>
             <div class="subcategory projects-grid">
                 <div class="project-card">
-                    <div class="project-image"><img src="images/render-generic-1.png" alt="Generic Render 1 - Environment Scene"></div>
+                    <div class="project-image"><img src="images/render-generic-1.png" alt="Generic Render 1 - Environment Scene" loading="lazy"></div>
                     <div class="project-content">
                         <h4>Environment Scene</h4>
                         <p>Blockbench scene render with models.</p>
@@ -359,19 +397,20 @@
             </div>
         </div>
         <!-- Commissioned Work -->
-        <div class="category-header" onclick="toggleSub(this)">
+        <div class="category-header" role="button" tabindex="0" aria-expanded="false" onclick="toggleSub(this)" onkeydown="if(event.key==='Enter') toggleSub(this)">
             <h3>Commissioned Work</h3>
+            <span class="toggle-icon">+</span>
         </div>
         <div class="subcategory projects-grid">
             <div class="project-card">
-                <div class="project-image"><img src="images/comm-1.png" alt="Commission 1 - Custom Character"></div>
+                <div class="project-image"><img src="images/comm-1.png" alt="Commission 1 - Custom Character" loading="lazy"></div>
                 <div class="project-content">
                     <h4>Custom Character</h4>
                     <p>Commissioned full model + render.</p>
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-image"><img src="images/comm-2.png" alt="Commission 2 - Server Prop Set"></div>
+                <div class="project-image"><img src="images/comm-2.png" alt="Commission 2 - Server Prop Set" loading="lazy"></div>
                 <div class="project-content">
                     <h4>Server Prop Set</h4>
                     <p>Multiple commissioned items for server.</p>
@@ -391,9 +430,9 @@
     <footer>
         <p>&copy; <span id="year"></span> AtomicalMoon. All rights reserved.</p>
         <div class="social-links">
-            <a href="https://github.com/yourusername">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername">LinkedIn</a>
-            <a href="https://twitter.com/yourusername">Twitter</a>
+            <a href="https://github.com/AtomicalMoon">GitHub</a>
+            <a href="https://linkedin.com/in/AtomicalMoon">LinkedIn</a>
+            <a href="https://twitter.com/AtomicalMoon">Twitter</a>
         </div>
     </footer>
     <script>
@@ -448,7 +487,11 @@
 
         function toggleSub(element) {
             const subcategory = element.nextElementSibling;
-            if (subcategory) subcategory.classList.toggle('active');
+            if (subcategory) {
+                const isExpanded = subcategory.classList.toggle('active');
+                element.setAttribute('aria-expanded', isExpanded);
+                element.querySelector('.toggle-icon').textContent = isExpanded ? '-' : '+';
+            }
         }
 
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
