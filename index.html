@@ -113,12 +113,11 @@
             overflow: hidden;
             text-align: center;
             border-radius: 9999px; /* Pill shape */
-            background: rgba(15, 15, 15, 0.8); /* Dark semi-transparent bg */
+            background: #0f0f0f; /* Solid background to match body */
             padding: 0.5rem 2rem;
             margin: 0 auto 2rem auto;
             width: fit-content;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
-            backdrop-filter: blur(5px); /* Optional: Glassy effect if supported */
         }
 
         .particles-container {
@@ -166,30 +165,35 @@
             position: absolute;
             pointer-events: none;
             opacity: 0.6; /* Semi-transparent */
-            will-change: transform;
             animation: fall 15s linear infinite; /* Base duration; randomized in JS */
         }
 
         /* Falling leaves animation with sway and rotation */
         @keyframes fall {
             0% {
-                transform: translateY(-150%) translateX(0) rotate(0deg);
+                top: -20px;
+                transform: translateX(0) rotate(0deg);
                 opacity: 0.6;
             }
             20% {
-                transform: translateY(20%) translateX(3%) rotate(45deg);
+                top: 20%;
+                transform: translateX(5px) rotate(45deg);
             }
             40% {
-                transform: translateY(40%) translateX(-3%) rotate(90deg);
+                top: 40%;
+                transform: translateX(-5px) rotate(90deg);
             }
             60% {
-                transform: translateY(60%) translateX(3%) rotate(135deg);
+                top: 60%;
+                transform: translateX(5px) rotate(135deg);
             }
             80% {
-                transform: translateY(80%) translateX(-3%) rotate(180deg);
+                top: 80%;
+                transform: translateX(-5px) rotate(180deg);
             }
             100% {
-                transform: translateY(150%) translateX(0) rotate(360deg);
+                top: calc(100% + 20px);
+                transform: translateX(0) rotate(360deg);
                 opacity: 0.3; /* Fade out slightly at bottom */
             }
         }
