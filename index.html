@@ -107,6 +107,7 @@
             margin: 0 auto 1rem auto;
             width: fit-content;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: float 6s ease-in-out infinite; /* Slower and smoother floating */
         }
         .commission-frame::before {
             content: '';
@@ -133,12 +134,9 @@
         @media (max-width: 768px) {
             .commission-frame { padding: 0.4rem 1.5rem; font-size: 1rem; }
         }
-        .commission-btn {
-            animation: float 3s ease-in-out infinite; /* Floating animation */
-        }
         @keyframes float {
             0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-5px); } /* Reduced movement for smoothness */
             100% { transform: translateY(0); }
         }
     </style>
