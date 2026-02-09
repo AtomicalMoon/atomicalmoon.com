@@ -62,11 +62,11 @@
         }
         .category-button {
             background: #a0a0a0; color: #f0f0f0; padding: 1.5rem; border-radius: 5px; /* Larger padding */
-            text-decoration: none; font-size: 1.5rem; transition: background 0.3s;
+            text-decoration: none; font-size: 1.8rem; font-weight: bold; transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
             border: 1px solid #707070; display: flex; align-items: center; gap: 1rem; width: 90%; /* Larger width */
             max-width: 800px; justify-content: flex-start;
         }
-        .category-button:hover { background: #909090; }
+        .category-button:hover { background: #909090; transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
         .category-button img { width: 60px; height: auto; border-radius: 5px; } /* Larger icons */
         .category-button span { flex-grow: 1; text-align: center; } /* Center text */
         .contact-form { max-width: 600px; margin: 0 auto; }
@@ -132,6 +132,14 @@
         }
         @media (max-width: 768px) {
             .commission-frame { padding: 0.4rem 1.5rem; font-size: 1rem; }
+        }
+        .commission-btn {
+            animation: float 3s ease-in-out infinite; /* Floating animation */
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
     </style>
 </head>
