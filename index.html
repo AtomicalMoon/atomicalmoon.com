@@ -714,29 +714,19 @@
         }
 
         /* ===== PORTFOLIO ===== */
-        /* ===== PORTFOLIO BENTO GRID ===== */
         .portfolio-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto auto;
-            gap: 1rem;
-        }
-
-        .portfolio-grid .wide {
-            grid-column: span 2;
-        }
-
-        .portfolio-row-bottom {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            grid-column: span 2;
+            gap: 1.2rem;
         }
 
         .portfolio-card {
             position: relative;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2.5rem 2rem;
             border-radius: 16px;
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -744,7 +734,7 @@
             color: var(--text-primary);
             transition: all 0.35s ease;
             box-shadow: 0 1px 8px rgba(0,0,0,0.03);
-            overflow: hidden;
+            gap: 1rem;
         }
 
         .portfolio-card:hover {
@@ -753,94 +743,45 @@
             box-shadow: 0 12px 36px rgba(0,0,0,0.07);
         }
 
-        .portfolio-card-preview {
-            width: 100%;
-            height: 180px;
-            background: var(--bg-vanilla);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .portfolio-grid > .portfolio-card .portfolio-card-preview {
-            height: 220px;
-        }
-
-        .portfolio-card-preview img {
-            width: 72px;
-            height: 72px;
-            object-fit: contain;
-            transition: transform 0.4s ease;
-        }
-
-        .portfolio-card:hover .portfolio-card-preview img {
-            transform: scale(1.15);
-        }
-
-        .portfolio-card-body {
-            padding: 1.2rem 1.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.8rem;
-        }
-
-        .portfolio-card-body h3 {
-            font-weight: 800;
-            font-size: 1.05rem;
-            text-transform: uppercase;
-            letter-spacing: -0.01em;
-        }
-
-        .portfolio-card-body p {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            margin-top: 0.15rem;
-        }
-
-        .portfolio-card-arrow {
-            color: var(--text-muted);
-            transition: all 0.3s;
-            flex-shrink: 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .portfolio-card:hover .portfolio-card-arrow {
-            color: var(--text-primary);
-            transform: translateX(4px);
-        }
-
-        .portfolio-card-number {
-            position: absolute;
-            top: 0.8rem;
-            right: 1rem;
-            font-size: 0.65rem;
-            font-weight: 800;
-            color: var(--text-muted);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            opacity: 0.6;
-        }
-
         body.dark .portfolio-card:hover {
             box-shadow: 0 12px 36px rgba(200, 40, 40, 0.08);
         }
 
+        .portfolio-card-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .portfolio-card h3 {
+            font-weight: 900;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .portfolio-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .portfolio-card-arrow {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .portfolio-card:hover .portfolio-card-arrow {
+            color: var(--text-primary);
+        }
+
         @media (max-width: 768px) {
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-            .portfolio-grid .wide {
-                grid-column: span 1;
-            }
-            .portfolio-row-bottom {
-                grid-template-columns: 1fr;
-                grid-column: span 1;
-            }
+            .portfolio-grid { grid-template-columns: 1fr; }
         }
 
         /* ===== COMMISSION SECTION ===== */
@@ -1235,79 +1176,21 @@
         <div class="section-inner">
             <span class="section-label reveal">Portfolio</span>
             <h2 class="section-title reveal">Explore My Work</h2>
-            <p class="section-desc reveal">Browse through my projects — from detailed models and blocks to polished renders and commissioned pieces.</p>
+            <p class="section-desc reveal">Browse through my projects and commissioned pieces.</p>
 
             <div class="portfolio-grid">
-                <!-- Top row: 2 featured cards -->
-                <a href="models/models.html" class="portfolio-card reveal">
-                    <div class="portfolio-card-preview">
-                        <img src="images/model-icon.png" alt="Models">
-                        <span class="portfolio-card-number">01</span>
-                    </div>
-                    <div class="portfolio-card-body">
-                        <div>
-                            <h3>Models</h3>
-                            <p>Character & entity models</p>
-                        </div>
-                        <span class="portfolio-card-arrow">&rarr;</span>
-                    </div>
+                <a href="collage/index.html" class="portfolio-card reveal">
+                    <span class="portfolio-card-icon">&#9638;</span>
+                    <h3>Collage</h3>
+                    <p>A mix of all my art — models, blocks, items, renders — pieced together in one place.</p>
+                    <span class="portfolio-card-arrow">Browse &rarr;</span>
                 </a>
-                <a href="renders/renders.html" class="portfolio-card reveal">
-                    <div class="portfolio-card-preview">
-                        <img src="images/render-icon.png" alt="Renders">
-                        <span class="portfolio-card-number">02</span>
-                    </div>
-                    <div class="portfolio-card-body">
-                        <div>
-                            <h3>Renders</h3>
-                            <p>Polished scene renders</p>
-                        </div>
-                        <span class="portfolio-card-arrow">&rarr;</span>
-                    </div>
+                <a href="commissioned-work/index.html" class="portfolio-card reveal">
+                    <span class="portfolio-card-icon">&#10022;</span>
+                    <h3>Commissioned Work</h3>
+                    <p>Projects made for clients — custom models, textures, and renders built to order.</p>
+                    <span class="portfolio-card-arrow">Browse &rarr;</span>
                 </a>
-
-                <!-- Bottom row: 3 secondary cards -->
-                <div class="portfolio-row-bottom">
-                    <a href="blocks/blocks.html" class="portfolio-card reveal">
-                        <div class="portfolio-card-preview">
-                            <img src="images/block-icon.png" alt="Blocks">
-                            <span class="portfolio-card-number">03</span>
-                        </div>
-                        <div class="portfolio-card-body">
-                            <div>
-                                <h3>Blocks</h3>
-                                <p>Custom block designs</p>
-                            </div>
-                            <span class="portfolio-card-arrow">&rarr;</span>
-                        </div>
-                    </a>
-                    <a href="items/items.html" class="portfolio-card reveal">
-                        <div class="portfolio-card-preview">
-                            <img src="images/item-icon.png" alt="Items">
-                            <span class="portfolio-card-number">04</span>
-                        </div>
-                        <div class="portfolio-card-body">
-                            <div>
-                                <h3>Items</h3>
-                                <p>Weapons, tools & more</p>
-                            </div>
-                            <span class="portfolio-card-arrow">&rarr;</span>
-                        </div>
-                    </a>
-                    <a href="commissioned-work/commissioned-work.html" class="portfolio-card reveal">
-                        <div class="portfolio-card-preview">
-                            <img src="images/commission-icon.png" alt="Commissioned Work">
-                            <span class="portfolio-card-number">05</span>
-                        </div>
-                        <div class="portfolio-card-body">
-                            <div>
-                                <h3>Commissions</h3>
-                                <p>Client projects & collabs</p>
-                            </div>
-                            <span class="portfolio-card-arrow">&rarr;</span>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
