@@ -6,23 +6,26 @@
     <meta name="description" content="AtomicalMoon's portfolio: Expert in Blockbench texturing, modeling, rendering, and animations. View projects and commission info.">
     <title>AtomicalMoon - Portfolio</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #faf9f6;
-            --bg-warm: #f5f2ec;
-            --bg-card: #ffffff;
-            --bg-vanilla: #f8f4eb;
-            --border: rgba(180, 170, 150, 0.18);
-            --border-hover: rgba(180, 170, 150, 0.35);
-            --text-primary: #2a2520;
-            --text-secondary: #6b6156;
-            --text-muted: #a69d90;
-            --vanilla: #e8dcc8;
-            --vanilla-dark: #c8b898;
-            --cream: #f0e8d8;
-            --warm-white: #fffdf8;
-            --halo-gold: #d4c5a0;
-            --halo-glow: rgba(212, 197, 160, 0.3);
+            --bg: #eeedeb;
+            --bg-warm: #e8e7e4;
+            --bg-card: #f5f4f2;
+            --bg-vanilla: #e3e2de;
+            --border: rgba(140, 138, 130, 0.22);
+            --border-hover: rgba(140, 138, 130, 0.4);
+            --text-primary: #222120;
+            --text-secondary: #555450;
+            --text-muted: #8a8880;
+            --vanilla: #cecdca;
+            --vanilla-dark: #a5a49c;
+            --cream: #d8d7d3;
+            --warm-white: #f3f2f0;
+            --halo-gold: #bbb8a8;
+            --halo-glow: rgba(187, 184, 168, 0.3);
         }
 
         /* Dark mode overrides */
@@ -47,8 +50,8 @@
         body.dark .hero { background: linear-gradient(180deg, var(--warm-white) 0%, var(--bg) 100%); }
         body.dark .hero::before { background: radial-gradient(ellipse at top center, rgba(200, 40, 40, 0.08) 0%, transparent 65%); }
         body.dark .hero-halo { border-color: #cc3333; box-shadow: 0 0 20px rgba(204, 51, 51, 0.3), 0 0 50px rgba(204, 51, 51, 0.1); }
-        body.dark .btn-primary { background: #cc2020; color: #111113; }
-        body.dark .btn-primary:hover { box-shadow: 0 6px 24px rgba(204, 32, 32, 0.3); }
+        body.dark .btn-primary { background: #cc2020; color: #111113; box-shadow: 0 2px 12px rgba(204, 32, 32, 0.2); }
+        body.dark .btn-primary:hover { background: #b81c1c; box-shadow: 0 6px 24px rgba(204, 32, 32, 0.3); }
         body.dark .btn-soft { background: #2a1a1a; color: #e84040; border-color: rgba(255, 60, 60, 0.15); }
         body.dark .btn-soft:hover { background: #2e1c1c; }
         body.dark nav { background: rgba(17, 17, 19, 0.6); border-bottom-color: rgba(255, 60, 60, 0.08); }
@@ -56,7 +59,6 @@
         body.dark .nav-links a:hover { color: #e84040; background: rgba(255, 60, 60, 0.06); }
         body.dark .commission-section { background: var(--bg-vanilla); }
         body.dark footer { background: var(--warm-white); border-top-color: rgba(255, 60, 60, 0.08); }
-        body.dark .portfolio-card:hover { box-shadow: 0 8px 30px rgba(200, 40, 40, 0.08); }
         body.dark .form-group input:focus, body.dark .form-group textarea:focus { border-color: #cc3333; box-shadow: 0 0 0 3px rgba(204, 51, 51, 0.1); }
         body.dark .divider { background: linear-gradient(to right, transparent, rgba(200, 40, 40, 0.15), transparent); }
         body.dark .divider::after { color: #6e3030; background: var(--bg); }
@@ -67,6 +69,82 @@
         body.dark .status-paused { color: #c4b5fd !important; }
         body.dark .status-slots { color: #34d399 !important; }
         body.dark .skill-tag { background: rgba(200, 40, 40, 0.08); border-color: rgba(200, 40, 40, 0.15); color: #b83030; }
+
+        body.dark .hero-commission::before {
+            background: linear-gradient(
+                90deg,
+                #3a1212,
+                #f2d0d0,
+                #dd3030,
+                #1e0a0a,
+                #f5e0e0,
+                #bb2020,
+                #3a1212,
+                #f2d0d0
+            );
+            background-size: 300% 100%;
+            animation: opalSlide 6s ease infinite;
+        }
+        body.dark .hero-commission .opal-shimmer {
+            background: linear-gradient(
+                270deg,
+                transparent 0%,
+                rgba(255, 190, 190, 0.6) 15%,
+                rgba(220, 40, 40, 0.5) 25%,
+                transparent 40%,
+                transparent 60%,
+                rgba(255, 210, 210, 0.6) 75%,
+                rgba(200, 30, 30, 0.45) 85%,
+                transparent 100%
+            );
+            background-size: 300% 100%;
+            animation: opalShimmerSlide 5s ease infinite;
+        }
+        body.dark .hero-commission::after { background: var(--bg-card); }
+        body.dark .hero-commission {
+            box-shadow:
+                0 0 8px rgba(220, 40, 40, 0.3),
+                0 0 18px rgba(255, 190, 190, 0.15),
+                0 0 32px rgba(220, 40, 40, 0.1);
+        }
+
+        body.dark .commission-inner::before {
+            background: linear-gradient(
+                90deg,
+                #3a1212,
+                #f2d0d0,
+                #dd3030,
+                #1e0a0a,
+                #f5e0e0,
+                #bb2020,
+                #3a1212,
+                #f2d0d0
+            );
+            background-size: 300% 100%;
+            animation: opalSlide 6s ease infinite;
+        }
+        body.dark .commission-inner .opal-shimmer {
+            background: linear-gradient(
+                270deg,
+                transparent 0%,
+                rgba(255, 190, 190, 0.6) 15%,
+                rgba(220, 40, 40, 0.5) 25%,
+                transparent 40%,
+                transparent 60%,
+                rgba(255, 210, 210, 0.6) 75%,
+                rgba(200, 30, 30, 0.45) 85%,
+                transparent 100%
+            );
+            background-size: 300% 100%;
+            animation: opalShimmerSlide 5s ease infinite;
+        }
+        body.dark .commission-inner::after { background: var(--bg-card); }
+        body.dark .commission-inner {
+            box-shadow:
+                0 0 10px rgba(220, 40, 40, 0.32),
+                0 0 24px rgba(255, 190, 190, 0.16),
+                0 0 40px rgba(220, 40, 40, 0.1);
+        }
 
         body.dark .nav-hamburger span { background: #b83030; }
         body.dark .about-showcase-label { background: rgba(17, 17, 19, 0.85); }
@@ -109,11 +187,12 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: var(--bg);
             color: var(--text-primary);
             line-height: 1.7;
             overflow-x: hidden;
+            font-weight: 500;
         }
 
         /* Status colors */
@@ -155,11 +234,10 @@
         }
 
         .nav-logo {
-            
-            font-weight: 600;
+            font-weight: 900;
             font-size: 1.5rem;
             color: var(--text-primary);
-            letter-spacing: 0.02em;
+            letter-spacing: -0.03em; text-transform: uppercase;
         }
 
         .nav-links {
@@ -173,8 +251,10 @@
             text-decoration: none;
             padding: 0.45rem 1rem;
             border-radius: 100px;
-            font-size: 0.88rem;
-            font-weight: 500;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
             transition: all 0.3s;
         }
 
@@ -239,7 +319,7 @@
             transform: translateX(-50%);
             width: 600px;
             height: 70%;
-            background: radial-gradient(ellipse at top center, rgba(232, 220, 200, 0.35) 0%, transparent 65%);
+            background: radial-gradient(ellipse at top center, rgba(190, 188, 180, 0.3) 0%, transparent 65%);
             z-index: -1;
             pointer-events: none;
         }
@@ -265,13 +345,13 @@
         }
 
         .hero h1 {
-            
             font-size: clamp(3.2rem, 8vw, 7.5rem);
-            font-weight: 300;
+            font-weight: 900;
             line-height: 1;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.04em;
             color: var(--text-primary);
             margin-bottom: 1rem;
+            text-transform: uppercase;
             animation: fadeInUp 1s ease 0.1s both;
         }
 
@@ -279,7 +359,7 @@
             font-size: clamp(0.92rem, 2vw, 1.1rem);
             color: var(--text-secondary);
             max-width: 420px;
-            font-weight: 400;
+            font-weight: 700;
             letter-spacing: 0.03em;
             margin-bottom: 2.2rem;
             animation: fadeInUp 1s ease 0.25s both;
@@ -298,34 +378,35 @@
             padding: 0.75rem 1.8rem;
             border-radius: 100px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 800;
             font-size: 0.88rem;
             letter-spacing: 0.03em;
             transition: all 0.35s ease;
             cursor: pointer;
             border: none;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
         }
 
         .btn-primary {
-            background: var(--text-primary);
-            color: var(--warm-white);
-            box-shadow: 0 2px 12px rgba(42, 37, 32, 0.12);
+            background: #3e3d38;
+            color: #eeedeb;
+            box-shadow: 0 2px 12px rgba(62, 61, 56, 0.18);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(42, 37, 32, 0.18);
+            background: #32312c;
+            box-shadow: 0 6px 24px rgba(62, 61, 56, 0.26);
         }
 
         .btn-soft {
-            background: var(--vanilla);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
+            background: #b8b7b2;
+            color: #2a2925;
+            border: 1px solid rgba(140, 138, 130, 0.3);
         }
 
         .btn-soft:hover {
-            background: var(--cream);
+            background: #a8a7a2;
             transform: translateY(-1px);
         }
 
@@ -338,10 +419,105 @@
             border-radius: 100px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
             animation: fadeInUp 1s ease 0.55s both;
             flex-wrap: wrap;
             justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-commission::before {
+            content: '';
+            position: absolute;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            border-radius: 106px;
+            background: linear-gradient(
+                90deg,
+                #d4b8e8,
+                #b8d4f0,
+                #e8b8d8,
+                #b8e8d4,
+                #e0c8f0,
+                #b8d8e8,
+                #f0c0d8,
+                #c0e8d0,
+                #d4b8e8
+            );
+            background-size: 300% 100%;
+            z-index: -2;
+            animation: opalSlide 6s ease infinite;
+        }
+
+        .hero-commission .opal-shimmer {
+            position: absolute;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            border-radius: 106px;
+            z-index: -2;
+            background: linear-gradient(
+                270deg,
+                transparent 0%,
+                rgba(190, 150, 230, 0.6) 15%,
+                rgba(140, 200, 240, 0.55) 25%,
+                transparent 40%,
+                transparent 60%,
+                rgba(240, 160, 200, 0.6) 75%,
+                rgba(150, 230, 190, 0.5) 85%,
+                transparent 100%
+            );
+            background-size: 300% 100%;
+            animation: opalShimmerSlide 5s ease infinite;
+            pointer-events: none;
+        }
+
+        @keyframes opalSlide {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes opalShimmerSlide {
+            0% { background-position: 100% 50%; }
+            50% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .hero-commission::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border-radius: 102px;
+            background: var(--bg-card);
+            z-index: -1;
+        }
+
+
+        .hero-commission {
+            box-shadow:
+                0 0 10px rgba(212, 184, 232, 0.35),
+                0 0 22px rgba(184, 212, 240, 0.25),
+                0 0 36px rgba(232, 184, 216, 0.15);
+            animation: fadeInUp 1s ease 0.55s both, opalOuterGlow 5s ease infinite;
+        }
+
+        @keyframes opalOuterGlow {
+            0%, 100% {
+                box-shadow:
+                    0 0 10px rgba(212, 184, 232, 0.38),
+                    0 0 24px rgba(184, 212, 240, 0.25),
+                    0 0 40px rgba(240, 192, 216, 0.14);
+            }
+            33% {
+                box-shadow:
+                    0 0 10px rgba(184, 232, 212, 0.38),
+                    0 0 24px rgba(224, 200, 240, 0.25),
+                    0 0 40px rgba(184, 216, 232, 0.14);
+            }
+            66% {
+                box-shadow:
+                    0 0 10px rgba(240, 192, 216, 0.38),
+                    0 0 24px rgba(192, 232, 208, 0.25),
+                    0 0 40px rgba(212, 184, 232, 0.14);
+            }
         }
 
         .hero-commission .comm-label {
@@ -420,7 +596,7 @@
         .section-label {
             display: inline-block;
             font-size: 0.72rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--vanilla-dark);
@@ -428,9 +604,9 @@
         }
 
         .section-title {
-            
+            text-transform: uppercase; letter-spacing: -0.03em;
             font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 400;
+            font-weight: 900;
             margin-bottom: 0.6rem;
             color: var(--text-primary);
         }
@@ -439,7 +615,7 @@
             color: var(--text-secondary);
             max-width: 480px;
             font-size: 0.98rem;
-            font-weight: 400;
+            font-weight: 600;
             margin-bottom: 2.8rem;
         }
 
@@ -507,9 +683,9 @@
         }
 
         .about-text h3 {
-            
             font-size: 1.9rem;
-            font-weight: 400;
+            text-transform: uppercase; letter-spacing: -0.02em;
+            font-weight: 900;
             margin-bottom: 0.8rem;
         }
 
@@ -532,24 +708,35 @@
             background: var(--bg-vanilla);
             border: 1px solid var(--border);
             font-size: 0.76rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-secondary);
             letter-spacing: 0.02em;
         }
 
         /* ===== PORTFOLIO ===== */
+        /* ===== PORTFOLIO BENTO GRID ===== */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
             gap: 1rem;
+        }
+
+        .portfolio-grid .wide {
+            grid-column: span 2;
+        }
+
+        .portfolio-row-bottom {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            grid-column: span 2;
         }
 
         .portfolio-card {
             position: relative;
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.3rem 1.4rem;
+            flex-direction: column;
             border-radius: 16px;
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -557,44 +744,103 @@
             color: var(--text-primary);
             transition: all 0.35s ease;
             box-shadow: 0 1px 8px rgba(0,0,0,0.03);
+            overflow: hidden;
         }
 
         .portfolio-card:hover {
             border-color: var(--border-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.07);
         }
 
-        .portfolio-card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            object-fit: cover;
-            flex-shrink: 0;
+        .portfolio-card-preview {
+            width: 100%;
+            height: 180px;
+            background: var(--bg-vanilla);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        .portfolio-card-content { flex: 1; }
-
-        .portfolio-card-content h3 {
-            
-            font-weight: 600;
-            font-size: 1.15rem;
+        .portfolio-grid > .portfolio-card .portfolio-card-preview {
+            height: 220px;
         }
 
-        .portfolio-card-content p {
-            font-size: 0.8rem;
+        .portfolio-card-preview img {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-card:hover .portfolio-card-preview img {
+            transform: scale(1.15);
+        }
+
+        .portfolio-card-body {
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .portfolio-card-body h3 {
+            font-weight: 800;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        .portfolio-card-body p {
+            font-size: 0.78rem;
             color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 0.15rem;
         }
 
         .portfolio-card-arrow {
             color: var(--text-muted);
             transition: all 0.3s;
             flex-shrink: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
         .portfolio-card:hover .portfolio-card-arrow {
             color: var(--text-primary);
-            transform: translateX(3px);
+            transform: translateX(4px);
+        }
+
+        .portfolio-card-number {
+            position: absolute;
+            top: 0.8rem;
+            right: 1rem;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        body.dark .portfolio-card:hover {
+            box-shadow: 0 12px 36px rgba(200, 40, 40, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            .portfolio-grid .wide {
+                grid-column: span 1;
+            }
+            .portfolio-row-bottom {
+                grid-template-columns: 1fr;
+                grid-column: span 1;
+            }
         }
 
         /* ===== COMMISSION SECTION ===== */
@@ -609,6 +855,93 @@
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .commission-inner::before {
+            content: '';
+            position: absolute;
+            top: -7px; left: -7px; right: -7px; bottom: -7px;
+            border-radius: 26px;
+            background: linear-gradient(
+                90deg,
+                #d4b8e8,
+                #b8d4f0,
+                #e8b8d8,
+                #b8e8d4,
+                #e0c8f0,
+                #b8d8e8,
+                #f0c0d8,
+                #c0e8d0,
+                #d4b8e8
+            );
+            background-size: 300% 100%;
+            z-index: -2;
+            animation: opalSlide 6s ease infinite;
+        }
+
+        .commission-inner .opal-shimmer {
+            position: absolute;
+            top: -7px; left: -7px; right: -7px; bottom: -7px;
+            border-radius: 26px;
+            z-index: -2;
+            background: linear-gradient(
+                270deg,
+                transparent 0%,
+                rgba(190, 150, 230, 0.6) 15%,
+                rgba(140, 200, 240, 0.55) 25%,
+                transparent 40%,
+                transparent 60%,
+                rgba(240, 160, 200, 0.6) 75%,
+                rgba(150, 230, 190, 0.5) 85%,
+                transparent 100%
+            );
+            background-size: 300% 100%;
+            animation: opalShimmerSlide 5s ease infinite;
+            pointer-events: none;
+        }
+
+        .commission-inner::after {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            border-radius: 22px;
+            background: var(--bg-card);
+            z-index: -1;
+        }
+
+        .commission-inner {
+            box-shadow:
+                0 0 12px rgba(212, 184, 232, 0.38),
+                0 0 28px rgba(184, 212, 240, 0.26),
+                0 0 44px rgba(232, 184, 216, 0.14);
+            animation: opalOuterGlowLg 5s ease infinite;
+        }
+
+        @keyframes opalOuterGlowLg {
+            0%, 100% {
+                box-shadow:
+                    0 0 12px rgba(212, 184, 232, 0.4),
+                    0 0 30px rgba(184, 212, 240, 0.28),
+                    0 0 48px rgba(240, 192, 216, 0.15);
+            }
+            33% {
+                box-shadow:
+                    0 0 12px rgba(184, 232, 212, 0.4),
+                    0 0 30px rgba(224, 200, 240, 0.28),
+                    0 0 48px rgba(184, 216, 232, 0.15);
+            }
+            66% {
+                box-shadow:
+                    0 0 12px rgba(240, 192, 216, 0.4),
+                    0 0 30px rgba(192, 232, 208, 0.28),
+                    0 0 48px rgba(212, 184, 232, 0.15);
+            }
         }
 
         .commission-halo {
@@ -623,9 +956,9 @@
         }
 
         .commission-inner h2 {
-            
             font-size: 2rem;
-            font-weight: 400;
+            text-transform: uppercase; letter-spacing: -0.02em;
+            font-weight: 900;
             margin-bottom: 0.4rem;
         }
 
@@ -636,7 +969,7 @@
         }
 
         .commission-inner #status-text-lg {
-            font-weight: 700;
+            font-weight: 900;
             font-size: 1.5rem;
             letter-spacing: 0.06em;
             display: block;
@@ -652,9 +985,9 @@
         }
 
         .contact-info h3 {
-            
             font-size: 1.7rem;
-            font-weight: 400;
+            text-transform: uppercase; letter-spacing: -0.02em;
+            font-weight: 900;
             margin-bottom: 0.8rem;
         }
 
@@ -717,7 +1050,7 @@
             border: 1px solid var(--border);
             background: var(--bg-card);
             color: var(--text-primary);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             font-size: 0.92rem;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
@@ -747,8 +1080,8 @@
         }
 
         footer .footer-logo {
-            
-            font-weight: 600;
+            font-weight: 900;
+            text-transform: uppercase; letter-spacing: -0.02em;
             font-size: 1rem;
             color: var(--text-secondary);
             margin-bottom: 0.3rem;
@@ -815,7 +1148,6 @@
             .nav-hamburger { display: flex; }
             .about-grid { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
-            .portfolio-grid { grid-template-columns: 1fr; }
             .section { padding: 3.5rem 1.5rem; }
             .hero-commission { flex-direction: column; gap: 0.4rem; }
         }
@@ -860,6 +1192,7 @@
         </div>
         <!-- Commission status right below buttons -->
         <div class="hero-commission">
+            <div class="opal-shimmer"></div>
             <span class="comm-label">Commissions:</span>
             <span id="status-text">Loading...</span>
             <a href="commissions.html" class="comm-link">View Info &rarr;</a>
@@ -905,46 +1238,76 @@
             <p class="section-desc reveal">Browse through my projects — from detailed models and blocks to polished renders and commissioned pieces.</p>
 
             <div class="portfolio-grid">
+                <!-- Top row: 2 featured cards -->
                 <a href="models/models.html" class="portfolio-card reveal">
-                    <img src="images/model-icon.png" alt="Models" class="portfolio-card-icon">
-                    <div class="portfolio-card-content">
-                        <h3>Models</h3>
-                        <p>Character & entity models</p>
+                    <div class="portfolio-card-preview">
+                        <img src="images/model-icon.png" alt="Models">
+                        <span class="portfolio-card-number">01</span>
                     </div>
-                    <span class="portfolio-card-arrow">&rarr;</span>
-                </a>
-                <a href="blocks/blocks.html" class="portfolio-card reveal">
-                    <img src="images/block-icon.png" alt="Blocks" class="portfolio-card-icon">
-                    <div class="portfolio-card-content">
-                        <h3>Blocks</h3>
-                        <p>Custom block designs</p>
+                    <div class="portfolio-card-body">
+                        <div>
+                            <h3>Models</h3>
+                            <p>Character & entity models</p>
+                        </div>
+                        <span class="portfolio-card-arrow">&rarr;</span>
                     </div>
-                    <span class="portfolio-card-arrow">&rarr;</span>
-                </a>
-                <a href="items/items.html" class="portfolio-card reveal">
-                    <img src="images/item-icon.png" alt="Items" class="portfolio-card-icon">
-                    <div class="portfolio-card-content">
-                        <h3>Items</h3>
-                        <p>Weapons, tools & more</p>
-                    </div>
-                    <span class="portfolio-card-arrow">&rarr;</span>
                 </a>
                 <a href="renders/renders.html" class="portfolio-card reveal">
-                    <img src="images/render-icon.png" alt="Renders" class="portfolio-card-icon">
-                    <div class="portfolio-card-content">
-                        <h3>Renders</h3>
-                        <p>Polished scene renders</p>
+                    <div class="portfolio-card-preview">
+                        <img src="images/render-icon.png" alt="Renders">
+                        <span class="portfolio-card-number">02</span>
                     </div>
-                    <span class="portfolio-card-arrow">&rarr;</span>
-                </a>
-                <a href="commissioned-work/commissioned-work.html" class="portfolio-card reveal">
-                    <img src="images/commission-icon.png" alt="Commissioned Work" class="portfolio-card-icon">
-                    <div class="portfolio-card-content">
-                        <h3>Commissioned Work</h3>
-                        <p>Client projects & collabs</p>
+                    <div class="portfolio-card-body">
+                        <div>
+                            <h3>Renders</h3>
+                            <p>Polished scene renders</p>
+                        </div>
+                        <span class="portfolio-card-arrow">&rarr;</span>
                     </div>
-                    <span class="portfolio-card-arrow">&rarr;</span>
                 </a>
+
+                <!-- Bottom row: 3 secondary cards -->
+                <div class="portfolio-row-bottom">
+                    <a href="blocks/blocks.html" class="portfolio-card reveal">
+                        <div class="portfolio-card-preview">
+                            <img src="images/block-icon.png" alt="Blocks">
+                            <span class="portfolio-card-number">03</span>
+                        </div>
+                        <div class="portfolio-card-body">
+                            <div>
+                                <h3>Blocks</h3>
+                                <p>Custom block designs</p>
+                            </div>
+                            <span class="portfolio-card-arrow">&rarr;</span>
+                        </div>
+                    </a>
+                    <a href="items/items.html" class="portfolio-card reveal">
+                        <div class="portfolio-card-preview">
+                            <img src="images/item-icon.png" alt="Items">
+                            <span class="portfolio-card-number">04</span>
+                        </div>
+                        <div class="portfolio-card-body">
+                            <div>
+                                <h3>Items</h3>
+                                <p>Weapons, tools & more</p>
+                            </div>
+                            <span class="portfolio-card-arrow">&rarr;</span>
+                        </div>
+                    </a>
+                    <a href="commissioned-work/commissioned-work.html" class="portfolio-card reveal">
+                        <div class="portfolio-card-preview">
+                            <img src="images/commission-icon.png" alt="Commissioned Work">
+                            <span class="portfolio-card-number">05</span>
+                        </div>
+                        <div class="portfolio-card-body">
+                            <div>
+                                <h3>Commissions</h3>
+                                <p>Client projects & collabs</p>
+                            </div>
+                            <span class="portfolio-card-arrow">&rarr;</span>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -954,6 +1317,7 @@
     <!-- DEDICATED COMMISSION SECTION -->
     <section class="commission-section" id="commissions">
         <div class="commission-inner reveal">
+            <div class="opal-shimmer"></div>
             <div class="commission-halo"></div>
             <h2>Commission Status</h2>
             <p class="comm-sub">Currently accepting work?</p>
@@ -1174,7 +1538,7 @@
                 if (m.x > canvas.width + 10) m.x = -10;
                 // Warm vanilla glow (red in dark mode)
                 var isD = document.body.classList.contains('dark');
-                var mColor = isD ? '200, 50, 50' : '200, 184, 152';
+                var mColor = isD ? '200, 50, 50' : '160, 158, 148';
                 ctx.beginPath();
                 ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(' + mColor + ', ' + Math.max(0, a) + ')';
