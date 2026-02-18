@@ -5,312 +5,1194 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AtomicalMoon's portfolio: Expert in Blockbench texturing, modeling, rendering, and animations. View projects and commission info.">
     <title>AtomicalMoon - Portfolio</title>
+
     <style>
+        :root {
+            --bg: #faf9f6;
+            --bg-warm: #f5f2ec;
+            --bg-card: #ffffff;
+            --bg-vanilla: #f8f4eb;
+            --border: rgba(180, 170, 150, 0.18);
+            --border-hover: rgba(180, 170, 150, 0.35);
+            --text-primary: #2a2520;
+            --text-secondary: #6b6156;
+            --text-muted: #a69d90;
+            --vanilla: #e8dcc8;
+            --vanilla-dark: #c8b898;
+            --cream: #f0e8d8;
+            --warm-white: #fffdf8;
+            --halo-gold: #d4c5a0;
+            --halo-glow: rgba(212, 197, 160, 0.3);
+        }
+
+        /* Dark mode overrides */
+        body.dark {
+            --bg: #111113;
+            --bg-warm: #161618;
+            --bg-card: #1c1c1f;
+            --bg-vanilla: #1a1a1d;
+            --border: rgba(255, 60, 60, 0.1);
+            --border-hover: rgba(255, 60, 60, 0.25);
+            --text-primary: #e84040;
+            --text-secondary: #b83030;
+            --text-muted: #6e3030;
+            --vanilla: #2a1a1a;
+            --vanilla-dark: #8b3030;
+            --cream: #2e1c1c;
+            --warm-white: #0e0e10;
+            --halo-gold: #cc3333;
+            --halo-glow: rgba(204, 51, 51, 0.25);
+        }
+
+        body.dark .hero { background: linear-gradient(180deg, var(--warm-white) 0%, var(--bg) 100%); }
+        body.dark .hero::before { background: radial-gradient(ellipse at top center, rgba(200, 40, 40, 0.08) 0%, transparent 65%); }
+        body.dark .hero-halo { border-color: #cc3333; box-shadow: 0 0 20px rgba(204, 51, 51, 0.3), 0 0 50px rgba(204, 51, 51, 0.1); }
+        body.dark .btn-primary { background: #cc2020; color: #111113; }
+        body.dark .btn-primary:hover { box-shadow: 0 6px 24px rgba(204, 32, 32, 0.3); }
+        body.dark .btn-soft { background: #2a1a1a; color: #e84040; border-color: rgba(255, 60, 60, 0.15); }
+        body.dark .btn-soft:hover { background: #2e1c1c; }
+        body.dark nav { background: rgba(17, 17, 19, 0.6); border-bottom-color: rgba(255, 60, 60, 0.08); }
+        body.dark nav.scrolled { background: rgba(17, 17, 19, 0.92); }
+        body.dark .nav-links a:hover { color: #e84040; background: rgba(255, 60, 60, 0.06); }
+        body.dark .commission-section { background: var(--bg-vanilla); }
+        body.dark footer { background: var(--warm-white); border-top-color: rgba(255, 60, 60, 0.08); }
+        body.dark .portfolio-card:hover { box-shadow: 0 8px 30px rgba(200, 40, 40, 0.08); }
+        body.dark .form-group input:focus, body.dark .form-group textarea:focus { border-color: #cc3333; box-shadow: 0 0 0 3px rgba(204, 51, 51, 0.1); }
+        body.dark .divider { background: linear-gradient(to right, transparent, rgba(200, 40, 40, 0.15), transparent); }
+        body.dark .divider::after { color: #6e3030; background: var(--bg); }
+        body.dark .status-open { color: #4ade80 !important; }
+        body.dark .status-closed { color: #f87171 !important; }
+        body.dark .status-full { color: #fbbf24 !important; }
+        body.dark .status-waitlist { color: #60a5fa !important; }
+        body.dark .status-paused { color: #c4b5fd !important; }
+        body.dark .status-slots { color: #34d399 !important; }
+        body.dark .skill-tag { background: rgba(200, 40, 40, 0.08); border-color: rgba(200, 40, 40, 0.15); color: #b83030; }
+
+        body.dark .nav-hamburger span { background: #b83030; }
+        body.dark .about-showcase-label { background: rgba(17, 17, 19, 0.85); }
+        body.dark .hero-commission .comm-link { background: #2a1a1a; border-color: rgba(255, 60, 60, 0.12); color: #b83030; }
+        body.dark .hero-commission .comm-link:hover { background: #2e1c1c; color: #e84040; }
+
+        /* Dark mode toggle */
+        .dark-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1001;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+            transition: all 0.35s ease;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .dark-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+        }
+
+        body.dark .dark-toggle {
+            box-shadow: 0 2px 16px rgba(200, 40, 40, 0.15);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6; color: #f0f0f0; background: #404040; /* Darker theme */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        .status-open { color: #4ade80 !important; }
-        .status-closed { color: #f87171 !important; }
-        .status-full { color: #fbbf24 !important; }
-        .status-waitlist { color: #60a5fa !important; }
-        .status-paused { color: #a78bfa !important; }
-        .status-slots { color: #34d399 !important; }
-        header {
-            background: linear-gradient(135deg, #505050 0%, #404040 100%); /* Darker grey gradient */
-            color: #f0f0f0; padding: 4rem 2rem; text-align: center; position: relative;
+
+        /* Status colors */
+        .status-open { color: #16a34a !important; }
+        .status-closed { color: #dc2626 !important; }
+        .status-full { color: #d97706 !important; }
+        .status-waitlist { color: #2563eb !important; }
+        .status-paused { color: #7c3aed !important; }
+        .status-slots { color: #059669 !important; }
+
+        /* Floating light motes */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
-        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        header p { font-size: 1.2rem; opacity: 0.9; }
-        #hero-slideshow {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; z-index: -1;
-        }
-        .slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-            opacity: 0; transition: opacity 2s ease-in-out;
-        }
-        .slide.active { opacity: 1; }
+
+        /* ===== NAV ===== */
         nav {
-            background: #303030; box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Darker nav */
-            position: sticky; top: 0; z-index: 100;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(250, 249, 246, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.4s;
         }
-        nav ul {
-            list-style: none; display: flex; justify-content: center; padding: 1rem; flex-wrap: wrap;
+
+        nav.scrolled {
+            background: rgba(250, 249, 246, 0.92);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.04);
         }
-        nav a {
-            color: #60a5fa; text-decoration: none; padding: 0.5rem 1.5rem;
-            transition: color 0.3s; font-weight: 500;
+
+        .nav-logo {
+            
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
         }
-        nav a:hover { color: #a78bfa; }
-        section { max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; }
-        h2 { font-size: 2rem; margin-bottom: 2rem; color: #f0f0f0; text-align: center; }
-        .about-content { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center; }
-        #slideshow-container {
-            width: 100%; height: 400px; border-radius: 10px; overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4); position: relative; background: #606060; /* Darker grey */
+
+        .nav-links {
+            display: flex;
+            gap: 0.2rem;
+            list-style: none;
         }
-        #slideshow-container img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;
-            opacity: 0; transition: opacity 2s ease-in-out;
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.45rem 1rem;
+            border-radius: 100px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.3s;
         }
-        #slideshow-container img.active { opacity: 1; }
-        .canvas-info { text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #d0d0d0; }
-        #projects h2 { margin-bottom: 1rem; }
-        .category-buttons {
-            display: flex; flex-direction: column; align-items: center; gap: 1rem;
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background: var(--vanilla);
         }
-        .category-button {
-            background: #606060; color: #f0f0f0; padding: 1.5rem; border-radius: 5px;
-            text-decoration: none; font-size: 1.8rem; font-weight: bold; transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #505050; display: flex; align-items: center; gap: 1rem; width: 90%;
-            max-width: 800px; justify-content: flex-start;
+
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
         }
-        .category-button:hover { background: #505050; transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-        .category-button img { width: 60px; height: auto; border-radius: 5px; }
-        .category-button span { flex-grow: 1; text-align: center; }
-        .contact-form { max-width: 600px; margin: 0 auto; }
-        .form-group { margin-bottom: 1.5rem; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: 500; color: #f0f0f0; }
-        input, textarea {
-            width: 100%; padding: 0.75rem; border: 2px solid #505050; border-radius: 5px;
-            background: #606060; color: #f0f0f0; transition: border-color 0.3s;
+
+        .nav-hamburger span {
+            width: 22px; height: 1.5px;
+            background: var(--text-secondary);
+            border-radius: 2px;
         }
-        input:focus, textarea:focus { outline: none; border-color: #60a5fa; }
-        textarea { resize: vertical; min-height: 150px; }
-        button {
-            background: linear-gradient(135deg, #606060 0%, #505050 100%);
-            color: #f0f0f0; padding: 1rem 2rem; border: 1px solid #505050; border-radius: 5px;
-            cursor: pointer; transition: opacity 0.3s; width: 100%; font-weight: 600;
-        }
-        button:hover { opacity: 0.9; }
-        footer { background: #505050; color: #d0d0d0; text-align: center; padding: 2rem; } /* Darker footer */
-        .social-links {
-            display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem;
-        }
-        .social-links a {
-            color: #60a5fa; text-decoration: none; transition: opacity 0.3s;
-        }
-        .social-links a:hover { opacity: 0.7; }
-        @media (max-width: 768px) {
-            .about-content { grid-template-columns: 1fr; }
-            .category-button { width: 100%; }
-        }
-        .commission-frame {
+
+        /* ===== HERO ===== */
+        .hero {
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            border: 3px solid transparent;
-            border-radius: 9999px;
-            background: #c0c0c0; /* Kept brighter color */
-            background-clip: padding-box;
-            padding: 0.5rem 2rem;
-            margin: 0 auto 1rem auto;
-            width: fit-content;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            padding: 2rem 2rem 4rem;
+            z-index: 1;
+            background: linear-gradient(180deg, var(--warm-white) 0%, var(--bg) 100%);
         }
-        .commission-frame::before {
+
+        .hero-slideshow {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -2;
+            opacity: 0.06;
+        }
+
+        .hero-slideshow .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+        }
+
+        .hero-slideshow .slide.active { opacity: 1; }
+
+        /* Soft divine light from above */
+        .hero::before {
             content: '';
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 70%;
+            background: radial-gradient(ellipse at top center, rgba(232, 220, 200, 0.35) 0%, transparent 65%);
             z-index: -1;
-            border-radius: 9999px;
-            background: conic-gradient(transparent, rgba(192, 192, 192, 0.3), transparent);
+            pointer-events: none;
         }
-        .commission-text {
-            position: relative;
-            z-index: 1;
-            font-size: 1.2rem;
+
+        /* Halo */
+        .hero-halo {
+            width: 72px;
+            height: 24px;
+            border: 2px solid var(--halo-gold);
+            border-radius: 50%;
+            margin: 0 auto 1.8rem;
+            opacity: 0.65;
+            box-shadow:
+                0 0 20px var(--halo-glow),
+                0 0 50px rgba(212, 197, 160, 0.1);
+            animation: haloFloat 5s ease-in-out infinite, fadeIn 1.2s ease both;
+            transform: rotateX(55deg);
+        }
+
+        @keyframes haloFloat {
+            0%, 100% { transform: translateY(0) rotateX(55deg); }
+            50% { transform: translateY(-5px) rotateX(55deg); }
+        }
+
+        .hero h1 {
+            
+            font-size: clamp(3.2rem, 8vw, 7.5rem);
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.1s both;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.92rem, 2vw, 1.1rem);
+            color: var(--text-secondary);
+            max-width: 420px;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            margin-bottom: 2.2rem;
+            animation: fadeInUp 1s ease 0.25s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 0.75rem 1.8rem;
+            border-radius: 100px;
+            text-decoration: none;
             font-weight: 600;
-            margin: 0;
-            color: #000000; /* Black text */
+            font-size: 0.88rem;
+            letter-spacing: 0.03em;
+            transition: all 0.35s ease;
+            cursor: pointer;
+            border: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
         }
-        #status-text {
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--warm-white);
+            box-shadow: 0 2px 12px rgba(42, 37, 32, 0.12);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(42, 37, 32, 0.18);
+        }
+
+        .btn-soft {
+            background: var(--vanilla);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-soft:hover {
+            background: var(--cream);
+            transform: translateY(-1px);
+        }
+
+        /* Commission status in hero, below buttons */
+        .hero-commission {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+            animation: fadeInUp 1s ease 0.55s both;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-commission .comm-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hero-commission #status-text {
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
             transition: color 0.3s;
         }
-        .commission-btn-frame {
-            position: relative;
-            text-align: center;
-            border: 3px solid transparent;
-            border-radius: 9999px;
-            background: #696969; /* Dull dark grey */
-            background-clip: padding-box;
-            padding: 0.3rem 1.5rem;
-            margin: 0 auto 2rem auto;
-            width: fit-content;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite;
+
+        .hero-commission .comm-link {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.25rem 0.7rem;
+            border-radius: 100px;
+            background: var(--bg-vanilla);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
         }
-        .commission-btn-frame::before {
-            content: '';
+
+        .hero-commission .comm-link:hover {
+            background: var(--vanilla);
+            color: var(--text-primary);
+        }
+
+        .scroll-indicator {
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            z-index: -1;
-            border-radius: 9999px;
-            background: conic-gradient(transparent, rgba(105, 105, 105, 0.3), transparent);
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeInUp 1s ease 0.8s both;
         }
-        .commission-btn {
-            color: #f0f0f0; text-decoration: none; font-weight: bold;
+
+        .scroll-indicator span {
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
         }
+
+        .scroll-line {
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(to bottom, var(--vanilla-dark), transparent);
+            animation: scrollPulse 2.5s ease infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.2; transform: scaleY(0.5); }
+            50% { opacity: 0.7; transform: scaleY(1); }
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            position: relative;
+            z-index: 1;
+            padding: 5.5rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--vanilla-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 480px;
+            font-size: 0.98rem;
+            font-weight: 400;
+            margin-bottom: 2.8rem;
+        }
+
+        /* Divider */
+        .divider {
+            max-width: 1000px;
+            margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--vanilla), transparent);
+            position: relative;
+        }
+
+        .divider::after {
+            content: '\2726';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--vanilla-dark);
+            font-size: 0.65rem;
+            background: var(--bg);
+            padding: 0 1rem;
+        }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-showcase {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--bg-vanilla);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.04);
+        }
+
+        .about-showcase img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 2.5s ease-in-out;
+        }
+
+        .about-showcase img.active { opacity: 1; }
+
+        .about-showcase-label {
+            position: absolute;
+            bottom: 0.8rem; left: 0.8rem;
+            padding: 0.2rem 0.65rem;
+            border-radius: 100px;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            z-index: 2;
+            font-weight: 600;
+        }
+
+        .about-text h3 {
+            
+            font-size: 1.9rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 0.9rem;
+            font-size: 0.98rem;
+        }
+
+        .skills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1.3rem;
+        }
+
+        .skill-tag {
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            background: var(--bg-vanilla);
+            border: 1px solid var(--border);
+            font-size: 0.76rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .portfolio-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.3rem 1.4rem;
+            border-radius: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.35s ease;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.03);
+        }
+
+        .portfolio-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .portfolio-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .portfolio-card-content { flex: 1; }
+
+        .portfolio-card-content h3 {
+            
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+
+        .portfolio-card-content p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .portfolio-card-arrow {
+            color: var(--text-muted);
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .portfolio-card:hover .portfolio-card-arrow {
+            color: var(--text-primary);
+            transform: translateX(3px);
+        }
+
+        /* ===== COMMISSION SECTION ===== */
+        .commission-section {
+            position: relative;
+            z-index: 1;
+            padding: 4.5rem 2rem;
+            background: var(--bg-vanilla);
+        }
+
+        .commission-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .commission-halo {
+            width: 46px;
+            height: 16px;
+            border: 1.5px solid var(--halo-gold);
+            border-radius: 50%;
+            margin: 0 auto 1.2rem;
+            opacity: 0.5;
+            box-shadow: 0 0 12px var(--halo-glow);
+            transform: rotateX(55deg);
+        }
+
+        .commission-inner h2 {
+            
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.4rem;
+        }
+
+        .commission-inner .comm-sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .commission-inner #status-text-lg {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 0.06em;
+            display: block;
+            margin: 0.6rem 0 1.5rem;
+            transition: color 0.3s;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            
+            font-size: 1.7rem;
+            font-weight: 400;
+            margin-bottom: 0.8rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            margin-bottom: 1.8rem;
+            font-size: 0.96rem;
+        }
+
+        .contact-socials {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .contact-social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .contact-social-link:hover { color: var(--text-primary); }
+
+        .contact-social-link .link-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-vanilla);
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--vanilla-dark);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            font-size: 0.92rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--vanilla-dark);
+            box-shadow: 0 0 0 3px rgba(200, 184, 152, 0.12);
+        }
+
+        .form-group textarea { resize: vertical; min-height: 110px; }
+
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .contact-form .btn { align-self: flex-start; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--warm-white);
+        }
+
+        footer .footer-logo {
+            
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        footer .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.6rem;
+        }
+
+        footer .footer-socials a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        footer .footer-socials a:hover { color: var(--text-primary); }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
-            .commission-frame { padding: 0.4rem 1.5rem; font-size: 1rem; }
-        }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(105, 105, 105, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(105, 105, 105, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(105, 105, 105, 0); }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: rgba(250, 249, 246, 0.97);
+                backdrop-filter: blur(20px);
+                padding: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            body.dark .nav-links.open { background: rgba(17, 17, 19, 0.97); }
+            .nav-hamburger { display: flex; }
+            .about-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .section { padding: 3.5rem 1.5rem; }
+            .hero-commission { flex-direction: column; gap: 0.4rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div id="hero-slideshow">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Dark mode toggle -->
+    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span id="toggle-icon">&#9790;</span>
+    </button>
+
+    <!-- NAV -->
+    <nav id="main-nav">
+        <div class="nav-logo">AtomicalMoon</div>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#commissions">Commissions</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-slideshow">
             <img src="images/hero1.png" alt="Hero Image 1" class="slide active">
             <img src="images/hero2.png" alt="Hero Image 2" class="slide">
             <img src="images/hero3.png" alt="Hero Image 3" class="slide">
         </div>
+        <div class="hero-halo"></div>
         <h1>AtomicalMoon</h1>
-        <p>Texturer / Modeler / Renderer</p>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    <section id="about">
-        <h2>About Me</h2>
-        <div id="commission-status-display" class="commission-frame">
-            <p class="commission-text">Commissions: <span id="status-text">Loading...</span></p>
+        <p class="hero-subtitle">Texturer · Modeler · Renderer — crafting detailed 3D worlds in Blockbench</p>
+        <div class="hero-actions">
+            <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+            <a href="#contact" class="btn btn-soft">Get in Touch</a>
         </div>
-        <div class="commission-btn-frame">
-            <a href="commissions.html" class="commission-btn">Commission Info</a>
+        <!-- Commission status right below buttons -->
+        <div class="hero-commission">
+            <span class="comm-label">Commissions:</span>
+            <span id="status-text">Loading...</span>
+            <a href="commissions.html" class="comm-link">View Info &rarr;</a>
         </div>
-        <div class="about-content">
-            <div>
-                <div id="slideshow-container">
-                    <img src="images/character1.png" alt="3D Character Render 1" class="active">
-                    <img src="images/character2.png" alt="3D Character Render 2">
-                    <img src="images/character3.png" alt="3D Character Render 3">
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+        <div class="section-inner">
+            <div class="about-grid reveal">
+                <div class="about-showcase">
+                    <img id="character-img" src="images/brightmoon.png" alt="Character Render" class="active">
+                    <div class="about-showcase-label">3D Character Render</div>
                 </div>
-                <p class="canvas-info">3D Character Renders</p>
-            </div>
-            <div>
-                <p>Hello! I'm AtomicalMoon (Moon/Atomic). Active in Blockbench for 3-4 years. Expert in textures, models, renders, basic animations.</p>
-                <p style="margin-top: 1rem;">Always learning new techniques.</p>
+                <div class="about-text">
+                    <span class="section-label">About</span>
+                    <h3>Hey, I'm AtomicalMoon</h3>
+                    <p>You can call me Moon or Atomic. I've been active in the Blockbench community for 3-4 years, honing my craft across texturing, modeling, rendering, and basic animations.</p>
+                    <p>Always exploring new techniques and pushing the boundaries of what's possible in voxel and low-poly art.</p>
+                    <div class="skills-row">
+                        <span class="skill-tag">Texturing</span>
+                        <span class="skill-tag">Modeling</span>
+                        <span class="skill-tag">Rendering</span>
+                        <span class="skill-tag">Animations</span>
+                        <span class="skill-tag">Blockbench</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <section id="projects">
-        <h2>Explore More in Portfolio</h2>
-        <div class="category-buttons">
-            <a href="models/models.html" class="category-button">
-                <img src="images/model-icon.png" alt="Models Icon" style="width: 60px; height: auto;">
-                <span>Models</span>
-            </a>
-            <a href="blocks/blocks.html" class="category-button">
-                <img src="images/block-icon.png" alt="Blocks Icon" style="width: 60px; height: auto;">
-                <span>Blocks</span>
-            </a>
-            <a href="items/items.html" class="category-button">
-                <img src="images/item-icon.png" alt="Items Icon" style="width: 60px; height: auto;">
-                <span>Items</span>
-            </a>
-            <a href="renders/renders.html" class="category-button">
-                <img src="images/render-icon.png" alt="Renders Icon" style="width: 60px; height: auto;">
-                <span>Renders</span>
-            </a>
-            <a href="commissioned-work/commissioned-work.html" class="category-button">
-                <img src="images/commission-icon.png" alt="Commissioned Work Icon" style="width: 60px; height: auto;">
-                <span>Commissioned Work</span>
-            </a>
+
+    <div class="divider"></div>
+
+    <!-- PORTFOLIO -->
+    <section class="section" id="portfolio">
+        <div class="section-inner">
+            <span class="section-label reveal">Portfolio</span>
+            <h2 class="section-title reveal">Explore My Work</h2>
+            <p class="section-desc reveal">Browse through my projects — from detailed models and blocks to polished renders and commissioned pieces.</p>
+
+            <div class="portfolio-grid">
+                <a href="models/models.html" class="portfolio-card reveal">
+                    <img src="images/model-icon.png" alt="Models" class="portfolio-card-icon">
+                    <div class="portfolio-card-content">
+                        <h3>Models</h3>
+                        <p>Character & entity models</p>
+                    </div>
+                    <span class="portfolio-card-arrow">&rarr;</span>
+                </a>
+                <a href="blocks/blocks.html" class="portfolio-card reveal">
+                    <img src="images/block-icon.png" alt="Blocks" class="portfolio-card-icon">
+                    <div class="portfolio-card-content">
+                        <h3>Blocks</h3>
+                        <p>Custom block designs</p>
+                    </div>
+                    <span class="portfolio-card-arrow">&rarr;</span>
+                </a>
+                <a href="items/items.html" class="portfolio-card reveal">
+                    <img src="images/item-icon.png" alt="Items" class="portfolio-card-icon">
+                    <div class="portfolio-card-content">
+                        <h3>Items</h3>
+                        <p>Weapons, tools & more</p>
+                    </div>
+                    <span class="portfolio-card-arrow">&rarr;</span>
+                </a>
+                <a href="renders/renders.html" class="portfolio-card reveal">
+                    <img src="images/render-icon.png" alt="Renders" class="portfolio-card-icon">
+                    <div class="portfolio-card-content">
+                        <h3>Renders</h3>
+                        <p>Polished scene renders</p>
+                    </div>
+                    <span class="portfolio-card-arrow">&rarr;</span>
+                </a>
+                <a href="commissioned-work/commissioned-work.html" class="portfolio-card reveal">
+                    <img src="images/commission-icon.png" alt="Commissioned Work" class="portfolio-card-icon">
+                    <div class="portfolio-card-content">
+                        <h3>Commissioned Work</h3>
+                        <p>Client projects & collabs</p>
+                    </div>
+                    <span class="portfolio-card-arrow">&rarr;</span>
+                </a>
+            </div>
         </div>
     </section>
-    <section id="contact">
-        <h2>Get In Touch</h2>
-        <form class="contact-form">
-            <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
-            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
-            <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
-            <button type="submit">Send Message</button>
-        </form>
+
+    <div class="divider"></div>
+
+    <!-- DEDICATED COMMISSION SECTION -->
+    <section class="commission-section" id="commissions">
+        <div class="commission-inner reveal">
+            <div class="commission-halo"></div>
+            <h2>Commission Status</h2>
+            <p class="comm-sub">Currently accepting work?</p>
+            <span id="status-text-lg">Loading...</span>
+            <a href="commissions.html" class="btn btn-primary">View Commission Info &rarr;</a>
+        </div>
     </section>
+
+    <div class="divider"></div>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+        <div class="section-inner">
+            <span class="section-label reveal">Contact</span>
+            <h2 class="section-title reveal">Let's Work Together</h2>
+
+            <div class="contact-grid reveal">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>Have a project in mind or want to commission some work? Drop me a message and I'll get back to you as soon as I can.</p>
+                    <div class="contact-socials">
+                        <a href="https://github.com/AtomicalMoon" class="contact-social-link" target="_blank" rel="noopener">
+                            <span class="link-icon">&#10022;</span> GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/AtomicalMoon" class="contact-social-link" target="_blank" rel="noopener">
+                            <span class="link-icon">&#9670;</span> LinkedIn
+                        </a>
+                        <a href="https://twitter.com/AtomicalMoon" class="contact-social-link" target="_blank" rel="noopener">
+                            <span class="link-icon">&#10023;</span> Twitter
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
+        <p class="footer-logo">AtomicalMoon</p>
         <p>&copy; <span id="year"></span> AtomicalMoon. All rights reserved.</p>
-        <div class="social-links">
+        <div class="footer-socials">
             <a href="https://github.com/AtomicalMoon">GitHub</a>
             <a href="https://linkedin.com/in/AtomicalMoon">LinkedIn</a>
             <a href="https://twitter.com/AtomicalMoon">Twitter</a>
         </div>
     </footer>
+
     <script>
+        // Dark mode toggle
+        var darkToggle = document.getElementById('dark-toggle');
+        var toggleIcon = document.getElementById('toggle-icon');
+        var isDark = localStorage.getItem('atomicalmoon-dark') === 'true';
+
+        function setDarkMode(on) {
+            var charImg = document.getElementById('character-img');
+            if (on) {
+                document.body.classList.add('dark');
+                toggleIcon.innerHTML = '&#9788;'; // sun
+                if (charImg) charImg.src = 'images/darkmoon.png';
+            } else {
+                document.body.classList.remove('dark');
+                toggleIcon.innerHTML = '&#9790;'; // moon
+                if (charImg) charImg.src = 'images/brightmoon.png';
+            }
+            localStorage.setItem('atomicalmoon-dark', on ? 'true' : 'false');
+            isDark = on;
+        }
+
+        setDarkMode(isDark);
+
+        darkToggle.addEventListener('click', function() {
+            setDarkMode(!isDark);
+        });
+
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // Commission status (updates both hero pill and dedicated section)
         async function loadCommissionStatus() {
-            const statusText = document.getElementById('status-text');
-            statusText.textContent = 'Loading...';
+            var els = [document.getElementById('status-text'), document.getElementById('status-text-lg')];
+            els.forEach(function(el) { if (el) el.textContent = 'Loading...'; });
             try {
-                const timestamp = new Date().getTime();
-                const response = await fetch(`config/commission-status.json?v=${timestamp}`);
+                var timestamp = new Date().getTime();
+                var response = await fetch('config/commission-status.json?v=' + timestamp);
                 if (response.ok) {
-                    const data = await response.json();
-                    updateStatusDisplay(data.status || 'waitlist');
+                    var data = await response.json();
+                    applyStatus(data.status || 'waitlist');
                 } else {
-                    updateStatusDisplay('waitlist');
+                    applyStatus('waitlist');
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
-                updateStatusDisplay('waitlist');
+                applyStatus('waitlist');
             }
         }
 
-        function updateStatusDisplay(status) {
-            const statusText = document.getElementById('status-text');
-            statusText.textContent = status.toUpperCase();
-            const classes = ['status-open', 'status-closed', 'status-full', 'status-waitlist', 'status-paused', 'status-slots'];
-            statusText.classList.remove(...classes);
-            if (status === 'open') statusText.classList.add('status-open');
-            else if (status === 'closed') statusText.classList.add('status-closed');
-            else if (status === 'full') statusText.classList.add('status-full');
-            else if (status === 'waitlist') statusText.classList.add('status-waitlist');
-            else if (status === 'paused') statusText.classList.add('status-paused');
-            else if (status.toLowerCase().includes('slot')) statusText.classList.add('status-slots');
+        function applyStatus(status) {
+            var els = [document.getElementById('status-text'), document.getElementById('status-text-lg')];
+            var classes = ['status-open', 'status-closed', 'status-full', 'status-waitlist', 'status-paused', 'status-slots'];
+            els.forEach(function(el) {
+                if (!el) return;
+                el.textContent = status.toUpperCase();
+                for (var i = 0; i < classes.length; i++) el.classList.remove(classes[i]);
+                if (status === 'open') el.classList.add('status-open');
+                else if (status === 'closed') el.classList.add('status-closed');
+                else if (status === 'full') el.classList.add('status-full');
+                else if (status === 'waitlist') el.classList.add('status-waitlist');
+                else if (status === 'paused') el.classList.add('status-paused');
+                else if (status.toLowerCase().indexOf('slot') !== -1) el.classList.add('status-slots');
+            });
         }
 
         loadCommissionStatus();
 
-        function setupSlideshow(selector, interval = 5000) {
-            const slides = document.querySelectorAll(selector);
+        // Slideshows
+        function setupSlideshow(selector, interval) {
+            interval = interval || 5000;
+            var slides = document.querySelectorAll(selector);
             if (slides.length === 0) return;
-            let current = 0;
-            setInterval(() => {
+            var current = 0;
+            setInterval(function() {
                 slides[current].classList.remove('active');
                 current = (current + 1) % slides.length;
                 slides[current].classList.add('active');
             }, interval);
         }
 
-        setupSlideshow('#hero-slideshow .slide');
-        setupSlideshow('#slideshow-container img');
+        setupSlideshow('.hero-slideshow .slide', 6000);
 
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Demo form - add backend for real use.');
-        });
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                var target = document.querySelector(this.getAttribute('href'));
                 if (target) target.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('nav-links').classList.remove('open');
             });
         });
+
+        // Form
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Demo form \u2014 connect a backend for real submissions.');
+        });
+
+        // Nav scroll
+        var navEl = document.getElementById('main-nav');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) navEl.classList.add('scrolled');
+            else navEl.classList.remove('scrolled');
+        });
+
+        // Hamburger
+        document.getElementById('nav-hamburger').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('open');
+        });
+
+        // Reveal on scroll
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+        // Soft floating light motes (warm vanilla tones, ascending)
+        var canvas = document.getElementById('bg-canvas');
+        var ctx = canvas.getContext('2d');
+        var motes = [];
+        var MOTE_COUNT = 35;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        function initMotes() {
+            motes = [];
+            for (var i = 0; i < MOTE_COUNT; i++) {
+                motes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 2 + 0.5,
+                    alpha: Math.random() * 0.08 + 0.02,
+                    vy: -(Math.random() * 0.08 + 0.01),
+                    vx: (Math.random() - 0.5) * 0.04,
+                    pulse: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 0.003 + 0.001
+                });
+            }
+        }
+
+        function drawMotes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < motes.length; i++) {
+                var m = motes[i];
+                m.pulse += m.speed;
+                m.y += m.vy;
+                m.x += m.vx;
+                var a = m.alpha + Math.sin(m.pulse) * 0.03;
+                if (m.y < -10) m.y = canvas.height + 10;
+                if (m.x < -10) m.x = canvas.width + 10;
+                if (m.x > canvas.width + 10) m.x = -10;
+                // Warm vanilla glow (red in dark mode)
+                var isD = document.body.classList.contains('dark');
+                var mColor = isD ? '200, 50, 50' : '200, 184, 152';
+                ctx.beginPath();
+                ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + mColor + ', ' + Math.max(0, a) + ')';
+                ctx.fill();
+                if (m.r > 1.2) {
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, m.r * 3.5, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(' + mColor + ', ' + Math.max(0, a * 0.08) + ')';
+                    ctx.fill();
+                }
+            }
+            requestAnimationFrame(drawMotes);
+        }
+
+        window.addEventListener('resize', function() { resizeCanvas(); initMotes(); });
+        resizeCanvas();
+        initMotes();
+        drawMotes();
     </script>
 </body>
 </html>
