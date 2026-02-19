@@ -1,9 +1,19 @@
-[
-    "16x16_1.png",
-    "16x16_2.png",
-    "render_1.png",
-    "model_1.png",
-    "model_2.png",
-    "block_1.png",
-    "item_sword_1.png"
-]
+{
+    "tags": {
+        "16x16": "#965245",
+        "render": "#4a7c9b",
+        "model": "#6b8e5a",
+        "block": "#8b6d2e",
+        "item": "#7a4a8e",
+        "sword": "#c4463a"
+    },
+    "images": [
+        "16x16_1.png",
+        "16x16_2.png",
+        "render_1.png",
+        "model_1.png",
+        "model_2.png",
+        "block_1.png",
+        "item_sword_1.png"
+    ]
+}
