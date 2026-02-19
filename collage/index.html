@@ -210,17 +210,18 @@
         .masonry-item .item-tag {
             padding: 0.2rem 0.55rem;
             border-radius: 100px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(60, 60, 60, 0.7);
             backdrop-filter: blur(8px);
             font-size: 0.62rem;
             font-weight: 800;
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 0.04em;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         body.dark .masonry-item .item-tag {
-            background: rgba(232, 64, 64, 0.7);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         .masonry-item.hidden {
@@ -326,18 +327,12 @@
         toggleBtn.addEventListener('click', function() { setDark(!isDark); });
 
         // Parse tags from filename
-        // "16x16_1.png" → ["16x16"]
-        // "render_scene_1.png" → ["render", "scene"]
-        // "model_1.png" → ["model"]
-        // Everything before the last _number is a tag segment
         function parseTags(filename) {
-            var name = filename.replace(/\.[^.]+$/, ''); // remove extension
+            var name = filename.replace(/\.[^.]+$/, '');
             var parts = name.split('_');
-            // Last part is always the number, remove it
             if (parts.length > 1 && /^\d+$/.test(parts[parts.length - 1])) {
                 parts.pop();
             }
-            // Each remaining part is a tag
             return parts.map(function(t) { return t.toLowerCase(); });
         }
 
@@ -346,13 +341,17 @@
         var filterBar = document.getElementById('filter-bar');
         var countEl = document.getElementById('gallery-count');
         var emptyEl = document.getElementById('empty-state');
-        var allTags = {};
+        var allTagsSeen = {};
+        var tagColors = {};
         var allItems = [];
         var activeTag = 'all';
 
         fetch('images.json?v=' + Date.now())
             .then(function(r) { return r.json(); })
-            .then(function(images) {
+            .then(function(data) {
+                var images = data.images || [];
+                tagColors = data.tags || {};
+
                 if (!images || images.length === 0) {
                     emptyEl.style.display = 'block';
                     return;
@@ -361,7 +360,7 @@
                 // Build items and collect tags
                 images.forEach(function(filename) {
                     var tags = parseTags(filename);
-                    tags.forEach(function(t) { allTags[t] = true; });
+                    tags.forEach(function(t) { allTagsSeen[t] = true; });
 
                     var item = document.createElement('div');
                     item.className = 'masonry-item';
@@ -378,6 +377,12 @@
                         var span = document.createElement('span');
                         span.className = 'item-tag';
                         span.textContent = t;
+                        // Apply color from JSON
+                        var color = tagColors[t];
+                        if (color) {
+                            span.style.background = color;
+                            span.style.color = '#fff';
+                        }
                         tagContainer.appendChild(span);
                     });
 
@@ -393,13 +398,19 @@
                     });
                 });
 
-                // Build filter buttons
-                var tagKeys = Object.keys(allTags).sort();
+                // Build filter buttons with colors
+                var tagKeys = Object.keys(allTagsSeen).sort();
                 tagKeys.forEach(function(tag) {
                     var btn = document.createElement('button');
                     btn.className = 'filter-tag';
                     btn.setAttribute('data-tag', tag);
                     btn.textContent = tag;
+                    var color = tagColors[tag];
+                    if (color) {
+                        btn.setAttribute('data-color', color);
+                        btn.style.borderColor = color;
+                        btn.style.color = color;
+                    }
                     filterBar.appendChild(btn);
                 });
 
@@ -415,9 +426,24 @@
                 if (!e.target.classList.contains('filter-tag')) return;
                 activeTag = e.target.getAttribute('data-tag');
 
-                // Update active state
+                // Update active state and colors
                 filterBar.querySelectorAll('.filter-tag').forEach(function(btn) {
-                    btn.classList.toggle('active', btn.getAttribute('data-tag') === activeTag);
+                    var isActive = btn.getAttribute('data-tag') === activeTag;
+                    btn.classList.toggle('active', isActive);
+                    var color = btn.getAttribute('data-color');
+                    if (isActive && color) {
+                        btn.style.background = color;
+                        btn.style.color = '#fff';
+                        btn.style.borderColor = color;
+                    } else if (color) {
+                        btn.style.background = '';
+                        btn.style.color = color;
+                        btn.style.borderColor = color;
+                    } else {
+                        btn.style.background = '';
+                        btn.style.color = '';
+                        btn.style.borderColor = '';
+                    }
                 });
 
                 // Filter items
