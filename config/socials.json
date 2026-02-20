@@ -1,0 +1,14 @@
+{
+    "socials": [
+        {
+            "name": "Discord",
+            "url": "https://discord.com/users/YOUR_DISCORD_ID",
+            "icon": "discord"
+        },
+        {
+            "name": "Twitter / X",
+            "url": "https://twitter.com/AtomicalMoon",
+            "icon": "twitter"
+        }
+    ]
+}
