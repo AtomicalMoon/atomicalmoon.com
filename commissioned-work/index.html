@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#eeedeb">
     <title>Commissioned Work - AtomicalMoon</title>
+    <script>
+        (function() {
+            if (localStorage.getItem('atomicalmoon-dark') === 'true') {
+                document.documentElement.style.background = '#111113';
+                document.documentElement.style.colorScheme = 'dark';
+                var tc = document.querySelector('meta[name="theme-color"]');
+                if (tc) tc.content = '#111113';
+            }
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -428,6 +439,7 @@
                     img.src = 'images/' + filename;
                     img.alt = filename;
                     img.loading = 'lazy';
+                    img.decoding = 'async';
 
                     var tagContainer = document.createElement('div');
                     tagContainer.className = 'item-tags';
