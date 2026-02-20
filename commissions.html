@@ -322,7 +322,7 @@
         }
 
         .tier-card.open .tier-body {
-            max-height: 600px;
+            max-height: 1200px;
         }
 
         .tier-prices {
@@ -365,6 +365,86 @@
             color: var(--text-muted);
             font-weight: 600;
             font-style: italic;
+        }
+
+        /* TIER EXAMPLES & STYLES */
+        .tier-examples,
+        .tier-styles {
+            padding: 0 1.6rem 1rem;
+        }
+
+        .tier-sub-label {
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--vanilla-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .tier-image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.6rem;
+        }
+
+        .tier-image-card {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--bg-vanilla);
+            position: relative;
+            transition: all 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            cursor: pointer;
+        }
+
+        .tier-image-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+
+        body.dark .tier-image-card:hover {
+            box-shadow: 0 6px 18px rgba(200, 40, 40, 0.06);
+        }
+
+        .tier-image-card img {
+            width: 100%;
+            display: block;
+            aspect-ratio: 1;
+            object-fit: cover;
+            -webkit-user-drag: none;
+            user-drag: none;
+            pointer-events: none;
+        }
+
+        .tier-image-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 1;
+        }
+
+        .tier-image-card-label {
+            padding: 0.45rem 0.6rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+            text-align: center;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .tier-styles-divider {
+            height: 1px;
+            background: var(--vanilla);
+            margin: 0.5rem 1.6rem 1rem;
         }
 
         /* ===== PROCESS STEPS ===== */
@@ -636,6 +716,9 @@
             .tier-prices { padding: 0 1.2rem 1.2rem; }
             .tier-price-row { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
             .tier-note { padding: 0 1.2rem 1.2rem; }
+            .tier-examples, .tier-styles { padding: 0 1.2rem 1rem; }
+            .tier-image-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+            .tier-styles-divider { margin: 0.5rem 1.2rem 1rem; }
             .sheets-grid { grid-template-columns: 1fr; }
             .cta-section { padding: 2.5rem 1.2rem; }
             .cta-links { flex-direction: column; align-items: center; }
@@ -816,6 +899,89 @@
                     var body = document.createElement('div');
                     body.className = 'tier-body';
 
+                    // Examples section (if present)
+                    if (tier.examples && tier.examples.length > 0) {
+                        var examplesWrap = document.createElement('div');
+                        examplesWrap.className = 'tier-examples';
+                        var exLabel = document.createElement('div');
+                        exLabel.className = 'tier-sub-label';
+                        exLabel.textContent = 'Examples';
+                        examplesWrap.appendChild(exLabel);
+
+                        var exGrid = document.createElement('div');
+                        exGrid.className = 'tier-image-grid';
+                        tier.examples.forEach(function(ex) {
+                            var exCard = document.createElement('div');
+                            exCard.className = 'tier-image-card';
+                            var exImg = document.createElement('img');
+                            exImg.src = ex.image;
+                            exImg.alt = ex.label || '';
+                            exImg.loading = 'lazy';
+                            exCard.appendChild(exImg);
+                            if (ex.label) {
+                                var exLbl = document.createElement('div');
+                                exLbl.className = 'tier-image-card-label';
+                                exLbl.textContent = ex.label;
+                                exCard.appendChild(exLbl);
+                            }
+                            (function(src) {
+                                exCard.addEventListener('click', function() {
+                                    document.getElementById('lightbox-img').src = src;
+                                    document.getElementById('lightbox').classList.add('open');
+                                });
+                            })(ex.image);
+                            exGrid.appendChild(exCard);
+                        });
+                        examplesWrap.appendChild(exGrid);
+                        body.appendChild(examplesWrap);
+                    }
+
+                    // Styles section (if present)
+                    if (tier.styles && tier.styles.length > 0) {
+                        var divider = document.createElement('div');
+                        divider.className = 'tier-styles-divider';
+                        body.appendChild(divider);
+
+                        var stylesWrap = document.createElement('div');
+                        stylesWrap.className = 'tier-styles';
+                        var stLabel = document.createElement('div');
+                        stLabel.className = 'tier-sub-label';
+                        stLabel.textContent = 'Render Styles';
+                        stylesWrap.appendChild(stLabel);
+
+                        var stGrid = document.createElement('div');
+                        stGrid.className = 'tier-image-grid';
+                        tier.styles.forEach(function(st) {
+                            var stCard = document.createElement('div');
+                            stCard.className = 'tier-image-card';
+                            var stImg = document.createElement('img');
+                            stImg.src = st.image;
+                            stImg.alt = st.label || '';
+                            stImg.loading = 'lazy';
+                            stCard.appendChild(stImg);
+                            if (st.label) {
+                                var stLbl = document.createElement('div');
+                                stLbl.className = 'tier-image-card-label';
+                                stLbl.textContent = st.label;
+                                stCard.appendChild(stLbl);
+                            }
+                            (function(src) {
+                                stCard.addEventListener('click', function() {
+                                    document.getElementById('lightbox-img').src = src;
+                                    document.getElementById('lightbox').classList.add('open');
+                                });
+                            })(st.image);
+                            stGrid.appendChild(stCard);
+                        });
+                        stylesWrap.appendChild(stGrid);
+                        body.appendChild(stylesWrap);
+
+                        // Divider before prices
+                        var divider2 = document.createElement('div');
+                        divider2.className = 'tier-styles-divider';
+                        body.appendChild(divider2);
+                    }
+
                     var prices = document.createElement('div');
                     prices.className = 'tier-prices';
                     (tier.prices || []).forEach(function(p) {
@@ -904,7 +1070,7 @@
 
         // Image protection
         document.addEventListener('contextmenu', function(e) {
-            if (e.target.closest('.sheet-card') || e.target.closest('.lightbox') || e.target.tagName === 'IMG') {
+            if (e.target.closest('.sheet-card') || e.target.closest('.tier-image-card') || e.target.closest('.lightbox') || e.target.tagName === 'IMG') {
                 e.preventDefault();
             }
         });
