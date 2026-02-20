@@ -4,7 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AtomicalMoon's portfolio: Expert in Blockbench texturing, modeling, and rendering. View projects and commission info.">
+    <meta name="theme-color" content="#eeedeb">
+    <meta property="og:title" content="AtomicalMoon - Portfolio">
+    <meta property="og:description" content="Blockbench artist specializing in texturing, modeling, and rendering.">
+    <meta property="og:type" content="website">
     <title>AtomicalMoon - Portfolio</title>
+
+    <!-- Prevent dark mode flash -->
+    <script>
+        (function() {
+            var d = localStorage.getItem('atomicalmoon-dark') === 'true';
+            if (d) {
+                document.documentElement.style.background = '#111113';
+                document.documentElement.style.colorScheme = 'dark';
+                var tc = document.querySelector('meta[name="theme-color"]');
+                if (tc) tc.content = '#111113';
+            }
+        })();
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -310,6 +327,7 @@
             object-fit: cover;
             opacity: 0;
             transition: opacity 3s ease-in-out;
+            will-change: opacity;
         }
 
         .hero-slideshow .slide.active { opacity: 1; }
@@ -1204,9 +1222,9 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-slideshow">
-            <img src="images/hero1.png" alt="Hero Image 1" class="slide active">
-            <img src="images/hero2.png" alt="Hero Image 2" class="slide">
-            <img src="images/hero3.png" alt="Hero Image 3" class="slide">
+            <img src="images/hero1.png" alt="Hero Image 1" class="slide active" fetchpriority="high" decoding="async">
+            <img src="images/hero2.png" alt="Hero Image 2" class="slide" loading="lazy" decoding="async">
+            <img src="images/hero3.png" alt="Hero Image 3" class="slide" loading="lazy" decoding="async">
         </div>
         <div class="hero-halo"></div>
         <h1>AtomicalMoon</h1>
@@ -1233,7 +1251,7 @@
         <div class="section-inner">
             <div class="about-grid reveal">
                 <div class="about-showcase">
-                    <img id="character-img" src="images/brightmoon.png" alt="Character Render" class="active">
+                    <img id="character-img" src="images/brightmoon.png" alt="Character Render" class="active" decoding="async">
                 </div>
                 <div class="about-text">
                     <span class="section-label">About</span>
@@ -1455,22 +1473,32 @@
             });
         });
 
-        // Nav scroll
+        // Nav scroll (passive for better scroll performance)
         var navEl = document.getElementById('main-nav');
+        var navScrollTick = false;
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 40) navEl.classList.add('scrolled');
-            else navEl.classList.remove('scrolled');
-        });
+            if (!navScrollTick) {
+                navScrollTick = true;
+                requestAnimationFrame(function() {
+                    if (window.scrollY > 40) navEl.classList.add('scrolled');
+                    else navEl.classList.remove('scrolled');
+                    navScrollTick = false;
+                });
+            }
+        }, { passive: true });
 
         // Hamburger
         document.getElementById('nav-hamburger').addEventListener('click', function() {
             document.getElementById('nav-links').classList.toggle('open');
         });
 
-        // Reveal on scroll
+        // Reveal on scroll (unobserve after revealed to save resources)
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
@@ -1481,6 +1509,7 @@
         var ctx = canvas.getContext('2d');
         var motes = [];
         var MOTE_COUNT = 35;
+        var motesRunning = true;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -1504,7 +1533,11 @@
         }
 
         function drawMotes() {
+            if (!motesRunning) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Cache dark mode check once per frame instead of per-mote
+            var isD = document.body.classList.contains('dark');
+            var mColor = isD ? '200, 50, 50' : '160, 158, 148';
             for (var i = 0; i < motes.length; i++) {
                 var m = motes[i];
                 m.pulse += m.speed;
@@ -1514,9 +1547,6 @@
                 if (m.y < -10) m.y = canvas.height + 10;
                 if (m.x < -10) m.x = canvas.width + 10;
                 if (m.x > canvas.width + 10) m.x = -10;
-                // Warm vanilla glow (red in dark mode)
-                var isD = document.body.classList.contains('dark');
-                var mColor = isD ? '200, 50, 50' : '160, 158, 148';
                 ctx.beginPath();
                 ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(' + mColor + ', ' + Math.max(0, a) + ')';
@@ -1531,7 +1561,22 @@
             requestAnimationFrame(drawMotes);
         }
 
-        window.addEventListener('resize', function() { resizeCanvas(); initMotes(); });
+        // Pause motes when tab is not visible (saves CPU/battery)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                motesRunning = false;
+            } else {
+                motesRunning = true;
+                requestAnimationFrame(drawMotes);
+            }
+        });
+
+        // Debounce resize
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() { resizeCanvas(); initMotes(); }, 150);
+        });
         resizeCanvas();
         initMotes();
         drawMotes();
