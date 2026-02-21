@@ -23,16 +23,16 @@
         },
         {
             "name": "Renders",
-            "description": "Polished scene renders — lighting, composition, and post-processing.",
+            "description": "Renders of chaarcters, items or scenery.",
             "icon": "&#10022;",
             "styles": [
-                { "image": "images/render-style-cinematic.png", "label": "Cinematic" },
-                { "image": "images/render-style-clean.png", "label": "Clean" },
-                { "image": "images/render-style-dramatic.png", "label": "Dramatic" }
+                { "image": "images/barebonesrender.png", "label": "Barebones" },
+                { "image": "images/cleanrender.png", "label": "Clean" },
+                { "image": "images/texturedrender.png", "label": "Textured" }
             ],
             "prices": [
-                { "label": "Simple Render", "detail": "Single subject, basic scene", "price": 15 },
-                { "label": "Scene Render", "detail": "Multiple subjects, environment", "price": 30 },
+                { "label": "Profile Render", "detail": "Single subject, basic scene", "price": 15 },
+                { "label": "Basic Render", "detail": "Multiple subjects, environment", "price": 30 },
                 { "label": "Cinematic Render", "detail": "Full scene, effects & post", "price": 50 }
             ]
         }
