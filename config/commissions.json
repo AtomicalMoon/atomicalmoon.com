@@ -23,7 +23,7 @@
         },
         {
             "name": "Renders",
-            "description": "Renders of chaarcters, items or scenery.",
+            "description": "Renders of charcters, items or scenery.",
             "icon": "&#10022;",
             "styles": [
                 { "image": "images/barebonesrender.png", "label": "Barebones" },
