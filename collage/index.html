@@ -458,6 +458,15 @@
                     img.loading = 'lazy';
                     img.decoding = 'async';
 
+                    // Show error state if image fails to load
+                    img.onerror = function() {
+                        img.style.display = 'none';
+                        var errDiv = document.createElement('div');
+                        errDiv.style.cssText = 'padding:2rem 1rem;text-align:center;font-size:0.7rem;font-weight:700;color:var(--text-muted);background:var(--bg-vanilla);border-radius:10px;border:1px dashed var(--border);min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.3rem;';
+                        errDiv.innerHTML = '<span style="font-size:1.5rem;opacity:0.3;">&#10006;</span>Image not found<br><code style="font-size:0.6rem;opacity:0.6;">images/' + filename + '</code>';
+                        item.insertBefore(errDiv, item.firstChild);
+                    };
+
                     // Detect pixel art from tags (e.g. 16x16, 32x32, 64x64)
                     var isPixelArt = tags.some(function(t) { return /^\d+x\d+$/.test(t); });
                     if (isPixelArt) {
