@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#eeedeb">
     <title>Commission Progress - AtomicalMoon</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <script>
         (function() {
             if (localStorage.getItem('atomicalmoon-dark') === 'true') {
@@ -169,9 +172,169 @@
             padding: 0.5rem 1.2rem;
             border-radius: 100px;
             background: var(--bg-card);
-            border: 1px solid var(--border);
+            border: none;
             font-size: 0.75rem;
             font-weight: 700;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* Opal gradient border */
+        .queue-stat::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            border-radius: 106px;
+            background: linear-gradient(
+                90deg,
+                #d4b8e8,
+                #b8d4f0,
+                #e8b8d8,
+                #b8e8d4,
+                #e0c8f0,
+                #b8d8e8,
+                #f0c0d8,
+                #c0e8d0,
+                #d4b8e8
+            );
+            background-size: 300% 100%;
+            z-index: -2;
+            animation: opalSlide 6s ease infinite;
+        }
+
+        /* Opal shimmer overlay */
+        .queue-stat .opal-shimmer {
+            position: absolute;
+            top: -3px; left: -3px; right: -3px; bottom: -3px;
+            border-radius: 106px;
+            z-index: -2;
+            background: linear-gradient(
+                270deg,
+                transparent 0%,
+                rgba(190, 150, 230, 0.6) 15%,
+                rgba(140, 200, 240, 0.55) 25%,
+                transparent 40%,
+                transparent 60%,
+                rgba(240, 160, 200, 0.6) 75%,
+                rgba(150, 230, 190, 0.5) 85%,
+                transparent 100%
+            );
+            background-size: 300% 100%;
+            animation: opalShimmerSlide 5s ease infinite;
+            pointer-events: none;
+        }
+
+        /* Inner fill to create the border effect */
+        .queue-stat::after {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            border-radius: 102px;
+            background: var(--bg-card);
+            z-index: -1;
+        }
+
+        /* Soft glow */
+        .queue-stat {
+            box-shadow:
+                0 0 8px rgba(212, 184, 232, 0.3),
+                0 0 18px rgba(184, 212, 240, 0.2),
+                0 0 30px rgba(232, 184, 216, 0.1);
+            animation: opalGlow 5s ease infinite;
+        }
+
+        @keyframes opalSlide {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes opalShimmerSlide {
+            0% { background-position: 100% 50%; }
+            50% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes opalGlow {
+            0%, 100% {
+                box-shadow:
+                    0 0 8px rgba(212, 184, 232, 0.3),
+                    0 0 18px rgba(184, 212, 240, 0.2),
+                    0 0 30px rgba(232, 184, 216, 0.1);
+            }
+            33% {
+                box-shadow:
+                    0 0 8px rgba(184, 232, 212, 0.3),
+                    0 0 18px rgba(224, 200, 240, 0.2),
+                    0 0 30px rgba(184, 216, 232, 0.1);
+            }
+            66% {
+                box-shadow:
+                    0 0 8px rgba(240, 192, 216, 0.3),
+                    0 0 18px rgba(192, 232, 208, 0.2),
+                    0 0 30px rgba(212, 184, 232, 0.1);
+            }
+        }
+
+        /* Dark mode opal - red/white tones */
+        body.dark .queue-stat::before {
+            background: linear-gradient(
+                90deg,
+                #cc3333,
+                #e8e8e8,
+                #b82e2e,
+                #f0f0f0,
+                #cc3333,
+                #e0e0e0,
+                #b82e2e,
+                #f0f0f0,
+                #cc3333
+            );
+            background-size: 300% 100%;
+            animation: opalSlide 6s ease infinite;
+        }
+
+        body.dark .queue-stat .opal-shimmer {
+            background: linear-gradient(
+                270deg,
+                transparent 0%,
+                rgba(204, 51, 51, 0.5) 15%,
+                rgba(240, 240, 240, 0.3) 25%,
+                transparent 40%,
+                transparent 60%,
+                rgba(184, 46, 46, 0.5) 75%,
+                rgba(240, 240, 240, 0.25) 85%,
+                transparent 100%
+            );
+            background-size: 300% 100%;
+            animation: opalShimmerSlide 5s ease infinite;
+        }
+
+        body.dark .queue-stat::after {
+            background: var(--bg-card);
+        }
+
+        body.dark .queue-stat {
+            box-shadow:
+                0 0 8px rgba(204, 51, 51, 0.25),
+                0 0 18px rgba(240, 240, 240, 0.08),
+                0 0 30px rgba(184, 46, 46, 0.1);
+            animation: opalGlowDark 5s ease infinite;
+        }
+
+        @keyframes opalGlowDark {
+            0%, 100% {
+                box-shadow:
+                    0 0 8px rgba(204, 51, 51, 0.25),
+                    0 0 18px rgba(240, 240, 240, 0.08),
+                    0 0 30px rgba(184, 46, 46, 0.1);
+            }
+            50% {
+                box-shadow:
+                    0 0 10px rgba(204, 51, 51, 0.35),
+                    0 0 22px rgba(240, 240, 240, 0.12),
+                    0 0 36px rgba(184, 46, 46, 0.15);
+            }
         }
 
         .queue-stat-value {
@@ -397,9 +560,9 @@
         <p>Live progress on current commissions. Updated as work progresses.</p>
 
         <div class="queue-stats">
-            <div class="queue-stat">In Queue: <span class="queue-stat-value" id="stat-queue">—</span></div>
-            <div class="queue-stat">In Progress: <span class="queue-stat-value" id="stat-progress">—</span></div>
-            <div class="queue-stat">Completed: <span class="queue-stat-value" id="stat-completed">—</span></div>
+            <div class="queue-stat"><div class="opal-shimmer"></div>In Queue: <span class="queue-stat-value" id="stat-queue">—</span></div>
+            <div class="queue-stat"><div class="opal-shimmer"></div>In Progress: <span class="queue-stat-value" id="stat-progress">—</span></div>
+            <div class="queue-stat"><div class="opal-shimmer"></div>Completed: <span class="queue-stat-value" id="stat-completed">—</span></div>
         </div>
     </div>
 
@@ -459,16 +622,16 @@
                 });
 
                 // Stats
-                var inProgress = 0, completed = 0, queued = 0;
+                var totalCompleted = data.total_completed || 0;
+                var inProgress = 0, queued = 0;
                 commissions.forEach(function(c) {
                     if (c.status === 'in-progress') inProgress++;
-                    else if (c.status === 'completed') completed++;
                     else if (c.status === 'queued') queued++;
                 });
 
                 document.getElementById('stat-queue').textContent = queued;
                 document.getElementById('stat-progress').textContent = inProgress;
-                document.getElementById('stat-completed').textContent = completed;
+                document.getElementById('stat-completed').textContent = totalCompleted;
 
                 // Build cards
                 commissions.forEach(function(c) {
