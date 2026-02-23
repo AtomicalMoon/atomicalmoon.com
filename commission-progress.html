@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#eeedeb">
+    <title>Commission Progress - AtomicalMoon</title>
+    <script>
+        (function() {
+            if (localStorage.getItem('atomicalmoon-dark') === 'true') {
+                document.documentElement.style.background = '#111113';
+                document.documentElement.style.colorScheme = 'dark';
+                var tc = document.querySelector('meta[name="theme-color"]');
+                if (tc) tc.content = '#111113';
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #eeedeb;
+            --bg-warm: #e8e7e4;
+            --bg-card: #f5f4f2;
+            --bg-vanilla: #e3e2de;
+            --border: rgba(140, 138, 130, 0.22);
+            --border-hover: rgba(140, 138, 130, 0.4);
+            --text-primary: #433e38;
+            --text-secondary: #555450;
+            --text-muted: #8a8880;
+            --vanilla: #cecdca;
+            --vanilla-dark: #a5a49c;
+            --warm-white: #f3f2f0;
+            --bar-bg: #d8d7d3;
+            --bar-fill: #7a7770;
+            --bar-complete: #16a34a;
+        }
+
+        body.dark {
+            --bg: #111113;
+            --bg-warm: #161618;
+            --bg-card: #1c1c1f;
+            --bg-vanilla: #1a1a1d;
+            --border: rgba(255, 60, 60, 0.1);
+            --border-hover: rgba(255, 60, 60, 0.25);
+            --text-primary: #e84040;
+            --text-secondary: #b83030;
+            --text-muted: #6e3030;
+            --vanilla: #2a1a1a;
+            --vanilla-dark: #8b3030;
+            --warm-white: #0e0e10;
+            --bar-bg: #2a1a1a;
+            --bar-fill: #cc3333;
+            --bar-complete: #4ade80;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-weight: 500;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .top-bar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            transition: color 0.3s;
+        }
+
+        .top-bar a:hover { color: var(--text-primary); }
+
+        .top-bar h1 {
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        /* DARK TOGGLE */
+        .dark-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1001;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+            transition: all 0.35s ease;
+        }
+
+        .dark-toggle:hover { transform: scale(1.1); }
+
+        /* PAGE HEADER */
+        .page-hero {
+            text-align: center;
+            padding: 4rem 2rem 3rem;
+            background: var(--bg-warm);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-hero-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--vanilla-dark);
+            margin-bottom: 0.6rem;
+        }
+
+        .page-hero h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.6rem;
+        }
+
+        .page-hero p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 500;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        /* QUEUE STATS */
+        .queue-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .queue-stat {
+            padding: 0.5rem 1.2rem;
+            border-radius: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .queue-stat-value {
+            font-weight: 900;
+            margin-left: 0.3rem;
+        }
+
+        /* MAIN CONTENT */
+        .page-content {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 4rem;
+        }
+
+        /* COMMISSION CARDS */
+        .comm-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .comm-card {
+            border-radius: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.4rem 1.6rem;
+            transition: all 0.3s ease;
+        }
+
+        .comm-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+
+        body.dark .comm-card:hover {
+            box-shadow: 0 4px 20px rgba(200, 40, 40, 0.06);
+        }
+
+        .comm-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .comm-card-info {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .comm-type-badge {
+            padding: 0.2rem 0.65rem;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--bg-vanilla);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .comm-type-badge.render { background: rgba(74, 124, 155, 0.12); color: #4a7c9b; border-color: rgba(74, 124, 155, 0.2); }
+        .comm-type-badge.model { background: rgba(107, 142, 90, 0.12); color: #6b8e5a; border-color: rgba(107, 142, 90, 0.2); }
+        .comm-type-badge.texture { background: rgba(196, 135, 58, 0.12); color: #c4873a; border-color: rgba(196, 135, 58, 0.2); }
+        .comm-type-badge.skin { background: rgba(122, 74, 142, 0.12); color: #7a4a8e; border-color: rgba(122, 74, 142, 0.2); }
+
+        body.dark .comm-type-badge.render { background: rgba(74, 124, 155, 0.15); color: #6aa8d0; border-color: rgba(74, 124, 155, 0.25); }
+        body.dark .comm-type-badge.model { background: rgba(107, 142, 90, 0.15); color: #8eb878; border-color: rgba(107, 142, 90, 0.25); }
+        body.dark .comm-type-badge.texture { background: rgba(196, 135, 58, 0.15); color: #daa554; border-color: rgba(196, 135, 58, 0.25); }
+        body.dark .comm-type-badge.skin { background: rgba(122, 74, 142, 0.15); color: #a274b8; border-color: rgba(122, 74, 142, 0.25); }
+
+        .comm-client {
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        .comm-percent {
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .comm-percent.complete {
+            color: var(--bar-complete);
+        }
+
+        /* PROGRESS BAR */
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            border-radius: 100px;
+            background: var(--bar-bg);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: var(--bar-fill);
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            width: 0;
+            position: relative;
+        }
+
+        .progress-fill.complete {
+            background: var(--bar-complete);
+        }
+
+        /* Subtle shimmer on active bars */
+        .progress-fill:not(.complete)::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.15) 50%,
+                transparent 100%
+            );
+            animation: barShimmer 2.5s ease infinite;
+        }
+
+        @keyframes barShimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* STATUS LABELS */
+        .comm-status {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+        }
+
+        .comm-status.in-progress { color: var(--bar-fill); }
+        .comm-status.completed { color: var(--bar-complete); }
+        .comm-status.queued { color: var(--vanilla-dark); }
+
+        body.dark .comm-status.in-progress { color: #e84040; }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .empty-state-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.4;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            background: var(--warm-white);
+        }
+
+        body.dark footer {
+            background: var(--warm-white);
+            border-top-color: rgba(255, 60, 60, 0.08);
+        }
+
+        footer p {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover { color: var(--text-primary); }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .top-bar { padding: 0.8rem 1rem; }
+            .page-hero { padding: 3rem 1.2rem 2.5rem; }
+            .page-hero h2 { font-size: 1.6rem; }
+            .page-content { padding: 2rem 1.2rem 3rem; }
+            .comm-card { padding: 1.1rem 1.2rem; }
+            .dark-toggle { bottom: 1rem; right: 1rem; width: 40px; height: 40px; font-size: 1rem; }
+        }
+
+        @media (max-width: 380px) {
+            .page-hero h2 { font-size: 1.3rem; }
+            .comm-card-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+            .queue-stats { gap: 0.8rem; }
+            .queue-stat { font-size: 0.68rem; padding: 0.4rem 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <a href="index.html">&larr; Back</a>
+        <h1>Progress</h1>
+        <span></span>
+    </div>
+
+    <!-- HERO -->
+    <div class="page-hero">
+        <p class="page-hero-label">Commission Queue</p>
+        <h2>Commission Progress</h2>
+        <p>Live progress on current commissions. Updated as work progresses.</p>
+
+        <div class="queue-stats">
+            <div class="queue-stat">In Queue: <span class="queue-stat-value" id="stat-queue">—</span></div>
+            <div class="queue-stat">In Progress: <span class="queue-stat-value" id="stat-progress">—</span></div>
+            <div class="queue-stat">Completed: <span class="queue-stat-value" id="stat-completed">—</span></div>
+        </div>
+    </div>
+
+    <!-- COMMISSION LIST -->
+    <div class="page-content">
+        <div class="comm-list" id="comm-list">
+            <div class="empty-state" id="loading-state">
+                Loading commissions...
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; <span id="year"></span> <a href="index.html">AtomicalMoon</a>. All rights reserved.</p>
+    </footer>
+
+    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode">
+        <span id="toggle-icon">&#9790;</span>
+    </button>
+
+    <script>
+        // Dark mode
+        var toggleBtn = document.getElementById('dark-toggle');
+        var toggleIcon = document.getElementById('toggle-icon');
+        var isDark = localStorage.getItem('atomicalmoon-dark') === 'true';
+
+        function setDark(on) {
+            document.body.classList.toggle('dark', on);
+            toggleIcon.innerHTML = on ? '&#9788;' : '&#9790;';
+            localStorage.setItem('atomicalmoon-dark', on ? 'true' : 'false');
+            isDark = on;
+        }
+        setDark(isDark);
+        toggleBtn.addEventListener('click', function() { setDark(!isDark); });
+
+        // Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Load commission progress
+        fetch('config/commission-progress.json?v=' + Date.now())
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                var commissions = data.commissions || [];
+                var listEl = document.getElementById('comm-list');
+                listEl.innerHTML = '';
+
+                if (commissions.length === 0) {
+                    listEl.innerHTML = '<div class="empty-state"><div class="empty-state-icon">&#10022;</div>No active commissions right now.</div>';
+                    return;
+                }
+
+                // Sort: in-progress first, then queued, then completed
+                var order = { 'in-progress': 0, 'queued': 1, 'completed': 2 };
+                commissions.sort(function(a, b) {
+                    return (order[a.status] || 1) - (order[b.status] || 1);
+                });
+
+                // Stats
+                var inProgress = 0, completed = 0, queued = 0;
+                commissions.forEach(function(c) {
+                    if (c.status === 'in-progress') inProgress++;
+                    else if (c.status === 'completed') completed++;
+                    else if (c.status === 'queued') queued++;
+                });
+
+                document.getElementById('stat-queue').textContent = queued;
+                document.getElementById('stat-progress').textContent = inProgress;
+                document.getElementById('stat-completed').textContent = completed;
+
+                // Build cards
+                commissions.forEach(function(c) {
+                    var card = document.createElement('div');
+                    card.className = 'comm-card';
+
+                    var isComplete = c.progress >= 100 || c.status === 'completed';
+                    var progress = Math.min(100, Math.max(0, c.progress || 0));
+                    var typeLower = (c.type || '').toLowerCase();
+
+                    // Status text
+                    var statusText = 'Queued';
+                    var statusClass = 'queued';
+                    if (c.status === 'in-progress') { statusText = 'In Progress'; statusClass = 'in-progress'; }
+                    else if (c.status === 'completed' || isComplete) { statusText = 'Completed'; statusClass = 'completed'; progress = 100; }
+
+                    card.innerHTML =
+                        '<div class="comm-card-header">' +
+                            '<div class="comm-card-info">' +
+                                '<span class="comm-type-badge ' + typeLower + '">' + (c.type || 'Commission') + '</span>' +
+                                '<span class="comm-client">' + (c.client || 'Client') + '</span>' +
+                            '</div>' +
+                            '<span class="comm-percent ' + (isComplete ? 'complete' : '') + '">' + progress + '%</span>' +
+                        '</div>' +
+                        '<div class="progress-track">' +
+                            '<div class="progress-fill ' + (isComplete ? 'complete' : '') + '" data-width="' + progress + '"></div>' +
+                        '</div>' +
+                        '<span class="comm-status ' + statusClass + '">' + statusText + '</span>';
+
+                    listEl.appendChild(card);
+                });
+
+                // Animate bars in
+                setTimeout(function() {
+                    var fills = document.querySelectorAll('.progress-fill');
+                    fills.forEach(function(fill) {
+                        fill.style.width = fill.getAttribute('data-width') + '%';
+                    });
+                }, 100);
+            })
+            .catch(function() {
+                document.getElementById('comm-list').innerHTML =
+                    '<div class="empty-state"><div class="empty-state-icon">&#10006;</div>Could not load commission data.</div>';
+            });
+    </script>
+</body>
+</html>
