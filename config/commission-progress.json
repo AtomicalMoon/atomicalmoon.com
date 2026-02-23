@@ -1,0 +1,22 @@
+{
+    "commissions": [
+        {
+            "client": "User",
+            "type": "Skin",
+            "progress": 80,
+            "status": "in-progress"
+        },
+        {
+            "client": "FutureClient",
+            "type": "None",
+            "progress": 0,
+            "status": "empty"
+        },
+        {
+            "client": "FutureClient",
+            "type": "None",
+            "progress": 0,
+            "status": "empty"
+        }
+    ]
+}
