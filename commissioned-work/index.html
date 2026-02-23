@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#eeedeb">
     <title>Commissioned Work - AtomicalMoon</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../images/favicon-192.png">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
     <script>
         (function() {
             if (localStorage.getItem('atomicalmoon-dark') === 'true') {
@@ -217,6 +220,7 @@
             display: block;
             border-radius: 10px;
             border: 1px solid var(--border);
+            min-height: 80px;
             -webkit-user-drag: none;
             -khtml-user-drag: none;
             -moz-user-drag: none;
@@ -441,6 +445,11 @@
                     img.loading = 'lazy';
                     img.decoding = 'async';
 
+                    var isPixelArt = tags.some(function(t) { return /^\d+x\d+$/.test(t); });
+                    if (isPixelArt) {
+                        img.style.imageRendering = 'pixelated';
+                    }
+
                     var tagContainer = document.createElement('div');
                     tagContainer.className = 'item-tags';
                     tags.forEach(function(t) {
@@ -460,10 +469,14 @@
                     masonry.appendChild(item);
                     allItems.push(item);
 
-                    item.addEventListener('click', function() {
-                        document.getElementById('lightbox-img').src = 'images/' + filename;
-                        document.getElementById('lightbox').classList.add('open');
-                    });
+                    (function(fn, pixelArt) {
+                        item.addEventListener('click', function() {
+                            var lbImg = document.getElementById('lightbox-img');
+                            lbImg.src = 'images/' + fn;
+                            lbImg.style.imageRendering = pixelArt ? 'pixelated' : '';
+                            document.getElementById('lightbox').classList.add('open');
+                        });
+                    })(filename, isPixelArt);
                 });
 
                 var tagKeys = Object.keys(allTagsSeen).sort();
