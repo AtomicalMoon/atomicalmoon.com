@@ -18,5 +18,17 @@
             "progress": 0,
             "status": "empty"
         }
+        {
+            "client": "FutureClient",
+            "type": "None",
+            "progress": 0,
+            "status": "empty"
+        },
+        {
+            "client": "FutureClient",
+            "type": "None",
+            "progress": 0,
+            "status": "empty"
+        }
     ]
 }
