@@ -9,6 +9,9 @@
     <meta property="og:description" content="Blockbench artist specializing in texturing, modeling, and rendering.">
     <meta property="og:type" content="website">
     <title>AtomicalMoon - Portfolio</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
     <!-- Prevent dark mode flash -->
     <script>
@@ -928,6 +931,19 @@
             transition: color 0.3s;
         }
 
+        .comm-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .comm-buttons .btn {
+            width: 100%;
+            max-width: 260px;
+            text-align: center;
+        }
+
         /* ===== CONTACT ===== */
         .contact-cards {
             text-align: center;
@@ -1305,8 +1321,10 @@
             <h2>Commission Status</h2>
             <p class="comm-sub">Currently accepting work?</p>
             <span id="status-text-lg">Loading...</span>
-            <a href="commissions.html" class="btn btn-primary">View Commission Info &rarr;</a>
-            <a href="commission-progress.html" class="btn btn-soft" style="margin-top:0.6rem;">View Queue Progress &rarr;</a>
+            <div class="comm-buttons">
+                <a href="commissions.html" class="btn btn-primary">View Commission Info &rarr;</a>
+                <a href="commission-progress.html" class="btn btn-soft">View Queue Progress &rarr;</a>
+            </div>
         </div>
     </section>
 
