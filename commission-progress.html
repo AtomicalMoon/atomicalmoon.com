@@ -548,7 +548,7 @@
 <body>
 
     <div class="top-bar">
-        <a href="index.html">&larr; Back</a>
+        <a href="commissions.html">&larr; Back to Commissions</a>
         <h1>Progress</h1>
         <span></span>
     </div>
@@ -577,7 +577,9 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; <span id="year"></span> <a href="index.html">AtomicalMoon</a>. All rights reserved.</p>
+        <p class="footer-logo" style="font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;font-size:1rem;color:var(--text-secondary);margin-bottom:0.3rem;">AtomicalMoon</p>
+        <p>&copy; <span id="year"></span> AtomicalMoon. All rights reserved.</p>
+        <div class="footer-socials" id="footer-socials" style="display:flex;justify-content:center;gap:1.5rem;margin-top:0.6rem;"></div>
     </footer>
 
     <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode">
@@ -601,6 +603,22 @@
 
         // Year
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Load footer socials
+        fetch('config/socials.json?v=' + Date.now())
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                var socials = data.socials || [];
+                var footerEl = document.getElementById('footer-socials');
+                if (!footerEl) return;
+                socials.forEach(function(s) {
+                    var a = document.createElement('a');
+                    a.href = s.url; a.textContent = s.name;
+                    a.target = '_blank'; a.rel = 'noopener';
+                    a.style.cssText = 'color:var(--text-muted);text-decoration:none;font-size:0.78rem;font-weight:500;transition:color 0.3s;';
+                    footerEl.appendChild(a);
+                });
+            }).catch(function() {});
 
         // Load commission progress
         fetch('config/commission-progress.json?v=' + Date.now())
