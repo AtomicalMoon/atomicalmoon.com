@@ -41,8 +41,6 @@
             --vanilla: #cecdca;
             --vanilla-dark: #a5a49c;
             --warm-white: #f3f2f0;
-            --halo-gold: #bbb8a8;
-            --halo-glow: rgba(187, 184, 168, 0.3);
         }
 
         body.dark {
@@ -58,14 +56,11 @@
             --vanilla: #2a1a1a;
             --vanilla-dark: #8b3030;
             --warm-white: #0e0e10;
-            --halo-gold: #cc3333;
-            --halo-glow: rgba(204, 51, 51, 0.25);
         }
 
         /* Dark mode overrides */
         body.dark .hero { background: linear-gradient(180deg, var(--warm-white) 0%, var(--bg) 100%); }
         body.dark .hero::before { background: radial-gradient(ellipse at top center, rgba(200, 40, 40, 0.08) 0%, transparent 65%); }
-        body.dark .hero-halo { border-color: #cc3333; box-shadow: 0 0 20px rgba(204, 51, 51, 0.3), 0 0 50px rgba(204, 51, 51, 0.1); }
         body.dark .btn-primary { background: #cc2020; color: #111113; box-shadow: 0 2px 12px rgba(204, 32, 32, 0.2); }
         body.dark .btn-primary:hover { background: #b81c1c; box-shadow: 0 6px 24px rgba(204, 32, 32, 0.3); }
         body.dark .btn-soft { background: #2a1a1a; color: #e84040; border-color: rgba(255, 60, 60, 0.15); }
@@ -160,8 +155,6 @@
         .hero-slideshow .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 3s ease-in-out; will-change: opacity; }
         .hero-slideshow .slide.active { opacity: 1; }
         .hero::before { content: ''; position: absolute; top: -10%; left: 50%; transform: translateX(-50%); width: min(600px, 100%); height: 70%; background: radial-gradient(ellipse at top center, rgba(190, 188, 180, 0.3) 0%, transparent 65%); z-index: -1; pointer-events: none; }
-        .hero-halo { width: 72px; height: 24px; border: 2px solid var(--halo-gold); border-radius: 50%; margin: 0 auto 1.8rem; opacity: 0.65; box-shadow: 0 0 20px var(--halo-glow), 0 0 50px rgba(212, 197, 160, 0.1); animation: haloFloat 5s ease-in-out infinite, fadeIn 1.2s ease both; transform: rotateX(55deg); z-index: 2; position: relative; }
-        @keyframes haloFloat { 0%, 100% { transform: translateY(0) rotateX(55deg); } 50% { transform: translateY(-5px) rotateX(55deg); } }
 
         /* Hero character image — centered on h1 only */
         .hero-title-wrap {
@@ -194,19 +187,17 @@
         body.dark .hero-character .char-dark { display: block; }
         body.dark .hero-character { opacity: 0.14; filter: grayscale(0.1); }
 
-        /* Hero h1 — text stroke matching background */
+        /* Hero h1 — light text stroke matching background */
         .hero h1 {
             font-size: clamp(3.2rem, 8vw, 7.5rem); font-weight: 900; line-height: 1;
             letter-spacing: -0.04em; color: var(--text-primary); margin-bottom: 1rem;
             text-transform: uppercase; animation: fadeInUp 1s ease 0.1s both;
             position: relative; z-index: 2;
-            -webkit-text-stroke: 3px var(--bg);
+            -webkit-text-stroke: 5px rgba(238, 237, 235, 0.85);
             paint-order: stroke fill;
-            text-shadow: 0 0 20px var(--bg), 0 0 40px var(--bg);
         }
         body.dark .hero h1 {
-            -webkit-text-stroke: 3px var(--bg);
-            text-shadow: 0 0 20px var(--bg), 0 0 40px var(--bg);
+            -webkit-text-stroke: 5px rgba(17, 17, 19, 0.85);
         }
         .hero-subtitle { font-size: clamp(0.92rem, 2vw, 1.1rem); color: var(--text-secondary); max-width: 420px; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 2.2rem; animation: fadeInUp 1s ease 0.25s both; position: relative; z-index: 2; }
         .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; animation: fadeInUp 1s ease 0.4s both; position: relative; z-index: 2; }
@@ -550,7 +541,7 @@
             nav { padding: 0.8rem 1rem; }
             .nav-logo { font-size: 1.15rem; }
             .hero { padding: 1.5rem 1.2rem 3rem; }
-            .hero h1 { font-size: clamp(2.2rem, 10vw, 3.5rem); word-break: break-word; -webkit-text-stroke: 2px var(--bg); }
+            .hero h1 { font-size: clamp(2.2rem, 10vw, 3.5rem); word-break: break-word; -webkit-text-stroke: 3px rgba(238, 237, 235, 0.85); }
             .hero-character { width: clamp(180px, 55vw, 280px); }
             .hero-subtitle { font-size: 0.85rem; max-width: 100%; padding: 0 0.5rem; }
             .hero-actions { gap: 0.6rem; }
@@ -583,7 +574,7 @@
         }
         @media (max-width: 450px) { .masonry { column-count: 1; } }
         @media (max-width: 380px) {
-            .hero h1 { font-size: 1.8rem; -webkit-text-stroke: 1.5px var(--bg); }
+            .hero h1 { font-size: 1.8rem; -webkit-text-stroke: 2px rgba(238, 237, 235, 0.85); }
             .hero-character { width: 180px; opacity: 0.12; }
             .nav-logo { font-size: 1rem; }
             .hero-actions { flex-direction: column; width: 100%; }
@@ -623,7 +614,6 @@
             <img src="images/hero2.png" alt="Hero Image 2" class="slide" loading="lazy" decoding="async">
             <img src="images/hero3.png" alt="Hero Image 3" class="slide" loading="lazy" decoding="async">
         </div>
-        <div class="hero-halo"></div>
         <div class="hero-title-wrap">
             <div class="hero-character">
                 <img src="images/brightmoon.png" alt="" class="char-light" fetchpriority="high" decoding="async">
