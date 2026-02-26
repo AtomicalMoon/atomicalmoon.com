@@ -20,7 +20,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #eeedeb;
@@ -66,9 +66,14 @@
             background: var(--bg);
             color: var(--text-primary);
             line-height: 1.7;
-            font-weight: 500;
+            font-weight: 600;
             min-height: 100vh;
             overflow-x: hidden;
+            text-rendering: optimizeSpeed;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
         }
 
         /* TOP BAR */
@@ -121,7 +126,7 @@
             justify-content: center;
             font-size: 1.15rem;
             box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-            transition: all 0.35s ease;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
 
         .dark-toggle:hover { transform: scale(1.1); }
@@ -361,7 +366,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             padding: 1.4rem 1.6rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .comm-card:hover {
@@ -605,7 +610,7 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // Load footer socials
-        fetch('config/socials.json?v=' + Date.now())
+        fetch('config/socials.json?v=' + '1')
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 var socials = data.socials || [];
@@ -621,7 +626,7 @@
             }).catch(function() {});
 
         // Load commission progress
-        fetch('config/commission-progress.json?v=' + Date.now())
+        fetch('config/commission-progress.json?v=' + '1')
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 var commissions = data.commissions || [];
