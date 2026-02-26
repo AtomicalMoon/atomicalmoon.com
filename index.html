@@ -26,7 +26,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #eeedeb;
@@ -102,7 +102,7 @@
             color: var(--text-secondary); cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             font-size: 1.15rem; box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-            transition: all 0.35s ease;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
         .dark-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
@@ -115,8 +115,15 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: var(--bg); color: var(--text-primary);
-            line-height: 1.7; overflow-x: hidden; font-weight: 500;
+            line-height: 1.7; overflow-x: hidden; font-weight: 600;
             width: 100%; max-width: 100vw; overflow-wrap: break-word;
+            text-rendering: optimizeSpeed;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+            .hero-slideshow, #bg-canvas { display: none !important; }
         }
 
         .status-open { color: #16a34a !important; }
@@ -133,12 +140,12 @@
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             padding: 1rem 2.5rem; display: flex; justify-content: space-between; align-items: center;
             background: rgba(250, 249, 246, 0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); transition: all 0.4s;
+            border-bottom: 1px solid var(--border); transition: background 0.4s, box-shadow 0.4s;
         }
         nav.scrolled { background: rgba(250, 249, 246, 0.92); box-shadow: 0 1px 20px rgba(0,0,0,0.04); }
         .nav-logo { font-weight: 900; font-size: 1.5rem; color: var(--text-primary); letter-spacing: -0.03em; text-transform: uppercase; }
         .nav-links { display: flex; gap: 0.2rem; list-style: none; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; padding: 0.45rem 1rem; border-radius: 100px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; transition: all 0.3s; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; padding: 0.45rem 1rem; border-radius: 100px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; transition: color 0.3s, background 0.3s; }
         .nav-links a:hover { color: var(--text-primary); background: var(--vanilla); }
         .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
         .nav-hamburger span { width: 22px; height: 1.5px; background: var(--text-secondary); border-radius: 2px; }
@@ -184,7 +191,7 @@
         .hero-subtitle { font-size: clamp(0.92rem, 2vw, 1.1rem); color: var(--text-secondary); max-width: 420px; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 2.2rem; animation: fadeInUp 1s ease 0.25s both; position: relative; z-index: 2; }
         .hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem; animation: fadeInUp 1s ease 0.4s both; position: relative; z-index: 2; }
 
-        .btn { padding: 0.75rem 1.8rem; border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.03em; transition: all 0.35s ease; cursor: pointer; border: none; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+        .btn { padding: 0.75rem 1.8rem; border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 0.88rem; letter-spacing: 0.03em; transition: transform 0.35s ease, background 0.35s ease, box-shadow 0.35s ease; cursor: pointer; border: none; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
         .btn-primary { background: #3e3d38; color: #eeedeb; box-shadow: 0 2px 12px rgba(62, 61, 56, 0.18); }
         .btn-primary:hover { transform: translateY(-2px); background: #32312c; box-shadow: 0 6px 24px rgba(62, 61, 56, 0.26); }
         .btn-soft { background: #b8b7b2; color: #2a2925; border: 1px solid rgba(140, 138, 130, 0.3); }
@@ -206,7 +213,7 @@
         @keyframes opalOuterGlow { 0%, 100% { box-shadow: 0 0 10px rgba(212, 184, 232, 0.38), 0 0 24px rgba(184, 212, 240, 0.25), 0 0 40px rgba(240, 192, 216, 0.14); } 33% { box-shadow: 0 0 10px rgba(184, 232, 212, 0.38), 0 0 24px rgba(224, 200, 240, 0.25), 0 0 40px rgba(184, 216, 232, 0.14); } 66% { box-shadow: 0 0 10px rgba(240, 192, 216, 0.38), 0 0 24px rgba(192, 232, 208, 0.25), 0 0 40px rgba(212, 184, 232, 0.14); } }
         .hero-commission .comm-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
         .hero-commission #status-text { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em; transition: color 0.3s; }
-        .hero-commission .comm-link { font-size: 0.78rem; color: var(--text-secondary); text-decoration: none; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 100px; background: var(--bg-vanilla); border: 1px solid var(--border); transition: all 0.3s; }
+        .hero-commission .comm-link { font-size: 0.78rem; color: var(--text-secondary); text-decoration: none; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 100px; background: var(--bg-vanilla); border: 1px solid var(--border); transition: background 0.3s, color 0.3s; }
         .hero-commission .comm-link:hover { background: var(--vanilla); color: var(--text-primary); }
 
         .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; animation: fadeInUp 1s ease 0.8s both; }
@@ -228,7 +235,7 @@
             background: var(--bg-warm);
         }
         .filter-bar-label { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-right: 0.5rem; }
-        .filter-tag { padding: 0.35rem 0.85rem; border-radius: 100px; background: var(--bg-card); border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); cursor: pointer; transition: all 0.25s ease; text-transform: uppercase; letter-spacing: 0.03em; }
+        .filter-tag { padding: 0.35rem 0.85rem; border-radius: 100px; background: var(--bg-card); border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); cursor: pointer; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease; text-transform: uppercase; letter-spacing: 0.03em; }
         .filter-tag:hover { border-color: var(--border-hover); color: var(--text-primary); }
         .filter-tag.active { background: var(--text-primary); color: var(--bg); border-color: var(--text-primary); }
         body.dark .filter-tag.active { background: #e84040; color: #111113; border-color: #e84040; }
@@ -264,9 +271,11 @@
         .masonry { padding: 0.5rem 2rem 4rem; column-count: 4; column-gap: 0.8rem; -webkit-user-select: none; user-select: none; }
         .masonry-item {
             break-inside: avoid; margin-bottom: 0.8rem; border-radius: 10px; overflow: hidden;
-            position: relative; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative; cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             -webkit-touch-callout: none; background: var(--bg-vanilla); min-height: 80px;
             border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            contain: layout style paint;
         }
         body.dark .masonry-item { border-color: rgba(255, 255, 255, 0.08); box-shadow: 0 2px 8px rgba(0,0,0,0.3); background: #1a1a1d; }
 
@@ -422,7 +431,7 @@
             color: #fff; font-size: 1.4rem; font-weight: 900;
             cursor: pointer; z-index: 10;
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.25s ease;
+            transition: background 0.25s ease, transform 0.25s ease;
             backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
         }
         .lb-arrow:hover { background: rgba(255,255,255,0.25); transform: translateY(-50%) scale(1.08); }
@@ -439,7 +448,7 @@
             padding: 0.35rem 0.9rem; border-radius: 100px;
             background: var(--bg-card); border: 1px solid var(--border);
             font-size: 0.75rem; font-weight: 600; color: var(--text-primary);
-            outline: none; width: 140px; transition: all 0.3s ease;
+            outline: none; width: 140px; transition: width 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             font-family: 'Inter', sans-serif; margin-left: auto;
         }
         .gallery-search::placeholder { color: var(--text-muted); font-weight: 600; }
@@ -461,7 +470,7 @@
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             font-size: 1.1rem; font-weight: 900;
             box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-            transition: all 0.35s ease;
+            transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             opacity: 0; pointer-events: none; transform: translateY(8px);
         }
@@ -484,19 +493,19 @@
         body.dark .divider { background: linear-gradient(to right, transparent, rgba(200, 40, 40, 0.15), transparent); }
 
         /* ===== CONTACT ===== */
-        .section { position: relative; z-index: 1; padding: 5.5rem 2rem; overflow: hidden; }
+        .section { position: relative; z-index: 1; padding: 5.5rem 2rem; overflow: hidden; content-visibility: auto; contain-intrinsic-size: auto 400px; }
         .section-inner { max-width: 1000px; margin: 0 auto; }
         .contact-cards { text-align: center; }
         .contact-desc { color: var(--text-secondary); font-size: 0.95rem; font-weight: 500; max-width: 420px; margin: 0 auto 2rem; line-height: 1.6; }
         .contact-links { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
-        .contact-card { display: flex; align-items: center; gap: 1rem; padding: 1.3rem 1.8rem; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); transition: all 0.35s ease; box-shadow: 0 1px 8px rgba(0,0,0,0.03); min-width: 260px; }
+        .contact-card { display: flex; align-items: center; gap: 1rem; padding: 1.3rem 1.8rem; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease; box-shadow: 0 1px 8px rgba(0,0,0,0.03); min-width: 260px; }
         .contact-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.06); }
         body.dark .contact-card:hover { box-shadow: 0 8px 28px rgba(200, 40, 40, 0.08); }
         .contact-card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--bg-vanilla); border: 1px solid var(--border); color: var(--text-secondary); flex-shrink: 0; }
         .contact-card-text { flex: 1; text-align: left; }
         .contact-card-text h3 { font-weight: 800; font-size: 1rem; text-transform: uppercase; letter-spacing: -0.01em; }
         .contact-card-text p { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
-        .contact-card-arrow { color: var(--text-muted); font-size: 1.2rem; font-weight: 700; transition: all 0.3s; flex-shrink: 0; }
+        .contact-card-arrow { color: var(--text-muted); font-size: 1.2rem; font-weight: 700; transition: transform 0.3s, color 0.3s; flex-shrink: 0; }
         .contact-card:hover .contact-card-arrow { color: var(--text-primary); transform: translateX(3px); }
 
         /* ===== FOOTER ===== */
@@ -600,7 +609,7 @@
                 <img src="images/darkmoon.png" alt="AtomicalMoon" class="char-dark" loading="lazy" decoding="async">
             </div>
         </div>
-        <p class="hero-subtitle">Texturer · Modeler · Renderer — crafting detailed 3D worlds in Blockbench</p>
+        <p class="hero-subtitle">Texturer - Renderer - Modeler</p>
         <div class="hero-actions">
             <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
             <a href="#contact" class="btn btn-soft">Get in Touch</a>
@@ -692,10 +701,24 @@
         };
         var socialDescriptions = { discord: 'DM me for commissions', twitter: 'Follow and message me', youtube: 'Watch my content', github: 'Check out my repos', instagram: 'See my posts' };
 
-        fetch('config/socials.json?v=' + Date.now())
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                var socials = data.socials || [];
+        // ===== PARALLEL DATA LOADING =====
+        var _v = '1'; // bump this when config changes, or remove for no-cache
+        var fetchJSON = function(url) { return fetch(url).then(function(r) { return r.ok ? r.json() : null; }).catch(function() { return null; }); };
+
+        Promise.all([
+            fetchJSON('config/socials.json?v=' + _v),
+            fetchJSON('config/commission-status.json?v=' + _v),
+            fetchJSON('config/watermark.json?v=' + _v),
+            fetchJSON('collage/images.json?v=' + _v)
+        ]).then(function(results) {
+            var socialsData = results[0];
+            var statusData = results[1];
+            var watermarkData = results[2];
+            var imagesData = results[3];
+
+            // Socials
+            if (socialsData) {
+                var socials = socialsData.socials || [];
                 var contactEl = document.getElementById('contact-links');
                 var footerEl = document.getElementById('footer-socials');
                 socials.forEach(function(s) {
@@ -706,29 +729,35 @@
                     var fl = document.createElement('a'); fl.href = s.url; fl.textContent = s.name; fl.target = '_blank'; fl.rel = 'noopener';
                     footerEl.appendChild(fl);
                 });
-            }).catch(function() { document.getElementById('contact-links').innerHTML = '<p style="color:var(--text-muted);font-size:0.85rem;">Could not load socials.</p>'; });
+            }
 
-        // Commission status with skeleton
-        async function loadCommissionStatus() {
-            try {
-                var r = await fetch('config/commission-status.json?v=' + Date.now());
-                if (r.ok) { var d = await r.json(); applyStatus(d.status || 'waitlist'); }
-                else applyStatus('waitlist');
-            } catch (e) { applyStatus('waitlist'); }
-        }
+            // Commission status
+            applyStatus(statusData ? (statusData.status || 'waitlist') : 'waitlist');
+
+            // Watermark
+            applyWatermark(watermarkData);
+
+            // Gallery
+            if (imagesData) buildGallery(imagesData);
+            else document.getElementById('empty-state').style.display = 'block';
+        });
+
         function applyStatus(status) {
             var el = document.getElementById('status-text');
             if (!el) return;
             el.textContent = status.toUpperCase();
+            var cls = { open: 'status-open', closed: 'status-closed', full: 'status-full', waitlist: 'status-waitlist', paused: 'status-paused' };
             ['status-open','status-closed','status-full','status-waitlist','status-paused','status-slots'].forEach(function(c) { el.classList.remove(c); });
-            if (status === 'open') el.classList.add('status-open');
-            else if (status === 'closed') el.classList.add('status-closed');
-            else if (status === 'full') el.classList.add('status-full');
-            else if (status === 'waitlist') el.classList.add('status-waitlist');
-            else if (status === 'paused') el.classList.add('status-paused');
-            else if (status.toLowerCase().indexOf('slot') !== -1) el.classList.add('status-slots');
+            el.classList.add(cls[status] || (status.toLowerCase().indexOf('slot') !== -1 ? 'status-slots' : 'status-waitlist'));
         }
-        loadCommissionStatus();
+
+        function applyWatermark(cfg) {
+            var text = (cfg && cfg.text || 'atomicalmoon').toUpperCase();
+            var opacity = cfg && cfg.opacity !== undefined ? cfg.opacity : 0.15;
+            var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="120"><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="800" fill="%23433e38" transform="rotate(-25 110 60)" letter-spacing="2">' + text + '</text></svg>';
+            document.documentElement.style.setProperty('--watermark-pattern', 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
+            document.documentElement.style.setProperty('--watermark-opacity', opacity);
+        }
 
         // Slideshow
         (function() {
@@ -748,27 +777,23 @@
             });
         });
 
-        // Nav scroll + parallax + back to top
+        // Nav scroll + parallax + back to top (single rAF handler)
         var navEl = document.getElementById('main-nav');
         var heroSlideshow = document.querySelector('.hero-slideshow');
         var bttBtn = document.getElementById('back-to-top');
         var scrollTick = false;
+        var heroH = window.innerHeight;
         window.addEventListener('scroll', function() {
             if (!scrollTick) { scrollTick = true; requestAnimationFrame(function() {
                 var sy = window.scrollY;
                 navEl.classList.toggle('scrolled', sy > 40);
-                // Parallax hero
-                if (heroSlideshow && sy < window.innerHeight) {
-                    heroSlideshow.style.transform = 'translateY(' + (sy * 0.35) + 'px)';
-                }
-                // Back to top visibility
-                bttBtn.classList.toggle('visible', sy > window.innerHeight * 0.8);
+                if (heroSlideshow && sy < heroH) heroSlideshow.style.transform = 'translate3d(0,' + (sy * 0.35) + 'px,0)';
+                bttBtn.classList.toggle('visible', sy > heroH * 0.8);
                 scrollTick = false;
             }); }
         }, { passive: true });
 
         bttBtn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-
         document.getElementById('nav-hamburger').addEventListener('click', function() { document.getElementById('nav-links').classList.toggle('open'); });
 
         // Reveal
@@ -776,23 +801,6 @@
             entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
         }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
         document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
-
-        // Watermark
-        (function() {
-            fetch('config/watermark.json?v=' + Date.now())
-                .then(function(r) { return r.json(); })
-                .then(function(cfg) {
-                    var text = (cfg.text || 'atomicalmoon').toUpperCase();
-                    var opacity = cfg.opacity !== undefined ? cfg.opacity : 0.15;
-                    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="120"><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="800" fill="%23433e38" transform="rotate(-25 110 60)" letter-spacing="2">' + text + '</text></svg>';
-                    document.documentElement.style.setProperty('--watermark-pattern', 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
-                    document.documentElement.style.setProperty('--watermark-opacity', opacity);
-                }).catch(function() {
-                    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="220" height="120"><text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="800" fill="%23433e38" transform="rotate(-25 110 60)" letter-spacing="2">ATOMICALMOON</text></svg>';
-                    document.documentElement.style.setProperty('--watermark-pattern', 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
-                    document.documentElement.style.setProperty('--watermark-opacity', '0.15');
-                });
-        })();
 
         // ===== GALLERY =====
         var masonry = document.getElementById('masonry');
@@ -816,105 +824,102 @@
             return parts.map(function(t) { return t.toLowerCase(); });
         }
 
-        fetch('collage/images.json?v=' + Date.now())
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                var images = data.images || [];
-                tagColors = data.tags || {};
-                if (!images.length) { emptyEl.style.display = 'block'; return; }
+        function buildGallery(data) {
+            var images = data.images || [];
+            tagColors = data.tags || {};
+            if (!images.length) { emptyEl.style.display = 'block'; return; }
 
-                images.forEach(function(filename, idx) {
-                    var tags = parseTags(filename);
-                    tags.forEach(function(t) {
-                        allTagsSeen[t] = true;
-                        tagCounts[t] = (tagCounts[t] || 0) + 1;
-                    });
-                    var isCommission = tags.indexOf('commission') !== -1;
+            // Build all items with DocumentFragment (single DOM write)
+            var frag = document.createDocumentFragment();
 
-                    var item = document.createElement('div');
-                    item.className = 'masonry-item loading' + (isCommission ? ' is-commission' : '');
-                    item.setAttribute('data-tags', tags.join(','));
-                    item.setAttribute('data-idx', idx);
+            images.forEach(function(filename, idx) {
+                var tags = parseTags(filename);
+                tags.forEach(function(t) {
+                    allTagsSeen[t] = true;
+                    tagCounts[t] = (tagCounts[t] || 0) + 1;
+                });
+                var isCommission = tags.indexOf('commission') !== -1;
 
-                    var img = document.createElement('img');
-                    img.src = 'collage/images/' + filename;
-                    img.alt = filename;
-                    img.loading = 'lazy';
-                    img.decoding = 'async';
+                var item = document.createElement('div');
+                item.className = 'masonry-item loading' + (isCommission ? ' is-commission' : '');
+                item.setAttribute('data-tags', tags.join(','));
+                item.setAttribute('data-idx', idx);
 
-                    // Staggered fade-in
-                    (function(el, i) {
-                        img.onload = function() {
-                            setTimeout(function() {
-                                el.classList.remove('loading');
-                                el.classList.add('loaded');
-                            }, Math.min(i * 60, 600));
-                        };
-                    })(item, idx);
+                var img = document.createElement('img');
+                img.src = 'collage/images/' + filename;
+                img.alt = filename;
+                img.loading = 'lazy';
+                img.decoding = 'async';
 
-                    img.onerror = function() {
-                        item.classList.remove('loading'); img.style.display = 'none';
-                        var err = document.createElement('div');
-                        err.style.cssText = 'padding:2rem 1rem;text-align:center;font-size:0.7rem;font-weight:700;color:var(--text-muted);background:var(--bg-vanilla);border-radius:10px;border:1px dashed var(--border);min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.3rem;';
-                        err.innerHTML = '<span style="font-size:1.5rem;opacity:0.3;">&#10006;</span>Image not found<br><code style="font-size:0.6rem;opacity:0.6;">collage/images/' + filename + '</code>';
-                        item.insertBefore(err, item.firstChild);
+                // Staggered fade-in (cap at 600ms)
+                (function(el, i) {
+                    img.onload = function() {
+                        setTimeout(function() { el.classList.remove('loading'); el.classList.add('loaded'); }, Math.min(i * 60, 600));
                     };
+                })(item, idx);
 
-                    var isPixelArt = tags.some(function(t) { return /^\d+x\d+$/.test(t); });
-                    if (isPixelArt) img.style.imageRendering = 'pixelated';
+                img.onerror = function() {
+                    item.classList.remove('loading'); img.style.display = 'none';
+                    var err = document.createElement('div');
+                    err.style.cssText = 'padding:2rem 1rem;text-align:center;font-size:0.7rem;font-weight:700;color:var(--text-muted);background:var(--bg-vanilla);border-radius:10px;border:1px dashed var(--border);min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.3rem;';
+                    err.innerHTML = '<span style="font-size:1.5rem;opacity:0.3;">&#10006;</span>Image not found';
+                    item.insertBefore(err, item.firstChild);
+                };
 
-                    var tagContainer = document.createElement('div');
-                    tagContainer.className = 'item-tags';
-                    tags.forEach(function(t) {
-                        var span = document.createElement('span');
-                        span.className = 'item-tag' + (t === 'commission' ? ' tag-commission' : '');
-                        span.textContent = t;
-                        var color = tagColors[t];
-                        if (color && t !== 'commission') { span.style.background = color; span.style.color = '#fff'; }
-                        tagContainer.appendChild(span);
-                    });
+                var isPixelArt = tags.some(function(t) { return /^\d+x\d+$/.test(t); });
+                if (isPixelArt) img.style.imageRendering = 'pixelated';
 
-                    item.appendChild(img);
-                    item.appendChild(tagContainer);
-                    masonry.appendChild(item);
-                    allItems.push(item);
-                    allFilenames.push(filename);
-                    allPixelArt.push(isPixelArt);
-
-                    // Click opens lightbox at this index
-                    (function(i) {
-                        item.addEventListener('click', function() { openLightbox(i); });
-                    })(idx);
+                var tagContainer = document.createElement('div');
+                tagContainer.className = 'item-tags';
+                tags.forEach(function(t) {
+                    var span = document.createElement('span');
+                    span.className = 'item-tag' + (t === 'commission' ? ' tag-commission' : '');
+                    span.textContent = t;
+                    var color = tagColors[t];
+                    if (color && t !== 'commission') { span.style.background = color; span.style.color = '#fff'; }
+                    tagContainer.appendChild(span);
                 });
 
-                // Build filter buttons with counts — commission first
-                var tagKeys = Object.keys(allTagsSeen).sort();
-                var commIdx = tagKeys.indexOf('commission');
-                if (commIdx > -1) { tagKeys.splice(commIdx, 1); tagKeys.unshift('commission'); }
+                item.appendChild(img);
+                item.appendChild(tagContainer);
+                frag.appendChild(item);
+                allItems.push(item);
+                allFilenames.push(filename);
+                allPixelArt.push(isPixelArt);
 
-                // "All" button count
-                var allBtn = filterBar.querySelector('[data-tag="all"]');
-                allBtn.innerHTML = 'All <span class="tag-count">(' + images.length + ')</span>';
+                (function(i) { item.addEventListener('click', function() { openLightbox(i); }); })(idx);
+            });
 
-                tagKeys.forEach(function(tag) {
-                    var btn = document.createElement('button');
-                    btn.className = 'filter-tag';
-                    btn.setAttribute('data-tag', tag);
-                    btn.innerHTML = tag + ' <span class="tag-count">(' + (tagCounts[tag] || 0) + ')</span>';
-                    var color = tagColors[tag];
-                    if (color && tag !== 'commission') { btn.setAttribute('data-color', color); btn.style.borderColor = color; btn.style.color = color; }
-                    filterBar.insertBefore(btn, searchInput);
-                });
+            // Single DOM write
+            masonry.appendChild(frag);
 
-                updateCount();
-                bindFilters();
+            // Build filter buttons with counts
+            var tagKeys = Object.keys(allTagsSeen).sort();
+            var commIdx = tagKeys.indexOf('commission');
+            if (commIdx > -1) { tagKeys.splice(commIdx, 1); tagKeys.unshift('commission'); }
 
-                // Apply hash filter on load
-                var initTag = location.hash.replace('#', '');
-                if (initTag && (allTagsSeen[initTag] || initTag === 'all')) {
-                    setFilter(initTag);
-                }
-            }).catch(function() { emptyEl.style.display = 'block'; });
+            var allBtn = filterBar.querySelector('[data-tag="all"]');
+            allBtn.innerHTML = 'All <span class="tag-count">(' + images.length + ')</span>';
+
+            var btnFrag = document.createDocumentFragment();
+            tagKeys.forEach(function(tag) {
+                var btn = document.createElement('button');
+                btn.className = 'filter-tag';
+                btn.setAttribute('data-tag', tag);
+                btn.innerHTML = tag + ' <span class="tag-count">(' + (tagCounts[tag] || 0) + ')</span>';
+                var color = tagColors[tag];
+                if (color && tag !== 'commission') { btn.setAttribute('data-color', color); btn.style.borderColor = color; btn.style.color = color; }
+                btnFrag.appendChild(btn);
+            });
+            filterBar.insertBefore(btnFrag, searchInput);
+
+            updateCount();
+            bindFilters();
+
+            // Apply hash filter on load
+            var initTag = location.hash.replace('#', '');
+            if (initTag && (allTagsSeen[initTag] || initTag === 'all')) setFilter(initTag);
+        }
 
         // ===== LIGHTBOX =====
         var lightbox = document.getElementById('lightbox');
@@ -923,9 +928,9 @@
 
         function getVisibleIndices() {
             var vis = [];
-            allItems.forEach(function(item, i) {
-                if (!item.classList.contains('hidden')) vis.push(i);
-            });
+            for (var i = 0; i < allItems.length; i++) {
+                if (!allItems[i].classList.contains('hidden')) vis.push(i);
+            }
             return vis;
         }
 
@@ -942,16 +947,14 @@
             lbImg.style.imageRendering = allPixelArt[lbIndex] ? 'pixelated' : '';
             lbImg.onload = function() { lbImg.classList.remove('lb-loading'); };
             var vis = getVisibleIndices();
-            var pos = vis.indexOf(lbIndex) + 1;
-            lbCounter.textContent = pos + ' / ' + vis.length;
+            lbCounter.textContent = (vis.indexOf(lbIndex) + 1) + ' / ' + vis.length;
         }
 
         function lbNav(dir) {
             var vis = getVisibleIndices();
             var cur = vis.indexOf(lbIndex);
             if (cur === -1) return;
-            var next = (cur + dir + vis.length) % vis.length;
-            lbIndex = vis[next];
+            lbIndex = vis[(cur + dir + vis.length) % vis.length];
             showLightboxImage();
         }
 
@@ -965,7 +968,6 @@
             }
         });
 
-        // Keyboard: arrows, escape
         document.addEventListener('keydown', function(e) {
             if (lightbox.classList.contains('open')) {
                 if (e.key === 'Escape') { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
@@ -975,19 +977,17 @@
             if ((e.ctrlKey || e.metaKey) && e.key === 's') e.preventDefault();
         });
 
-        // Touch swipe for lightbox
+        // Touch swipe
         (function() {
-            var startX = 0, startY = 0, swiping = false;
+            var sx = 0, sy = 0, sw = false;
             lightbox.addEventListener('touchstart', function(e) {
-                if (e.touches.length === 1) { startX = e.touches[0].clientX; startY = e.touches[0].clientY; swiping = true; }
+                if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; sw = true; }
             }, { passive: true });
             lightbox.addEventListener('touchend', function(e) {
-                if (!swiping) return; swiping = false;
-                var endX = e.changedTouches[0].clientX;
-                var endY = e.changedTouches[0].clientY;
-                var dx = endX - startX, dy = endY - startY;
-                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
-                    if (dx > 0) lbNav(-1); else lbNav(1);
+                if (!sw) return; sw = false;
+                var dx = e.changedTouches[0].clientX - sx;
+                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(e.changedTouches[0].clientY - sy)) {
+                    dx > 0 ? lbNav(-1) : lbNav(1);
                 }
             }, { passive: true });
         })();
@@ -1007,14 +1007,12 @@
                 var tags = item.getAttribute('data-tags').split(',');
                 item.classList.toggle('hidden', activeTag !== 'all' && tags.indexOf(activeTag) === -1);
             });
-            // Update URL hash (without scrolling)
             history.replaceState(null, '', tag === 'all' ? location.pathname : '#' + tag);
             updateCount();
         }
 
         function bindFilters() {
             filterBar.addEventListener('click', function(e) {
-                if (!e.target.classList.contains('filter-tag') && !e.target.classList.contains('tag-count')) return;
                 var btn = e.target.closest('.filter-tag');
                 if (!btn) return;
                 setFilter(btn.getAttribute('data-tag'));
@@ -1022,34 +1020,35 @@
             });
         }
 
-        // Search input — filters visible tags and items
+        // Debounced search
+        var searchTimer;
         searchInput.addEventListener('input', function() {
-            var q = this.value.trim().toLowerCase();
-            if (!q) {
-                // Reset to active tag filter
-                setFilter(activeTag);
-                filterBar.querySelectorAll('.filter-tag').forEach(function(btn) { btn.style.display = ''; });
-                return;
-            }
-            // Show all tags, dim non-matching ones
-            filterBar.querySelectorAll('.filter-tag').forEach(function(btn) {
-                var tag = btn.getAttribute('data-tag');
-                btn.style.display = (tag === 'all' || tag.indexOf(q) !== -1) ? '' : 'none';
-            });
-            // Filter items: show if any tag matches search
-            allItems.forEach(function(item) {
-                var tags = item.getAttribute('data-tags');
-                item.classList.toggle('hidden', tags.indexOf(q) === -1);
-            });
-            updateCount();
+            clearTimeout(searchTimer);
+            var self = this;
+            searchTimer = setTimeout(function() {
+                var q = self.value.trim().toLowerCase();
+                if (!q) {
+                    setFilter(activeTag);
+                    filterBar.querySelectorAll('.filter-tag').forEach(function(btn) { btn.style.display = ''; });
+                    return;
+                }
+                filterBar.querySelectorAll('.filter-tag').forEach(function(btn) {
+                    var tag = btn.getAttribute('data-tag');
+                    btn.style.display = (tag === 'all' || tag.indexOf(q) !== -1) ? '' : 'none';
+                });
+                allItems.forEach(function(item) {
+                    item.classList.toggle('hidden', item.getAttribute('data-tags').indexOf(q) === -1);
+                });
+                updateCount();
+            }, 120);
         });
 
         function updateCount() {
-            var v = allItems.filter(function(i) { return !i.classList.contains('hidden'); }).length;
+            var v = 0;
+            for (var i = 0; i < allItems.length; i++) { if (!allItems[i].classList.contains('hidden')) v++; }
             countEl.textContent = v + ' image' + (v !== 1 ? 's' : '');
         }
 
-        // Listen for hash changes (back/forward)
         window.addEventListener('hashchange', function() {
             var tag = location.hash.replace('#', '') || 'all';
             if (allTagsSeen[tag] || tag === 'all') setFilter(tag);
@@ -1059,10 +1058,13 @@
         document.addEventListener('contextmenu', function(e) { if (e.target.closest('.masonry-item') || e.target.closest('.lightbox') || e.target.tagName === 'IMG') e.preventDefault(); });
         document.addEventListener('dragstart', function(e) { if (e.target.tagName === 'IMG') e.preventDefault(); });
 
-        // Canvas motes
+        // ===== CANVAS MOTES — smart pause =====
         var canvas = document.getElementById('bg-canvas');
         var ctx = canvas.getContext('2d');
-        var motes = [], MOTE_COUNT = 35, motesRunning = true;
+        var isMobile = window.innerWidth < 768;
+        var MOTE_COUNT = isMobile ? 18 : 35;
+        var motes = [], motesRunning = true, canvasVisible = true;
+
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         function initMotes() {
             motes = [];
@@ -1071,7 +1073,7 @@
             }
         }
         function drawMotes() {
-            if (!motesRunning) return;
+            if (!motesRunning || !canvasVisible) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             var isD = document.body.classList.contains('dark');
             var mc = isD ? '200, 50, 50' : '160, 158, 148';
@@ -1085,9 +1087,20 @@
             }
             requestAnimationFrame(drawMotes);
         }
-        document.addEventListener('visibilitychange', function() { if (document.hidden) motesRunning = false; else { motesRunning = true; requestAnimationFrame(drawMotes); } });
+
+        // Pause canvas when tab hidden or canvas scrolled out of view
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) motesRunning = false;
+            else { motesRunning = true; if (canvasVisible) requestAnimationFrame(drawMotes); }
+        });
+        var canvasObs = new IntersectionObserver(function(entries) {
+            canvasVisible = entries[0].isIntersecting;
+            if (canvasVisible && motesRunning) requestAnimationFrame(drawMotes);
+        }, { threshold: 0 });
+        canvasObs.observe(canvas);
+
         var resizeTimer;
-        window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(function() { resizeCanvas(); initMotes(); }, 150); });
+        window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(function() { resizeCanvas(); initMotes(); heroH = window.innerHeight; }, 200); });
         resizeCanvas(); initMotes(); drawMotes();
     </script>
 </body>
