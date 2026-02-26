@@ -18,7 +18,7 @@
             "prices": [
                 { "label": "16x16", "detail": "includes items, block textures, and icons.", "price": 5 },
                 { "label": "32x32", "detail": "if you want more detailed sprites.", "price": 10 },
-                { "label": "+64x64", "detail": "involes complicated models and such, can increase price depending on size.", "price": +20 }
+                { "label": "+64x64", "detail": "involes complicated models and such, can increase price depending on size.", "price": 20 }
             ]
         },
         {
