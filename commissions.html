@@ -20,7 +20,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #eeedeb;
@@ -61,9 +61,14 @@
             background: var(--bg);
             color: var(--text-primary);
             line-height: 1.7;
-            font-weight: 500;
+            font-weight: 600;
             min-height: 100vh;
             overflow-x: hidden;
+            text-rendering: optimizeSpeed;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
         }
 
         /* STATUS COLORS */
@@ -130,7 +135,7 @@
             justify-content: center;
             font-size: 1.15rem;
             box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-            transition: all 0.35s ease;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
 
         .dark-toggle:hover { transform: scale(1.1); }
@@ -211,7 +216,7 @@
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 0.03em;
-            transition: all 0.25s;
+            transition: color 0.25s, background 0.25s;
         }
 
         .jump-nav a:hover {
@@ -267,7 +272,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .tier-card:hover {
@@ -408,7 +413,7 @@
             border: 1px solid var(--border);
             background: var(--bg-vanilla);
             position: relative;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             -webkit-user-select: none;
             user-select: none;
             -webkit-touch-callout: none;
@@ -528,7 +533,7 @@
             border: 1px solid var(--border);
             background: var(--bg-card);
             position: relative;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             -webkit-user-select: none;
             user-select: none;
             -webkit-touch-callout: none;
@@ -640,7 +645,7 @@
             text-decoration: none;
             font-weight: 800;
             font-size: 0.82rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 0.03em;
         }
@@ -872,7 +877,7 @@
         };
 
         // Load socials from config
-        fetch('config/socials.json?v=' + Date.now())
+        fetch('config/socials.json?v=' + '1')
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 var socials = data.socials || [];
@@ -901,7 +906,7 @@
             .catch(function() {});
 
         // Load commission status
-        fetch('config/commission-status.json?v=' + Date.now())
+        fetch('config/commission-status.json?v=' + '1')
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 var el = document.getElementById('status-text');
@@ -919,7 +924,7 @@
             });
 
         // Load commission data (pricing, process, terms)
-        fetch('config/commissions.json?v=' + Date.now())
+        fetch('config/commissions.json?v=' + '1')
             .then(function(r) { return r.json(); })
             .then(function(data) {
                 var currency = data.currency || '$';
@@ -1080,7 +1085,7 @@
             });
 
         // Load commission sheets
-        fetch('config/commission-sheets.json?v=' + Date.now())
+        fetch('config/commission-sheets.json?v=' + '1')
             .then(function(r) { return r.json(); })
             .then(function(sheets) {
                 var grid = document.getElementById('sheets-grid');
