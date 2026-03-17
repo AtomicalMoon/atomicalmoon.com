@@ -7,9 +7,9 @@
         "background": true
     },
     "labels": {
-        "render_commission_001.png": {
-            "top": "Commission for @username",
-            "bottom": "Cinematic render style",
+        "render_1.png": {
+            "top": "Test",
+            "bottom": "Bottom text",
             "position": "top-left",
             "size": "0.72rem"
         },
