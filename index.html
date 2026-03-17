@@ -383,6 +383,46 @@
         .masonry-item .item-tag { padding: 0.2rem 0.55rem; border-radius: 100px; background: rgba(60, 60, 60, 0.7); backdrop-filter: blur(8px); font-size: 0.62rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid rgba(255, 255, 255, 0.15); }
         body.dark .masonry-item .item-tag { border-color: rgba(255, 255, 255, 0.1); }
 
+        /* Image labels */
+        .img-label {
+            position: absolute; z-index: 3; pointer-events: none;
+            display: flex; flex-direction: column; gap: 0.15rem;
+            max-width: 70%;
+        }
+        .img-label-top, .img-label-bottom {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800; letter-spacing: 0.02em;
+            line-height: 1.2; white-space: nowrap;
+            overflow: hidden; text-overflow: ellipsis;
+        }
+        .img-label-top { font-size: var(--label-size, 0.72rem); }
+        .img-label-bottom {
+            font-size: calc(var(--label-size, 0.72rem) * 0.85);
+            opacity: 0.7; font-weight: 700;
+        }
+        /* Label with background pill */
+        .img-label.has-bg .img-label-top,
+        .img-label.has-bg .img-label-bottom {
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            padding: 0.15rem 0.5rem; border-radius: 4px;
+            color: #fff !important; width: fit-content;
+        }
+        body.dark .img-label.has-bg .img-label-top,
+        body.dark .img-label.has-bg .img-label-bottom {
+            background: rgba(0, 0, 0, 0.6);
+        }
+        /* Positions */
+        .img-label.pos-tl { top: 0.5rem; left: 0.5rem; align-items: flex-start; }
+        .img-label.pos-tr { top: 0.5rem; right: 0.5rem; align-items: flex-end; text-align: right; }
+        .img-label.pos-bl { bottom: 2.2rem; left: 0.5rem; align-items: flex-start; }
+        .img-label.pos-br { bottom: 2.2rem; right: 0.5rem; align-items: flex-end; text-align: right; }
+        /* Theme-aware text color (when no bg) */
+        .img-label:not(.has-bg) .img-label-top,
+        .img-label:not(.has-bg) .img-label-bottom { color: var(--label-light); }
+        body.dark .img-label:not(.has-bg) .img-label-top,
+        body.dark .img-label:not(.has-bg) .img-label-bottom { color: var(--label-dark); }
+
         /* ★ Commission tag badge — animated opal with pulse + sparkle */
         .masonry-item .item-tag.tag-commission {
             background: linear-gradient(90deg, #c070f0, #70c0f0, #f070b0, #70f0c0, #c070f0);
@@ -709,12 +749,14 @@
             fetchJSON('config/socials.json?v=' + _v),
             fetchJSON('config/commission-status.json?v=' + _v),
             fetchJSON('config/watermark.json?v=' + _v),
-            fetchJSON('collage/images.json?v=' + _v)
+            fetchJSON('collage/images.json?v=' + _v),
+            fetchJSON('config/image-labels.json?v=' + _v)
         ]).then(function(results) {
             var socialsData = results[0];
             var statusData = results[1];
             var watermarkData = results[2];
             var imagesData = results[3];
+            var labelsData = results[4];
 
             // Socials
             if (socialsData) {
@@ -738,7 +780,7 @@
             applyWatermark(watermarkData);
 
             // Gallery
-            if (imagesData) buildGallery(imagesData);
+            if (imagesData) buildGallery(imagesData, labelsData);
             else document.getElementById('empty-state').style.display = 'block';
         });
 
@@ -824,10 +866,21 @@
             return parts.map(function(t) { return t.toLowerCase(); });
         }
 
-        function buildGallery(data) {
+        function buildGallery(data, labelsData) {
             var images = data.images || [];
             tagColors = data.tags || {};
             if (!images.length) { emptyEl.style.display = 'block'; return; }
+
+            // Label config
+            var labelDefaults = labelsData && labelsData.defaults || {};
+            var labelMap = labelsData && labelsData.labels || {};
+            var defPos = labelDefaults.position || 'top-left';
+            var defSize = labelDefaults.size || '0.72rem';
+            var defLightColor = labelDefaults.lightColor || '#433e38';
+            var defDarkColor = labelDefaults.darkColor || '#e8e8e6';
+            var defBg = labelDefaults.background !== false;
+
+            var posClass = { 'top-left': 'pos-tl', 'top-right': 'pos-tr', 'bottom-left': 'pos-bl', 'bottom-right': 'pos-br' };
 
             // Build all items with DocumentFragment (single DOM write)
             var frag = document.createDocumentFragment();
@@ -882,6 +935,37 @@
 
                 item.appendChild(img);
                 item.appendChild(tagContainer);
+
+                // Image label overlay
+                var lbl = labelMap[filename];
+                if (lbl) {
+                    var pos = posClass[lbl.position || defPos] || 'pos-tl';
+                    var size = lbl.size || defSize;
+                    var lc = lbl.lightColor || defLightColor;
+                    var dc = lbl.darkColor || defDarkColor;
+                    var hasBg = lbl.background !== undefined ? lbl.background : defBg;
+
+                    var labelEl = document.createElement('div');
+                    labelEl.className = 'img-label ' + pos + (hasBg ? ' has-bg' : '');
+                    labelEl.style.setProperty('--label-size', size);
+                    labelEl.style.setProperty('--label-light', lc);
+                    labelEl.style.setProperty('--label-dark', dc);
+
+                    if (lbl.top) {
+                        var topSpan = document.createElement('span');
+                        topSpan.className = 'img-label-top';
+                        topSpan.textContent = lbl.top;
+                        labelEl.appendChild(topSpan);
+                    }
+                    if (lbl.bottom) {
+                        var botSpan = document.createElement('span');
+                        botSpan.className = 'img-label-bottom';
+                        botSpan.textContent = lbl.bottom;
+                        labelEl.appendChild(botSpan);
+                    }
+                    item.appendChild(labelEl);
+                }
+
                 frag.appendChild(item);
                 allItems.push(item);
                 allFilenames.push(filename);
