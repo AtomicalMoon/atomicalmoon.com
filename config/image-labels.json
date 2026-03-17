@@ -1,0 +1,29 @@
+{
+    "defaults": {
+        "position": "top-left",
+        "size": "0.72rem",
+        "lightColor": "#433e38",
+        "darkColor": "#e8e8e6",
+        "background": true
+    },
+    "labels": {
+        "render_commission_001.png": {
+            "top": "Commission for @username",
+            "bottom": "Cinematic render style",
+            "position": "top-left",
+            "size": "0.72rem"
+        },
+        "example_render_002.png": {
+            "top": "Personal project",
+            "position": "top-right",
+            "size": "0.65rem",
+            "lightColor": "#5a5549",
+            "darkColor": "#cccccc"
+        },
+        "pixel_16x16_003.png": {
+            "top": "16x16 sprite",
+            "bottom": "Made in Blockbench",
+            "position": "bottom-right"
+        }
+    }
+}
